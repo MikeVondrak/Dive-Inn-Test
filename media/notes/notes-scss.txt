@@ -1,0 +1,22 @@
+_____
+SCSS
+
+_____
+Utils
+
+Browser Compatibility for CSS
+  https://caniuse.com/
+
+Sandbox to test SCSS converted to CSS
+  https://www.sassmeister.com/
+
+_____
+
+Scss conditionals and loops
+  http://thesassway.com/intermediate/if-for-each-while
+
+Share SCSS variables with Javascript (outdated)
+  https://til.hashrocket.com/posts/sxbrscjuqu-share-scss-variables-with-javascript
+
+Checking for System Fonts with @font-face
+  https://broken-links.com/2009/06/30/checking-for-installed-fonts-with-font-face-and-local/

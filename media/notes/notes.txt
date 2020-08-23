@@ -1,0 +1,26 @@
+_____
+Fixes
+
+Fix "Experimental support for decorators..." warning/error
+  Preferences > Settings > "implicit" > check "Implicit Project Config: Experimental decorators" option
+  https://stackoverflow.com/questions/38271273/experimental-decorators-warning-in-typescript-compilation
+
+Kill server left running from VS Code share
+  netstat -ano|findstr "PID :4200"
+  taskkill /pid #### /f     # run command prompt as Administrator
+
+_____
+Utils
+
+Google Web Fonts Heroku App (has .woff etc)
+  https://google-webfonts-helper.herokuapp.com/fonts/patua-one?subsets=latin
+
+Google Fonts
+  https://fonts.google.com/
+
+
+_____
+Ideas
+
+Use Google Fonts api to get list and add fonts
+  https://developers.google.com/fonts/docs/developer_api

@@ -1,0 +1,41 @@
+$page-breakpoint-xs: 320px;
+$page-breakpoint-sm: 480px;
+$page-breakpoint-md: 600px;
+$page-breakpoint-lg: 1024px;
+$page-breakpoint-xl: 1280px;
+$page-breakpoint-ws: 1920px;
+
+$page-margin-footer-xs: 40px;
+$page-margin-footer-lg: 120px;
+$page-margin-footer-ws: 200px;
+
+$page-margin-xs: 0 1rem $page-margin-footer-xs;
+$page-margin-md: 0 1.5rem $page-margin-footer-xs;
+$page-margin-lg: 0 10% $page-margin-footer-lg;
+$page-margin-xl: 0 14% $page-margin-footer-lg;
+$page-margin-ws: 0 20% $page-margin-footer-ws;
+
+$page-wide-margin-lg: 0 5% $page-margin-footer-lg;
+$page-wide-margin-xl: 0 5% $page-margin-footer-lg;
+$page-wide-margin-ws: 0 10% $page-margin-footer-ws;
+
+.page {
+  margin: $page-margin-xs;
+  
+  @media (min-width: $page-breakpoint-md) {
+    margin: $page-margin-md;
+  }
+
+  @media (min-width: $page-breakpoint-lg) {
+    margin: $page-margin-lg;
+  }
+  @media (min-width: $page-breakpoint-xl) {    
+    margin: $page-margin-xl;
+    &.wide {
+      margin: $page-wide-margin-xl;
+    }
+  }
+  @media (min-width: $page-breakpoint-ws) {
+    margin: $page-margin-ws;
+  }
+}

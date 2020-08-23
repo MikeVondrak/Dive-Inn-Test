@@ -1,0 +1,41 @@
+_____
+Express / Node
+
+_____
+Utils
+
+Node 14.3.0 Docs
+  https://nodejs.org/api/index.html
+
+_____
+
+Graceful shutdown when Express app killed
+  https://expressjs.com/en/advanced/healthcheck-graceful-shutdown.html
+
+Using Express 4 Router
+  https://scotch.io/tutorials/learn-to-use-the-new-router-in-expressjs-4
+
+Express App Using Typescript 
+  - class for server app
+  https://dev.to/aligoren/developing-an-express-application-using-typescript-3b1
+
+Enterprise Node + Typescript Controller
+  https://khalilstemmler.com/articles/enterprise-typescript-nodejs/clean-consistent-expressjs-controllers/
+
+Typescript Express Tutorial
+  https://wanago.io/2018/12/03/typescript-express-tutorial-routing-controllers-middleware/
+
+Auth0 Secure API with Node/Express
+  https://auth0.com/blog/use-typescript-to-create-a-secure-api-with-nodejs-and-express-creating-endpoints/
+
+Express best practices / production Settings
+  https://expressjs.com/en/advanced/best-practice-performance.html
+
+Service Static Files in Express
+  https://expressjs.com/en/starter/static-files.html
+
+Using middleware
+  https://expressjs.com/en/guide/using-middleware.html
+
+Node / Express/ Mongo / Typescript tutorial
+  https://itnext.io/building-restful-web-apis-with-node-js-express-mongodb-and-typescript-part-1-2-195bdaf129cf

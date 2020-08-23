@@ -1,0 +1,12 @@
+<div *ngIf="loading$ | async; else pageContent"
+  [class.zero-opacity]="loadingComplete"
+  class="loading-view"
+>
+  <div>
+    Page Loading...
+  </div>
+</div>
+
+<ng-template #pageContent>
+  <ng-content></ng-content>
+</ng-template>

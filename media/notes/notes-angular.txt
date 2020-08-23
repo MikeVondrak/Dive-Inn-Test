@@ -1,0 +1,21 @@
+_____
+Angular
+
+Angular Folder Structure
+  https://angular-folder-structure.readthedocs.io/_/downloads/en/latest/pdf/
+
+Handling Errors / Loading Indicator with async pipe
+  https://codinglatte.com/posts/angular/angular-async-pipe-handle-errors/
+
+Simple Angular 6 App w/Node and Express 
+  - proxy-config
+  https://levelup.gitconnected.com/simple-application-with-angular-6-node-js-express-2873304fff0f
+
+HttpClient in Angular 8/9
+  https://www.positronx.io/angular-8-httpclient-http-tutorial-build-consume-restful-api/
+
+Scalable Folder Structure for Angular projects
+  https://itnext.io/choosing-a-highly-scalable-folder-structure-in-angular-d987de65ec7
+
+Custom Webpack Builders
+  https://www.npmjs.com/package/@angular-builders/custom-webpack

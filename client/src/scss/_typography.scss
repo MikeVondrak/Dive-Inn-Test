@@ -1,0 +1,23 @@
+//@import './font-faces';
+
+// Typography
+
+body {
+  font-family: 'PTSans-Regular', sans-serif;
+
+  // test
+  p.anton { font-family: 'Anton', sans-serif; }
+  p.ptSansBold { font-family: 'PTSans-Bold', sans-serif; }
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  font-family: 'Bevan', serif;
+  //letter-spacing: 0.05em;
+  text-rendering: geometricPrecision;
+
+  // test fonts
+  &.alfa { font-family: 'Alfa Slab One', serif; }
+  &.anton { font-family: 'Anton', serif; }
+  &.bevan { font-family: 'Bevan', serif; }
+  &.patua { font-family: 'PatuaOne', serif; }
+}

@@ -1,0 +1,57 @@
+
+Setup debugging in VS Code for ts-node:
+  (NOTE: launch.json should be in source control so you don't need to create for each user)
+  1. Debugger tab -> gear icon -> launch.json
+    {
+      // Use IntelliSense to learn about possible attributes.
+      // Hover to view descriptions of existing attributes.
+      // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+      "version": "0.2.0",
+      "configurations": [
+        {
+          "name": "Node Inspector",
+          "type": "node",
+          "request": "launch",
+          "args": ["${workspaceRoot}/server/app/server.ts"],
+          "runtimeArgs": ["-r", "ts-node/register"],
+          "cwd": "${workspaceRoot}/server",
+          "protocol": "inspector",
+          "internalConsoleOptions": "openOnSessionStart",
+          "env": {
+            "TS_NODE_IGNORE": "false"
+          }
+        }
+      ]
+    }
+  
+  2. Go to VS Code debugger tab, select "Node Inspector" from the dropdown and click run
+
+  3. Set breakpoint in server.ts (or any ts file server-side)
+
+  4. Fix bugs!
+
+
+Themes
+  Super One Dark
+  One Dark Space Gray
+  Ayu Dark / Ayu Dark Bordered
+
+
+Extensions
+  Prettier
+  Prettify JSON
+  SCSS Everywhere
+  TS Lint
+
+  Angular Language Service
+
+  Typescript God
+  Typescript Hero
+  Javascript and Typescript Nightly
+
+  Indent Rainbow
+  Bracket Pair Colorizer
+
+  Bookmarks
+
+  SVG Viewer

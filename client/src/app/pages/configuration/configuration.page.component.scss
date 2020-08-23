@@ -1,0 +1,17 @@
+@import '~src/scss/common-imports';
+
+:host {
+  display: block;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 1px solid yellow;
+
+    app-font-list-display {
+      //border: 1px dotted green;
+      flex: 0 1 30%;
+    }
+  }
+}

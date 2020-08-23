@@ -1,0 +1,3 @@
+1. Describe the different ways that 'this' is used in JavaScript / TypeScript
+  a. What type of thing can 'this' refer to?
+  b. Angular / Front End javascript global object vs Node?

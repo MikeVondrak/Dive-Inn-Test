@@ -1,0 +1,18 @@
+:host {
+  display: block;
+
+  .loading-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.2s linear;
+
+    font-size: 3em;
+    text-align: center;
+
+    &.zero-opacity {
+      opacity: 0;
+    }
+  }
+}

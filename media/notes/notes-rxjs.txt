@@ -1,0 +1,18 @@
+_____
+RxJs
+
+Partition - split data into 2 groups
+  https://www.learnrxjs.io/learn-rxjs/operators/transformation/partition
+
+Hot vs Cold Observables (Multicast vs multiple subscriptions performance cost)
+  https://stackoverflow.com/questions/32190445/hot-and-cold-observables-are-there-hot-and-cold-operators/34669444#34669444
+
+
+Callback vs Promise vs Observable
+  https://medium.com/@shadidhaque/javascript-callbacks-vs-promise-vs-observable-in-plain-english-b678548f333c
+
+RxJs Error Handling
+  https://blog.angular-university.io/rxjs-error-handling/
+
+Fix Autocomplete for RxJs
+  https://www.gurustop.net/blog/2016/04/19/typescript-rxjs-intellisense-node

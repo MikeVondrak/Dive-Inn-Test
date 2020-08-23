@@ -1,0 +1,46 @@
+1. Start SQL Server
+  System Tray icon, other?
+2. Log in to Command Line
+2a. Log in with Workbench
+
+
+Log in w/different user
+  Command Prompt >
+    C:\Program Files\MySQL\MySQL Server 8.0\bin> mysql -u<username> -p<password>
+
+Run external script:
+  mysql command line>
+  source D:\_dev\dive-inn-denver\DiveInn2020\db\RecreateTestDatabase.sql
+
+
+https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server
+--- Configure user to use regular pw auth (not caching_sha2_password because Node doesn't support it yet)
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YourRootPassword';
+-- or
+CREATE USER 'foo'@'%' IDENTIFIED WITH mysql_native_password BY 'bar';
+-- then
+FLUSH PRIVILEGES;
+
+** Use Connection Pool Instead of Single Connection
+https://codeforgeek.com/nodejs-mysql-tutorial/
+
+
+
+----
+
+Any way to start DB through code?
+
+---
+
+
+https://developer.okta.com/blog/2019/09/09/build-crud-app-node-mysql
+  CRUD app w/Login
+https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4
+  Enterprise-level REST API
+
+Visual explanaton of SQL JOIN
+  https://blog.codinghorror.com/a-visual-explanation-of-sql-joins/
+
+MySQL Reserved Keywords
+  https://dev.mysql.com/doc/refman/8.0/en/keywords.html
+

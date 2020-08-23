@@ -1,0 +1,136 @@
+@import './common-imports';
+
+/**
+  Shared
+*/
+%focusOutline {
+  &:focus {
+    @extend %outline;
+  }
+}
+%outline {
+  outline: thin dashed $dive-white;// yellow;
+  outline-offset: 3px;
+}
+
+/**
+  Button
+*/
+button {
+  $borderWeight: 2px;
+
+  background-color: $dive-red;
+  color: $dive-white;
+  padding: 0.25rem 0.5rem;
+  border: $borderWeight solid $dive-red;
+  border-radius: 0.25rem;
+
+  border-top-color: rgba(255,255,255,0.25);
+  border-left-color: rgba(255,255,255,0.25);
+  border-right-color: rgba(0,0,0,0.25);
+  border-bottom-color: rgba(0,0,0,0.25);
+
+  font-family: 'PTSans-Bold', sans-serif;
+  font-size: 1rem;
+  text-shadow: 0px 0px 5px #000;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  @extend %focusOutline;
+  &:hover {
+    border: $borderWeight solid rgba(255,255,255,0.35);
+    border-top-color: rgba(255,255,255,0.4);
+    border-left-color: rgba(255,255,255,0.4);
+    border-right-color: rgba(0,0,0,0.4);
+    border-bottom-color: rgba(0,0,0,0.4);
+  }
+  &:active {
+    border: $borderWeight solid $dive-red;
+    border-top-color: rgba(0,0,0,0.4);
+    border-left-color: rgba(0,0,0,0.4);
+    border-right-color: rgba(0,0,0,0.4);
+    border-bottom-color: rgba(0,0,0,0.4);
+  }
+} // end button
+
+/**
+  Input
+*/
+input {
+  @extend %focusOutline;
+}
+input[type=checkbox], input[type=radio] {
+  @extend .visually-hidden;
+
+  + label {
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 1;
+
+    &::before {
+      content: '';
+      width: 1rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+      background-color: $dive-white;
+      border: 1px solid $dive-gray-md;
+    }
+    span {
+      margin-bottom: pxToRem(0px);
+      margin-right: pxToRem(3px);
+    }
+  }
+  &:focus {
+    outline: none;
+    + label {
+      @extend %outline;
+    }
+  }
+}
+input[type=checkbox]:checked, input[type=radio]:checked {
+  + label {
+    &::before {
+      background-color: $dive-red;
+    }
+    &::after {
+      content: '*';
+      position: absolute;
+      display: inline-block;
+      top: pxToRem(-5px);
+      left: pxToRem(2px);
+      font-size: 3rem;
+    }
+  }
+}
+/**
+  Radio
+*/
+input[type=radio] {
+  + label {
+    &::before {
+      border-radius: 50%;
+    }
+  }
+}
+input[type=radio]:checked {
+  + label {
+    &::after {
+      content: '.';
+      top: pxToRem(-56px);
+      left: pxToRem(1.5px);
+      font-size: 5rem;
+    }
+  }
+}
+
+
+/**
+  Select
+*/
+select {
+  margin-bottom: 1em;
+  @extend %focusOutline;
+}

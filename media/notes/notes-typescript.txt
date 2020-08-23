@@ -1,0 +1,11 @@
+Docs
+  https://www.typescriptlang.org/docs/home.html
+
+
+**Array Reduce - like Map
+  https://jrsinclair.com/articles/2019/functional-js-do-more-with-reduce/
+
+
+Don't Use Record
+  https://fnune.com/typescript/2019/01/30/typescript-series-1-record-is-usually-not-the-best-choice/
+

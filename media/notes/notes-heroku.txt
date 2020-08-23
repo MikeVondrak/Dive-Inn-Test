@@ -1,0 +1,21 @@
+_____
+Heroku
+
+MySQL add-on for Heroku
+  https://devcenter.heroku.com/articles/cleardb
+
+https://devcenter.heroku.com/articles/git
+
+Commands
+  heroku config:get DATABASE_URL -a <app-name>    # get current DB URL
+  heroku pg:promote <heroku-db-name>              # promote DB to primary (set DATABASE_URL)
+
+* Error: src refspec master does not match any
+  git push heroku HEAD:master -a <app-name>   # when git push heroku master fails
+    git push heroku master -a <app-name>
+      error: src refspec master does not match any
+      error: failed to push some refs to 'https://git.heroku.com/polar-citadel-96360.git'
+
+* Error: unknown switch 'a', unknown subcommand heroku
+  git remote remove heroku
+  heroku git:remote -a <app-name>

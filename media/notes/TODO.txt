@@ -1,0 +1,149 @@
+8/22/2020
+# Clone new repo
+  git clone git@github.com:MikeVondrak/Dive-Inn-Test.git .
+# Set up Narwhal Workspace (probably don't have to do, should come w/code?)
+! Run in PowerShell to be able to select options
+  npx create-nx-workspace@latest
+# intall yarn - like npm but more functionality
+  https://classic.yarnpkg.com/en/docs/install/#windows-stable
+# install npx globally for Narwhal
+  npm i -g npx
+# install nx CLI (like Angular CLI but expanded)
+  yarn global add nx
+# install Angular package for Narwhal
+  yarn add @nrwl/angular
+# install Node package
+  yarn add @nrwl/node
+
+yarn add @nrwl/schematics @angular/cli
+yarn add node
+
+
+# create Angular append
+  nx generate @nrwl/angular:app font-test-client --style=scss
+  nx generate @nrwl/node:app font-test-server
+
+
+
+New TODO
+  1. Create routes and Pages - DONE
+    * Header & sticky footer - DONE
+  2. Create main navigation - DONE
+  3. Pre-Angular loading transition - DONE
+  4. Page load transition / spinner
+    - observable / service - DONE
+    - UI / prettiness
+
+  * Javascript disabled message / fail page
+  * Browser not supported message / fail page (how to test?) - DONE
+    - https://accounts.lambdatest.com/dashboard / 6 tests of 10 mins per month free
+
+
+___________________________________
+TODO
+
+1. Create functionality for moving fonts from Available to Selectable or Blacklisted
+
+* REAMDE.md files - markdown (text) files describing key components/services
+
+FontManagerService
+* Remove subscriptions from service, only pass observables to all components - DONE
+* Filter fonts by category before using in lists
+  - need category API method
+
+Transitions
+  - Initial site loading
+  - Page loading
+  - Remove on Available Fonts list
+
+POST a new font to the db
+  - logic to check if font already exists
+  - Express router for POST
+ 
+Refactor
+  font-usage (name?) table with specifics of font instance
+    size, weight, italic, letter-spacing, etc
+
+-----
+List of fonts, paginated
+  some way to select how many fonts per page
+
+Buttons(?) for add to favorites or blacklist
+
+Style option checkmarks ?
+  italic ? bold ?
+
+  
+
+__________________________________
+Mike Tasks
+-----
+0. rename Font service to FontApi, model etc
+1. Cleanup FontManagerService
+  - Cleanup ui-font.model.ts / font-test.component 
+    - remove old const objects etc
+    - restructure object?
+      - conversions from Google Font, to Google Font URI, db font
+2. fix logger or remove comments
+3. try using shared interface for API FE/BE
+
+__________________________________
+Long Term
+-------
+1. figure out why intellisense sucks
+2. look into GraphQL
+3. NgRx
+  - caching Google Fonts data
+4. User login / authentication
+5. figure out how/where to store credentials
+    db
+    google API
+
+______________________________________________________________________________________________________
+DONE
+
+Add List ID field to Font - enum SELECTABLE / BLACKLISTED / AVAILABLE - DONE
+  - gets rid of blacklisted / selectable tables
+
+Entire font family added to blacklist and selectable - DONE
+
+Dropdown / radio buttons of sort options
+
+Refactor - DONE
+  ! flag on font object - rather than a separate table just have another value on font
+  1. DB script
+    remove selectable and blacklist tables
+    add properties to fonts table
+    update the initial data
+  2. Express
+    update the model with new properties
+    remove any unneeded code related to selectable/blacklisted
+  3. Angular
+    update the model
+    fix ALL the code
+
+Cache X number of sort methods
+  Popularity, trending - DONE
+  try sorting ourselves for alpha, style (category)
+    - data processing times are likely insignificant
+
+1. Categories of fonts (2 tables with foreign keys) - DONE
+
+* Google API
+  append the query parameter key=yourAPIKey to all request URLs
+
+  - service to get all the fonts
+    * GoogleFontsApiService
+  - data cached (only make the call once per session) -- use NgRx(??)
+  
+New Pages - DONE
+  * Font Selection
+  * Font Configuration
+  * Font Demo
+
+Font Lists
+  * create a new page for Font Selection
+  display list of:
+    1. selectable - DONE
+    2. blacklisted - DONE
+    3. available - DONE

@@ -1,0 +1,13 @@
+:host {
+  // flex container for header, content, and footer to implement sticky-footer
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  > * {
+    flex: 0 0 auto;
+    &.page-content {
+      flex: 1 0 auto;
+      background: rgba(255,30,0,0.1);
+    }
+  }
+}
