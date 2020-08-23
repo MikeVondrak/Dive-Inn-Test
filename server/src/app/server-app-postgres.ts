@@ -5,31 +5,6 @@ import { Client, Pool, Query, QueryConfig, QueryResult } from 'pg';
 import { routes } from './routes';
 import { Observable, Observer } from 'rxjs';
 
-// const pool = new Pool({
-//   user: 'dbuser',
-//   host: 'database.server.com',
-//   database: 'mydb',
-//   password: 'secretpassword',
-//   port: 3211,
-// })
-// pool.query('SELECT NOW()', (err, res) => {
-//   console.log(err, res)
-//   pool.end()
-// })
-// const client = new Client({
-//   user: 'dbuser',
-//   host: 'database.server.com',
-//   database: 'mydb',
-//   password: 'secretpassword',
-//   port: 3211,
-// })
-// client.connect()
-// client.query('SELECT NOW()', (err, res) => {
-//   console.log(err, res)
-//   client.end()
-// })  
-
-
 export class ServerApp {
   private app: Application;
   private pool: Pool;
@@ -135,14 +110,6 @@ export class ServerApp {
     });
   }
 
-  // private createPool(dbConfig: ConnectionConfig, poolSize: number = 20): Pool {
-  //   const poolConfig: PoolConfig = {
-  //     connectionLimit: poolSize,
-  //     ...dbConfig
-  //   };
-  //   return mysql.createPool(poolConfig);
-  // }
-
   /**
    * Query using pool, automatically aquires and releases connection to db
    * @template T Type of Observable to return
@@ -172,13 +139,5 @@ export class ServerApp {
 
     return new Observable<T[]>(queryResult$);
   }
-
-
-  // Not sure we need to explicitly disconnet or do any cleanup?
-  // Theoretically Node/Express "should never stop running"
-  // can attach an event handler to process.on('exit', () => {})
-  // public disconnectDb(connection: Connection) {
-  //   connection.end();
-  // }
   
 }
