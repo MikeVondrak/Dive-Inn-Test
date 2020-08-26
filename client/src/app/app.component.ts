@@ -3,6 +3,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 // service to send 'appReady' event to index.html to remove pre-bootstap loader element
 import { AppReadyEvent } from './app-ready-event';
 import { PageLoadingService } from './services/page-loading.service';
+import { HeadUriLoaderService } from './services/head-uri-loader/head-uri-loader.service';
+// import { GoogleFontsApiResponse } from './services/external/google/google-fonts-api.model';
+// import { GoogleFontsApiService } from './services/external/google/google-fonts-api.service';
+import { FontManagerService } from './services/font-manager.service';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +27,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     appReady: AppReadyEvent,
     private pageLoadingService: PageLoadingService,
+    private headUriLoader: HeadUriLoaderService, 
+    private fontManager: FontManagerService
   ) {
     // called first time before the ngOnInit()
     this.appReadyEvent = appReady;
@@ -31,6 +37,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     console.log('*****************************************');
     // called after the constructor and called once after the first ngOnChanges()
+    this.headUriLoader.loadFontsLink();
+    this.fontManager.init();
   }
 
   ngAfterViewInit(): void {

@@ -18,6 +18,9 @@ export class SelectionPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.testData$ = this.serverTestService.getServerTestData$();
+
   }
 
 }

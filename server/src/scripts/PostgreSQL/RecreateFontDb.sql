@@ -1,11 +1,10 @@
 -- PostgreSQL v12
 -- TODO: Need to convert this to Postgres from MySQL
 
-Type of objects the font will be applied to, e.g. main_nav for setting the main navigation sign posts font
+-- Type of objects the font will be applied to, e.g. main_nav for setting the main navigation sign posts font
 DROP TABLE IF EXISTS font_type;
 CREATE TABLE font_type (
-    PRIMARY KEY (id),
-    id      INT             NOT NULL AUTO_INCREMENT,
+    id      SERIAL          PRIMARY KEY,
     type    VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_type (type)
@@ -19,9 +18,8 @@ VALUES
 
 -- Category that a font is suggested for, e.g. arial-ish fonts for text, to apply categories within dropdowns
 DROP TABLE IF EXISTS font_category;
-CREATE TABLE font_category (
-    PRIMARY KEY (id),
-    id          INT             NOT NULL AUTO_INCREMENT,
+CREATE TABLE font_category (    
+    id          SERIAL          PRIMARY KEY,
     category    VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_category (category)
@@ -32,8 +30,7 @@ VALUES
 -- Create font weight table
 DROP TABLE IF EXISTS font_weight;
 CREATE TABLE font_weight (
-    PRIMARY KEY (id),
-    id          INT             NOT NULL AUTO_INCREMENT,
+    id          SERIAL          PRIMARY KEY,
     weight      VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_weight (weight)
@@ -44,8 +41,7 @@ VALUES
 -- Create font table
 DROP TABLE IF EXISTS font;
 CREATE TABLE font (
-    PRIMARY KEY (id),
-    id                  INT             NOT NULL AUTO_INCREMENT,
+    id                  SERIAL          PRIMARY KEY,
     family              VARCHAR(20)     NOT NULL,
     selectable          BOOLEAN         NOT NULL,
     blacklisted         BOOLEAN         NOT NULL
@@ -66,23 +62,25 @@ VALUES
 -- TODO: finish this
 DROP TABLE IF EXISTS font_instance;
 CREATE TABLE font_instance (
-    PRIMARY KEY (id),
-    id                  INT             NOT NULL AUTO_INCREMENT,
+    id                  SERIAL          PRIMARY KEY,
     fk_font_id          INT,
-    FOREIGN KEY (fk_font_id)
-        REFERENCES font(id)
-        ON DELETE SET NULL,
+    CONSTRAINT font_instance_font_id
+        FOREIGN KEY (fk_font_id)
+            REFERENCES font(id)
+            ON DELETE SET NULL,
     ui_label            VARCHAR(50),
     href                VARCHAR(50),
     italic              BOOLEAN         NOT NULL,
     fk_font_weight_id   INT,
-    FOREIGN KEY (fk_font_weight_id)
-        REFERENCES font_weight(id)
-        ON DELETE SET NULL,
+    CONSTRAINT font_instance_font_weight
+        FOREIGN KEY (fk_font_weight_id)
+            REFERENCES font_weight(id)
+            ON DELETE SET NULL,
     fk_font_category_id INT,
-    FOREIGN KEY (fk_font_category_id)
-        REFERENCES font_category(id)
-        ON DELETE SET NULL
+    CONSTRAINT font_instance_font_category
+        FOREIGN KEY (fk_font_category_id)
+            REFERENCES font_category(id)
+            ON DELETE SET NULL
 );
 -- INSERT INTO font_props (fk_font_id, ui_label, href, italic, fk_font_weight_id, fk_font_category_id)
 -- VALUES
@@ -103,14 +101,15 @@ CREATE TABLE font_instance (
 -- multiple font_set rows with the same set_id comprise a "font set" that can be applied to the mock site
 DROP TABLE IF EXISTS font_set;
 CREATE TABLE font_set (
-    PRIMARY KEY (id),
-    id                  INT         NOT NULL AUTO_INCREMENT,
+    id                  SERIAL          PRIMARY KEY,
     set_id              SMALLINT,
     fk_font_type_id     INT,
-    FOREIGN KEY (fk_font_type_id) 
-        REFERENCES font_type(id)
-        ON DELETE CASCADE,
+    CONSTRAINT font_set_font_type_id
+        FOREIGN KEY (fk_font_type_id) 
+            REFERENCES font_type(id)
+            ON DELETE CASCADE,
     fk_font_id          INT,
+    CONSTRAINT font_set_font_id
     FOREIGN KEY (fk_font_id) 
         REFERENCES font(id)
         ON DELETE CASCADE

@@ -12,6 +12,11 @@ import { SelectionPageComponent } from './pages/selection/selection.page.compone
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
 import { PageLoadingComponent } from './shared/components/page-loading/page-loading.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FontListDisplayComponent } from './shared/components/font-list-display/font-list-display.component';
+import { AnimatedCheckmarkSvgComponent } from './shared/components/animated-checkmark-svg/animated-checkmark-svg.component';
+import { AnimatedCubeComponent } from './shared/components/animated-cube/animated-cube.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +28,17 @@ import { HeaderComponent } from './shared/components/header/header.component';
     NotFoundComponent,
     PageLoadingComponent,
     HeaderComponent,
+    FontListDisplayComponent,
+    AnimatedCheckmarkSvgComponent,
+    AnimatedCubeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

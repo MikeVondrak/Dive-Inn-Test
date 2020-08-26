@@ -3,6 +3,7 @@
   <div class="page">
     Data from DB:
     <div *ngFor="let data of testData$ | async">
+      <div>{{data.test_text}}</div>
     </div>
   </div>
 </app-page-loading>
