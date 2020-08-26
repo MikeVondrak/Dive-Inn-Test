@@ -1,11 +1,9 @@
 -- PostgreSQL v12
--- TODO: Need to convert this to Postgres from MySQL
 
 Type of objects the font will be applied to, e.g. main_nav for setting the main navigation sign posts font
 DROP TABLE IF EXISTS font_type;
 CREATE TABLE font_type (
-    PRIMARY KEY (id),
-    id      INT             NOT NULL AUTO_INCREMENT,
+    id      SERIAL          PRIMARY KEY,
     type    VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_type (type)
@@ -21,7 +19,7 @@ VALUES
 DROP TABLE IF EXISTS font_category;
 CREATE TABLE font_category (
     PRIMARY KEY (id),
-    id          INT             NOT NULL AUTO_INCREMENT,
+    id          SERIAL          PRIMARY KEY,
     category    VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_category (category)
@@ -32,8 +30,7 @@ VALUES
 -- Create font weight table
 DROP TABLE IF EXISTS font_weight;
 CREATE TABLE font_weight (
-    PRIMARY KEY (id),
-    id          INT             NOT NULL AUTO_INCREMENT,
+    id          SERIAL          PRIMARY KEY,
     weight      VARCHAR(20)     NOT NULL
 );
 INSERT INTO font_weight (weight)
@@ -44,8 +41,7 @@ VALUES
 -- Create font table
 DROP TABLE IF EXISTS font;
 CREATE TABLE font (
-    PRIMARY KEY (id),
-    id                  INT             NOT NULL AUTO_INCREMENT,
+    id                  SERIAL          PRIMARY KEY,
     family              VARCHAR(20)     NOT NULL,
     selectable          BOOLEAN         NOT NULL,
     blacklisted         BOOLEAN         NOT NULL
@@ -66,8 +62,7 @@ VALUES
 -- TODO: finish this
 DROP TABLE IF EXISTS font_instance;
 CREATE TABLE font_instance (
-    PRIMARY KEY (id),
-    id                  INT             NOT NULL AUTO_INCREMENT,
+    id                  SERIAL          PRIMARY KEY,
     fk_font_id          INT,
     FOREIGN KEY (fk_font_id)
         REFERENCES font(id)
