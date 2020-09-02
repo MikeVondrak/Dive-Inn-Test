@@ -122,8 +122,7 @@ export class ServerApp {
    * @param sqlQuery SQL query string
    * @returns Observable of array of provided type, containing query results
    */
-  // public poolQuery<T>(sqlQuery: string, callback: queryCallback): void {
-  public poolQuery<T>(sqlQuery: string, values?: any): Observable<T[]> {
+  public poolQuery<T>(sqlQuery: string, values?: any[]): Observable<T[]> {
 
     const queryResult$ = (observer: Observer<T[]>) => {
 

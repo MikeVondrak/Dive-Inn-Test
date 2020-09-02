@@ -1,0 +1,31 @@
+<div>
+    <h2>{{ listName }}</h2>
+    <ul>
+      <li *ngFor="let font of fontList$ | async">
+        
+        <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
+          class="remove-button" 
+          (click)="fontClick({fontObj: font, buttonId: 'left'})">
+            &lt;
+        </button>
+        
+        <div>
+          <p class="font-name">{{ font.family }}</p>
+  
+          <div class="font-details">
+            <span>id: {{ font.properties.id }}, </span>
+            <span>category: {{ font.properties.category }}</span>
+          </div>
+  
+        </div>
+        
+        <button *ngIf="!(font.properties.listId===fontListEnum.SELECTABLE)"
+          class="remove-button" 
+          (click)="fontClick({fontObj: font, buttonId: 'right'})">
+            &gt;
+        </button>
+  
+      </li>
+    </ul>
+  </div>
+  

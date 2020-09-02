@@ -4,6 +4,7 @@ import express, { Application, Request, Response, NextFunction, RequestHandler, 
 import { Client, Pool, Query, QueryConfig, QueryResult } from 'pg';
 import { routes } from './routes';
 import { Observable, Observer } from 'rxjs';
+import { SQL } from 'sql';
 
 export class ServerApp {
   private app: Application;

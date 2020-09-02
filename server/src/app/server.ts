@@ -17,6 +17,8 @@ import { sqlQueries } from './sql-queries';
 import { routes, FontGroupEnum } from './routes';
 import { queryCallback } from 'mysql';
 
+import pgPromise from 'pg-promise';
+const pgp = pgPromise({});
 
 import { DbFont } from './models/font.model';
 
@@ -64,8 +66,8 @@ const default200Response: RequestHandler = (req: Request, res: Response) => {
  * @param query SQL query to make
  * @param res Response object from Express Router
  */
-function makePoolQuery<ReturnType>(route: string, query: string, res: Response, values?: any) {
-  console.log('***** makePoolQuery: route= ' + route + ', query= ' + query + ', values= ' + JSON.stringify(values,null,4) || 'none');
+function makePoolQuery<ReturnType>(route: string, query: string, res: Response, values?: any[]) {
+  console.log('***** makePoolQuery: route= ' + route + ', query= ' + query + '\nthese were passed values= ' + JSON.stringify(values,null,4) || 'none');
   serverApp.poolQuery<ReturnType>(query, values)
     .pipe(take(1))
     .subscribe(
@@ -110,26 +112,24 @@ fontsRouter.get(routes.api.font._root, (req: Request, res: Response) => {
 // handle adding new font
 const addFontRoute = routes.api.font._root + routes.api.font.add;
 fontsRouter.post(addFontRoute, (req: Request, res: Response) => {
-  const newFont = req.body as DbFont;
+  const newFont = [req.body as DbFont];
+
+  const fontColumnSet = new pgp.helpers.ColumnSet(newFont[0], { table: 'font' });
+  const query = pgp.helpers.insert(newFont[0], fontColumnSet);
 
   console.log('fontsRouter ADD: ' + JSON.stringify(newFont, null, 4));
+  console.log('Modified query: ' + query.toString() + '\n\n');
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // TODO need to return the new font list array instead of poolQuery result (add functionality to makePoolQuery?)
-
-  makePoolQuery<DbFont>(addFontRoute, sqlQueries.insertFont, res, newFont);
+  makePoolQuery<DbFont>(addFontRoute, query, res);
 
   //res.send([]);
 });
 // handle removing font
 const removeFontRoute = routes.api.font._root + routes.api.font.remove;
 fontsRouter.post(removeFontRoute, (req: Request, res: Response) => {
-  const removeFontId = req.body.id;
+  const removeFontId = [req.body.id];
 
   console.log('fontsRouter REMOVE: ' + removeFontId);
-
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // TODO need to return the new font list array instead of poolQuery result (add functionality to makePoolQuery?)
 
   makePoolQuery<DbFont>(removeFontRoute, sqlQueries.removeFont, res, removeFontId);
 });

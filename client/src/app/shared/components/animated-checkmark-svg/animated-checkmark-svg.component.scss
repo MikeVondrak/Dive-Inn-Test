@@ -1,0 +1,29 @@
+@import '~src/scss/common-imports';
+
+$checkmarkSize: pxToRem(164px);
+
+:host {
+  display: block;
+
+  button.svg-container {
+    width: $checkmarkSize;
+    height: $checkmarkSize;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: $checkmarkSize / 8;
+
+    svg {
+      width: $checkmarkSize;
+      height: $checkmarkSize;
+      border-radius: $checkmarkSize / 8;
+      &.hidden {
+        display: none;
+      }
+      // image {
+      //   width: 50%;
+      //   height: 50%;
+      // }
+    }
+  }
+}
