@@ -2,29 +2,6 @@
 # Clone new repo
   git clone git@github.com:MikeVondrak/Dive-Inn-Test.git .
 
-
-Narwhal Setup
-# Set up Narwhal Workspace (probably don't have to do, should come w/code?)
-! Run in PowerShell to be able to select options
-  npx create-nx-workspace@latest
-# intall yarn - like npm but more functionality
-  https://classic.yarnpkg.com/en/docs/install/#windows-stable
-# install npx globally for Narwhal
-  npm i -g npx
-# install nx CLI (like Angular CLI but expanded)
-  yarn global add nx
-# install Angular package for Narwhal
-  yarn add @nrwl/angular
-# install Node package
-  yarn add @nrwl/node
-yarn add @nrwl/schematics @angular/cli
-yarn add node
-# create Angular append
-  nx generate @nrwl/angular:app font-test-client --style=scss
-  nx generate @nrwl/node:app font-test-server
-
-
-
 New TODO
   1. Create routes and Pages - DONE
     * Header & sticky footer - DONE

@@ -118,7 +118,7 @@ export class FontManagerService {
 
               // !!! REMOVE THIS !!! - test with small data set
               .filter(googleFont => {
-                console.log('^^^^^ getAllGoogleFonts count: ' + fontCount + ', limit: ' + fontLimit);
+                //console.log('^^^^^ getAllGoogleFonts count: ' + fontCount + ', limit: ' + fontLimit);
                 fontCount++;
                 return fontCount <= fontLimit;
               })
