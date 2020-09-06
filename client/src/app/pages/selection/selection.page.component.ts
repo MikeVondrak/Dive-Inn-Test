@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { PageLoadingService } from 'src/app/services/page-loading.service';
 import { ServerTestService } from 'src/app/services/server-test/server-test.service';
+import { FontManagerService } from '../../services/font-manager.service'
 import { ServerTestData } from 'src/app/services/server-test/server-test.model';
+import { UiFont } from 'src/app/models/ui-font.model';
 
 @Component({
   selector: 'app-selection-page',
@@ -12,14 +14,12 @@ import { ServerTestData } from 'src/app/services/server-test/server-test.model';
 })
 export class SelectionPageComponent implements OnInit {
 
-  public testData$: Observable<ServerTestData[]>;
+  public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
 
-  constructor(private serverTestService: ServerTestService) {
+  constructor(private serverTestService: ServerTestService, private fontManagerService: FontManagerService) {
   }
 
-  ngOnInit(): void {
-
-    this.testData$ = this.serverTestService.getServerTestData$();
+  ngOnInit(): void {   
 
   }
 

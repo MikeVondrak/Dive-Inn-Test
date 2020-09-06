@@ -1,1 +1,24 @@
-<p>font-instance-picker works!</p>
+<app-dropdown
+  htmlId="SelectableFontsDropdown"
+  title="Fonts"
+  [options$]="selectableFonts$"
+  displayProperty="family"
+  valueProperty="family"
+  (onOptionChange)="selectedFontChange($event)"
+></app-dropdown>
+
+<div (click)="cL()">
+  Selected Font: {{ selectedFont }}
+</div>
+<div>
+  Font weight: {{ fontWeight }}
+</div>
+
+
+<app-dropdown
+  htmlId="FontWeightsDropdown"
+  title="Weight"
+  [options$]="fontWeight"
+  displayProperty=""
+  valueProperty=""
+></app-dropdown>

@@ -45,9 +45,12 @@ export class FontManagerService {
   private _availableFonts$: BehaviorSubject<UiFont[]> = new BehaviorSubject<UiFont[]>([]);
 
   // validCategory
-  public get selectableFonts$(): Subject<UiFont[]> { return this._selectableFonts$; }
-  public get blacklistedFonts$(): Subject<UiFont[]> { return this._blacklistedFonts$; }
-  public get availableFonts$(): Subject<UiFont[]> { return this._availableFonts$; }
+  // public get selectableFonts$(): Subject<UiFont[]> { return this._selectableFonts$; }
+  // public get blacklistedFonts$(): Subject<UiFont[]> { return this._blacklistedFonts$; }
+  // public get availableFonts$(): Subject<UiFont[]> { return this._availableFonts$; }
+  public get selectableFonts$(): Observable<UiFont[]> { return this._selectableFonts$.asObservable(); }
+  public get blacklistedFonts$(): Observable<UiFont[]> { return this._blacklistedFonts$.asObservable(); }
+  public get availableFonts$(): Observable<UiFont[]> { return this._availableFonts$.asObservable(); }
   // fontsToDownload
 
   private timeStart;
@@ -159,9 +162,13 @@ export class FontManagerService {
             this.availableFonts.push(uiFont);
           }
         });
-        this._selectableFonts$.next(this.selectableFonts);
-        this._blacklistedFonts$.next(this.blacklistedFonts);
-        this._availableFonts$.next(this.availableFonts);
+
+        // this._selectableFonts$.next(this.selectableFonts);
+        // this._blacklistedFonts$.next(this.blacklistedFonts);
+        // this._availableFonts$.next(this.availableFonts);
+        this._selectableFonts$.next(Object.assign([], this.selectableFonts));
+        this._blacklistedFonts$.next(Object.assign([], this.blacklistedFonts));
+        this._availableFonts$.next(Object.assign([], this.availableFonts));
         return true;
       }
       )).subscribe(() => { console.log('##### parseFontsData subscription COMPLETE'); });
@@ -332,7 +339,6 @@ export class FontManagerService {
             // return updated font list from DB
             return this.fontsApiService.getAllFonts$().pipe(
               catchError(err => {
-                debugger;
                 // TODO: how to actually handle errors
                 font.properties.listId = oldListId;
                 return of(null);
@@ -340,7 +346,6 @@ export class FontManagerService {
             );
           }),
           catchError(err => {
-            debugger;
             font.properties.listId = oldListId;
             return of(null);
           })
@@ -348,7 +353,6 @@ export class FontManagerService {
           this.handleUpdatedFontData(newFontList);
         });
         break;
-      
 
       case DatabaseAction.REMOVE:
 
@@ -365,7 +369,6 @@ export class FontManagerService {
             return this.fontsApiService.getAllFonts$();
           }),
           catchError(err => {
-            debugger;
             return of(null);
           })
         ).subscribe( (newFontList: UiFont[]) => {
@@ -389,6 +392,7 @@ export class FontManagerService {
   private clearFontLists() {
     this.blacklistedFonts = [];
     this.selectableFonts = [];
+
     this._selectableFonts$.next(this.selectableFonts);
     this._blacklistedFonts$.next(this.blacklistedFonts);
     this._availableFonts$.next(this.availableFonts);

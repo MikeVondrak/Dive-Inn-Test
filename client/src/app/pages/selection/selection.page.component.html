@@ -1,10 +1,15 @@
 <app-page-loading>
-  <h1>Selection</h1>
-  <app-dropdown></app-dropdown>
   <div class="page">
-    Data from DB:
-    <div *ngFor="let data of testData$ | async">
-      <div>{{data.test_text}}</div>
-    </div>
+    <h1>Selection</h1>
+
+    <app-font-instance-picker></app-font-instance-picker>
+    
+    <!-- <app-dropdown
+      htmlId="SelectableFontsDropdown"
+      title="Selectable Fonts"
+      [options$]="selectableFonts$"
+      displayProperty="family"
+      valueProperty="family"
+    ></app-dropdown> -->
   </div>
 </app-page-loading>
