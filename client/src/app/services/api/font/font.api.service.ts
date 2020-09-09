@@ -62,7 +62,7 @@ export class FontApiService {
    * @param dbFonts fonts from db table
    */
   private mapDbFontsToUiFonts(dbFonts: Observable<FontApi[]>): Observable<UiFont[]> {
-    console.log('font.api mapDbToUi');    
+    //console.log('font.api mapDbToUi');
     const uiFontArray: Observable<UiFont[]> = dbFonts.pipe(
       map((fontArray: FontApi[]) => {
         return fontArray.map((font: FontApi) => {
@@ -86,8 +86,8 @@ export class FontApiService {
         listId: listId
       },
     };
-    console.log('font.api mapDbToUi font: ');
-    console.log(uiFont);
+    //console.log('font.api mapDbToUi font: ');
+    //console.log(uiFont);
     return new UiFont(uiFont);
   }
 

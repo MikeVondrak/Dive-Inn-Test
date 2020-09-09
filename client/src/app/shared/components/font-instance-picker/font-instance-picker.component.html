@@ -1,4 +1,4 @@
-<app-dropdown
+<app-dropdown #selectableFonts
   htmlId="SelectableFontsDropdown"
   title="Fonts"
   [options$]="selectableFonts$"
@@ -11,14 +11,17 @@
   Selected Font: {{ selectedFont }}
 </div>
 <div>
-  Font weight: {{ fontWeight }}
+  Weight count: {{ (fontWeight$ | async)?.size }}
 </div>
+<div>
+  Font weights: <span *ngFor="let fontWeight of (fontWeight$ | async) | keyvalue">{{ fontWeight }}</span>
+</div>
+<br><br><br>
 
-
-<app-dropdown
+<app-dropdown #fontWeights
   htmlId="FontWeightsDropdown"
   title="Weight"
-  [options$]="fontWeight"
+  [options$]="fontWeight$"
   displayProperty=""
   valueProperty=""
 ></app-dropdown>

@@ -5,4 +5,6 @@
     {{ option.uiLabel }}
   </option>
 </select>
-Selected option: {{ selectedOption }}
+<br>Selected option type: {{ selectedOption }}
+<br>Option count: {{ (selectOptions$ | async)?.length }}
+<br><br><br>
