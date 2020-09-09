@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, EventEmitter, Output, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,72 +12,60 @@ interface SelectOption {
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
-  //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DropdownComponent implements OnInit, OnChanges {
   
   @Input() htmlId: string = undefined;
   @Input() title: string = '';
   @Input() options$: Observable<DropdownItem[]>;
-  //@Input() options: DropdownItem[];
   @Input() displayProperty?: string;
   @Input() valueProperty?: string;
 
-  //@Input() selectedOption: DropdownItem;
-  //@Output() selectedOptionChange = new EventEmitter<DropdownItem>();
   @Output() onOptionChange = new EventEmitter<DropdownItem>();
 
   public selectOptions$: Observable<SelectOption[]>;
-
   public selectedOption: DropdownItem;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor() { }
   
   ngOnInit(): void {
     // take the options array and check whether it's an object
-    console.log('DROPDOWN ONINIT');
     this.init();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    /** @TODO check if options$ input actually changed */
     this.init();
   }
 
   public optionChange($event: DropdownItem) {
-    //debugger;
     this.onOptionChange.emit($event);
-    setTimeout(() => { 
-      console.log('******** TIMEOUT ELAPSED');
-      this.detectChanges(); 
-    }, 5000);
   }
 
-  public detectChanges() {
-    console.log('******** CHECKING CHANGES IN DROPDOWN');
-    this.cdr.detectChanges();
-  }
-
+  /**
+   * determine what type was used for options$ input and map to the options array
+   */
   private init() {
     this.selectOptions$ = this.options$?.pipe(
-      map(optionsArray => {
-        //debugger;
-        if (optionsArray instanceof Map) {
-          console.log('++++++++++++ DROPDOWN OPTIONSARRAY IS ARAY OF MAP');
-          return Array.from(optionsArray).map(option => ({
+      // unwrap observable
+      map(options => {
+        // if options$ is an observable map create the select options using key/value
+        if (options instanceof Map) {
+          return Array.from(options).map(option => ({
             uiLabel: option[0] + ' ' + option[1],
             value: option[1]
           }));
         }
-        const optionObj = optionsArray?.[0];
-        console.log('\n\nDROPDOWN options$ map - optionObj: ' + optionObj + ', type: ' + typeof optionObj);
+        // otherwise options$ should be an observable array of string, number, or object
+        const optionObj = options?.[0];
         if (typeof optionObj === 'object') {
-          console.log('DROPDOWN ONINIT -----its an object');
           
+          // displayProperty and valueProperty must be defined to use an object array to populate the dropdown
           if (this.displayProperty && this.valueProperty) {
             if (Object.keys(optionObj).includes(this.displayProperty) && Object.keys(optionObj).includes(this.valueProperty)) {
-              return optionsArray.map(option => ({
+              return options.map(option => ({
                 uiLabel: option[this.displayProperty],
-                value: option //option[this.valueProperty]
+                value: option
               }));
             } else {
               throw new Error('Option object must include displayProperty: ' + this.displayProperty + ', and valueProperty: ' + this.valueProperty);
@@ -85,11 +73,11 @@ export class DropdownComponent implements OnInit, OnChanges {
           } else {
             throw new Error('Must pass displayProperty and valueProperty inputs to use options$ as object array');
           }
-        } else if (optionsArray?.length > 0) {
-          // not an object array, is an array of number or string, use option for uiLabel and value
-          return optionsArray.map(option => ({ uiLabel: option, value: option }));
+        } else if (options?.length > 0) {
+          // is an array of number or string, use option for uiLabel and value
+          return options.map(option => ({ uiLabel: option, value: option }));
         } else {
-          // do nothing?
+          console.log('DropdownComponent init called with options: ' + options);
         }
       })
     );
