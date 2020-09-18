@@ -33,9 +33,15 @@ export class DropdownComponent implements OnInit, OnChanges {
     this.init();
   }
 
+  /**
+   * Manually run the init function if the options$ array changed to re-map selectOptions$
+   */
   ngOnChanges(changes: SimpleChanges): void {
-    /** @TODO check if options$ input actually changed */
-    this.init();
+    // check if the options$ array changed
+    const keyNames = Object.keys(changes);
+    if ( keyNames.includes('options$')) {
+      this.init();
+    }
   }
 
   public optionChange($event: DropdownItem) {

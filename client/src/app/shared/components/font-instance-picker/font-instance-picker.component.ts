@@ -15,6 +15,7 @@ export class FontInstancePickerComponent implements OnInit {
 
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
   public selectedFont: UiFont;
+  public italicable: boolean = false;
 
   public fontWeight$: Observable<FontVariants> = of(this.selectedFont?.properties?.variants);
 
@@ -26,6 +27,16 @@ export class FontInstancePickerComponent implements OnInit {
   public selectedFontChange(font: UiFont) {
     this.selectedFont = font;
     this.fontWeight$ = of(this.selectedFont?.properties?.variants);
+    this.italicable = false;
+  }
+
+  public selectedWeightChange(italicable: boolean) {
+    console.log('$$ FONT INSTANCE selectedWeightChange: ' + italicable);
+    this.italicable = italicable;
+  }
+
+  public italicChange(checked: boolean) {
+    console.log(checked);
   }
 
 }

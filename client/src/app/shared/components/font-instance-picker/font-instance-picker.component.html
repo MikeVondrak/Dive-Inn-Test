@@ -7,21 +7,18 @@
   (onOptionChange)="selectedFontChange($event)"
 ></app-dropdown>
 
-<div (click)="cL()">
-  Selected Font: {{ selectedFont }}
-</div>
-<div>
-  Weight count: {{ (fontWeight$ | async)?.size }}
-</div>
-<div>
-  Font weights: <span *ngFor="let fontWeight of (fontWeight$ | async) | keyvalue">{{ fontWeight }}</span>
-</div>
-<br><br><br>
-
 <app-dropdown #fontWeights
   htmlId="FontWeightsDropdown"
   title="Weight"
   [options$]="fontWeight$"
   displayProperty=""
   valueProperty=""
+  (onOptionChange)="selectedWeightChange($event)"
 ></app-dropdown>
+
+<app-checkbox
+  checkboxId="ItalicCheckbox"
+  title="Italic"
+  [disabled]="!italicable"
+  (onOptionChange)="italicChange($event)"
+></app-checkbox>
