@@ -1,1 +1,8 @@
-<p>textbox works!</p>
+<label *ngIf="!!title" [for]="htmlId">{{ title }}</label>
+<input
+    type="textbox"
+    [id]="htmlId"
+    [(ngModel)]="value"
+    (ngModelChange)="onNgModelChange($event)"
+>
+<p #validationError class="validation-error">Input is invalid</p>

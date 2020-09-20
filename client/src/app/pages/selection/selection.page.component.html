@@ -2,7 +2,9 @@
   <div class="page">
     <h1>Selection</h1>
 
-    <app-font-instance-picker></app-font-instance-picker>
+    <app-font-instance-picker
+      (fontInstanceChange)="fontInstanceChange($event)"
+    ></app-font-instance-picker>
     
     <!-- <app-dropdown
       htmlId="SelectableFontsDropdown"

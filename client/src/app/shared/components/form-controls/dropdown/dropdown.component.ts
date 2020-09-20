@@ -58,8 +58,8 @@ export class DropdownComponent implements OnInit, OnChanges {
         // if options$ is an observable map create the select options using key/value
         if (options instanceof Map) {
           return Array.from(options).map(option => ({
-            uiLabel: option[0] + ' ' + option[1],
-            value: option[1]
+            uiLabel: option[0],// + ' ' + option[1],
+            value: { key: option[0], value: option[1] }
           }));
         }
         // otherwise options$ should be an observable array of string, number, or object

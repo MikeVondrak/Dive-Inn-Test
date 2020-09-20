@@ -23,4 +23,8 @@ export class SelectionPageComponent implements OnInit {
 
   }
 
+  public fontInstanceChange($event) {
+    console.log('SELECTION PAGE fontInstanceChange: ' + JSON.stringify($event, null, 4));
+  }
+
 }
