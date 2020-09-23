@@ -1,17 +1,14 @@
 <app-page-loading>
   <div class="page">
     <h1>Selection</h1>
-
-    <app-font-instance-picker
-      (fontInstanceChange)="fontInstanceChange($event)"
-    ></app-font-instance-picker>
+  
+    <div class="layout">
+      <app-font-instance-picker
+        (fontInstanceChange)="fontInstanceChange($event)"
+      ></app-font-instance-picker>
     
-    <!-- <app-dropdown
-      htmlId="SelectableFontsDropdown"
-      title="Selectable Fonts"
-      [options$]="selectableFonts$"
-      displayProperty="family"
-      valueProperty="family"
-    ></app-dropdown> -->
-  </div>
+      <app-font-preview-pane></app-font-preview-pane>
+    </div>
+    
+  </div><!-- end page -->
 </app-page-loading>

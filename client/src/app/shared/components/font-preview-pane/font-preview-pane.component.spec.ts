@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FontDisplayTextboxComponent } from './font-display-textbox.component';
+import { FontPreviewPaneComponent } from './font-preview-pane.component';
 
-describe('FontDisplayTextboxComponent', () => {
-  let component: FontDisplayTextboxComponent;
-  let fixture: ComponentFixture<FontDisplayTextboxComponent>;
+describe('FontPreviewPaneComponent', () => {
+  let component: FontPreviewPaneComponent;
+  let fixture: ComponentFixture<FontPreviewPaneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FontDisplayTextboxComponent ]
+      declarations: [ FontPreviewPaneComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FontDisplayTextboxComponent);
+    fixture = TestBed.createComponent(FontPreviewPaneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

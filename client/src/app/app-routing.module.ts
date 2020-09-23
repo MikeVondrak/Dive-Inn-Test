@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ConfigurationPageComponent } from './pages/configuration/configuration.page.component';
 import { DemoPageComponent } from './pages/demo/demo.page.component';
 import { NotFoundComponent } from './pages/error/not-found/not-found.component';
+import { PagesModule } from './pages/pages.module';
 import { SelectionPageComponent } from './pages/selection/selection.page.component';
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [PagesModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
