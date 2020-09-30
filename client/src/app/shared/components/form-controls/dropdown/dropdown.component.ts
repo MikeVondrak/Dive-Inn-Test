@@ -2,8 +2,8 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChange
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-type DropdownItem = string | number | object;
-interface SelectOption {
+export type DropdownItem = string | number | object;
+export interface SelectOption {
   uiLabel: string;
   value: DropdownItem
 }
@@ -20,6 +20,7 @@ export class DropdownComponent implements OnInit, OnChanges {
   @Input() options$: Observable<DropdownItem[]>;
   @Input() displayProperty?: string;
   @Input() valueProperty?: string;
+  @Input() selectedOption$: Observable<DropdownItem>;
 
   @Output() onOptionChange = new EventEmitter<DropdownItem>();
 
@@ -31,6 +32,7 @@ export class DropdownComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // take the options array and check whether it's an object
     this.init();
+    this.selectedOption = "none";
   }
 
   /**
@@ -39,14 +41,28 @@ export class DropdownComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // check if the options$ array changed
     const keyNames = Object.keys(changes);
-    if ( keyNames.includes('options$')) {
+    //debugger;
+    if (keyNames.includes('options$')) {
       this.init();
+    } else if (keyNames.includes('selectedOption$')) {
+      // selected option observable value was changed outside the dropdown
+      debugger;
+      
     }
   }
 
   public optionChange($event: DropdownItem) {
+    console.log("Drowdown optionChange: " + JSON.stringify($event, null, 4));
+    this.selectedOption = $event;
     this.onOptionChange.emit($event);
   }
+
+  public setSelected(selection: DropdownItem) {
+    this.optionChange(selection);
+    // this.selectedOption = selection;
+    // this.onOptionChange.emit(selection);
+  }
+
 
   /**
    * determine what type was used for options$ input and map to the options array

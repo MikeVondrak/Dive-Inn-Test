@@ -1,3 +1,10 @@
+9/29/20
+- Need to refactor the font-instance-picker to break down the map of font weight / italicable and only pass an array of font weights to the Dropdown
+- Remove map handling from the Dropdown (?)
+
+
+
+
 8/22/2020
 # Clone new repo
   git clone git@github.com:MikeVondrak/Dive-Inn-Test.git .

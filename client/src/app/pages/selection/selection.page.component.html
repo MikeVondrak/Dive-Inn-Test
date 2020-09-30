@@ -5,9 +5,12 @@
     <div class="layout">
       <app-font-instance-picker
         (fontInstanceChange)="fontInstanceChange($event)"
+        [fontInstance]="fontInstance"
       ></app-font-instance-picker>
     
-      <app-font-preview-pane></app-font-preview-pane>
+      <app-font-preview-pane
+        [fontInstance]="fontInstance"
+      ></app-font-preview-pane>
     </div>
     
   </div><!-- end page -->

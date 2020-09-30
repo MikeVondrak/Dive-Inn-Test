@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, Output, Input } from '@angular/core';
+import { Observable, of, Subject } from 'rxjs';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
 import { map } from 'rxjs/operators';
-import { FontVariants } from 'src/app/services/api/font/font.api.model';
-import { DropdownComponent } from '../form-controls/dropdown/dropdown.component';
+import { FontVariants, FontWeight } from 'src/app/services/api/font/font.api.model';
+import { DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 import { FontInstance } from '../../../models/font-instance.model';
 
@@ -21,19 +21,26 @@ export class FontInstancePickerComponent implements OnInit {
     family: '',
     italic: false,
     size: 36,
-    weight: 0
+    weight: '100'
   }
 
   @Output() fontInstanceChange: EventEmitter<FontInstance> = new EventEmitter<FontInstance>();
 
+  @Input() fontInstance: FontInstance = this.defaultFontInstance;
+
+  @ViewChild('selectableFonts', { static: false }) selectableFonts: DropdownComponent;
+  @ViewChild('fontWeights', { static: false }) fontWeights: DropdownComponent;
   @ViewChild('italicCheckbox', { static: false }) italicCheckbox: CheckboxComponent;
 
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
   public selectedFont: UiFont;
   public italicable: boolean = false;
-  public fontInstance: FontInstance = this.defaultFontInstance;
+
 
   public fontWeights$: Observable<FontVariants> = of(this.selectedFont?.properties?.variants);
+  public selectedWeight$: Subject<SelectOption> = new Subject<SelectOption>();
+  
+  public selectedFont$: Subject<SelectOption> = new Subject<SelectOption>();
 
   constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef) { }
 
@@ -43,19 +50,22 @@ export class FontInstancePickerComponent implements OnInit {
   public selectedFontChange(font: UiFont) {
     this.selectedFont = font;
     this.fontWeights$ = of(this.selectedFont?.properties?.variants);
-
+    
     // reset italic checkbox on font change in case the newly selected font doesn't support italic
     this.italicCheckbox.checkedValue = false;
 
     this.fontInstance.family = font.family;
     this.emitChange();
+
+    this.fontWeights.setSelected({key:'regular', value:false});
   }
 
-  public selectedWeightChange(selection: FontWeightDropdownSelection) {  
-    this.fontInstance.weight = parseInt(selection.key);
+  public selectedWeightChange(selection: DropdownItem) {  
+    const kvp = selection as FontWeightDropdownSelection;
+    this.fontInstance.weight = kvp.key as FontWeight;
 
     // enable/disable italic checkbox if font supports
-    this.italicable = selection.value;
+    this.italicable = kvp.value;
     this.emitChange();
   }
 

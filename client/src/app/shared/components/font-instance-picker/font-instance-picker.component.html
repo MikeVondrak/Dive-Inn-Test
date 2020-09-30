@@ -7,6 +7,8 @@
   (onOptionChange)="selectedFontChange($event)"
 ></app-dropdown>
 
+Selected font: {{ selectedFont$ | async }}<br><br>
+
 <app-dropdown #fontWeights
   htmlId="FontWeightsDropdown"
   title="Weight"
@@ -15,6 +17,8 @@
   valueProperty=""
   (onOptionChange)="selectedWeightChange($event)"
 ></app-dropdown>
+
+Selected weight: {{ selectedWeight$ | async }}<br><br>
 
 <app-checkbox #italicCheckbox
   checkboxId="ItalicCheckbox"
@@ -26,6 +30,6 @@
 <app-textbox
   dataType="integer"
   title="Size"
-  [value]="fontInstance.size"
+  [value]="fontInstance?.size"
   (textChange)="sizeChange($event)"
 ></app-textbox>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FontInstance } from 'src/app/models/font-instance.model';
 
 @Component({
   selector: 'app-font-preview-pane',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./font-preview-pane.component.scss']
 })
 export class FontPreviewPaneComponent implements OnInit {
+
+  @Input() fontInstance: FontInstance;
 
   constructor() { }
 
