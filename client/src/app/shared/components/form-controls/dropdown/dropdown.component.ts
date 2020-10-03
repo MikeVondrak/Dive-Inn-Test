@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export type DropdownItem = string | number | object;
+
+export type DropdownCompare = (item1: DropdownItem, item2: DropdownItem) => boolean;
+
 export interface SelectOption {
   uiLabel: string;
   value: DropdownItem
@@ -44,10 +47,6 @@ export class DropdownComponent implements OnInit, OnChanges {
     //debugger;
     if (keyNames.includes('options$')) {
       this.init();
-    } else if (keyNames.includes('selectedOption$')) {
-      // selected option observable value was changed outside the dropdown
-      debugger;
-      
     }
   }
 
@@ -58,11 +57,9 @@ export class DropdownComponent implements OnInit, OnChanges {
   }
 
   public setSelected(selection: DropdownItem) {
+    this.selectedOption = selection;
     this.optionChange(selection);
-    // this.selectedOption = selection;
-    // this.onOptionChange.emit(selection);
   }
-
 
   /**
    * determine what type was used for options$ input and map to the options array
@@ -104,4 +101,5 @@ export class DropdownComponent implements OnInit, OnChanges {
       })
     );
   }
+
 }

@@ -4,7 +4,7 @@ import { UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
 import { map } from 'rxjs/operators';
 import { FontVariants, FontWeight } from 'src/app/services/api/font/font.api.model';
-import { DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
+import { DropdownCompare, DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 import { FontInstance } from '../../../models/font-instance.model';
 
@@ -36,36 +36,46 @@ export class FontInstancePickerComponent implements OnInit {
   public selectedFont: UiFont;
   public italicable: boolean = false;
 
-
   public fontWeights$: Observable<FontVariants> = of(this.selectedFont?.properties?.variants);
+  public fontWeightOptions$: Observable<FontWeight[]>;
   public selectedWeight$: Subject<SelectOption> = new Subject<SelectOption>();
+  public compareFontWeights: DropdownCompare;
   
   public selectedFont$: Subject<SelectOption> = new Subject<SelectOption>();
 
-  constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef) { }
+  constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
+    // enable/disable italic checkbox if font supports
+    this.isItalicable('regular').subscribe(italicable => this.italicable = italicable);
   }
 
   public selectedFontChange(font: UiFont) {
     this.selectedFont = font;
     this.fontWeights$ = of(this.selectedFont?.properties?.variants);
-    
-    // reset italic checkbox on font change in case the newly selected font doesn't support italic
-    this.italicCheckbox.checkedValue = false;
-
+    this.fontWeightOptions$ = this.fontWeights$.pipe(
+      map(weightMap => Array.from(weightMap).map(mapPair => mapPair[0]))
+    );
+        
     this.fontInstance.family = font.family;
+    this.fontInstance.weight = 'regular';
+    this.fontWeights.setSelected('regular');
+    this.isItalicable('regular').subscribe(italicable => {
+      this.italicable = italicable;
+      if (this.italicable === false) {
+        // reset italic checkbox on font change in case the newly selected font doesn't support italic
+        this.fontInstance.italic = false;
+      }
+    }); 
     this.emitChange();
-
-    this.fontWeights.setSelected({key:'regular', value:false});
   }
 
-  public selectedWeightChange(selection: DropdownItem) {  
-    const kvp = selection as FontWeightDropdownSelection;
-    this.fontInstance.weight = kvp.key as FontWeight;
-
-    // enable/disable italic checkbox if font supports
-    this.italicable = kvp.value;
+  public selectedWeightChange(selection: DropdownItem) {
+    const weight = selection as FontWeight;
+    
+    this.fontInstance.weight = weight;
+    this.isItalicable(weight).subscribe(italicable => this.italicable = italicable);
     this.emitChange();
   }
 
@@ -81,5 +91,10 @@ export class FontInstancePickerComponent implements OnInit {
 
   public emitChange() {
     this.fontInstanceChange.emit(this.fontInstance);
+  }
+
+  private isItalicable(weight: FontWeight): Observable<boolean> {
+    return this.fontWeights$.pipe(
+      map(weightMap => weightMap ? weightMap.get(weight) : false));
   }
 }

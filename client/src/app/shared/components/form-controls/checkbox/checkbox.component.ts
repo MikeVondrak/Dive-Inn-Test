@@ -10,10 +10,10 @@ export class CheckboxComponent implements OnInit, OnChanges {
   @Input() checkboxId: string;
   @Input() title: string;
   @Input() disabled: boolean = true;
+  @Input() checkedValue: boolean;
 
   @Output() onOptionChange = new EventEmitter<boolean>();
 
-  public checkedValue: boolean;
 
   constructor() { }
 

@@ -1,5 +1,9 @@
 <label *ngIf="!!title" [for]="htmlId">{{ title }}</label>
-<select [id]="htmlId" [ngModel]="selectedOption" (ngModelChange)="optionChange($event)">
+<select 
+  [id]="htmlId" 
+  [ngModel]="selectedOption" 
+  (ngModelChange)="optionChange($event)"
+>
   <option value="none" selected disabled hidden>-Select-</option>
   <option *ngFor="let option of selectOptions$ | async" [ngValue]="option.value">
     {{ option.uiLabel }}

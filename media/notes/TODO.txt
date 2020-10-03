@@ -2,7 +2,7 @@
 - Need to refactor the font-instance-picker to break down the map of font weight / italicable and only pass an array of font weights to the Dropdown
 - Remove map handling from the Dropdown (?)
 
-
+- Need to sync italic value in checkbox with data for FontInstancePicker
 
 
 8/22/2020

@@ -12,7 +12,7 @@ Selected font: {{ selectedFont$ | async }}<br><br>
 <app-dropdown #fontWeights
   htmlId="FontWeightsDropdown"
   title="Weight"
-  [options$]="fontWeights$"
+  [options$]="fontWeightOptions$"
   displayProperty=""
   valueProperty=""
   (onOptionChange)="selectedWeightChange($event)"
@@ -23,6 +23,7 @@ Selected weight: {{ selectedWeight$ | async }}<br><br>
 <app-checkbox #italicCheckbox
   checkboxId="ItalicCheckbox"
   title="Italic"
+  [checkedValue]="this.fontInstance.italic"
   [disabled]="!italicable"
   (onOptionChange)="italicChange($event)"
 ></app-checkbox>
