@@ -57,18 +57,14 @@ export class FontInstancePickerComponent implements OnInit {
     this.fontWeightOptions$ = this.fontWeights$.pipe(
       map(weightMap => Array.from(weightMap).map(mapPair => mapPair[0]))
     );
-        
-    this.fontInstance.family = font.family;
-    this.fontInstance.weight = 'regular';
+
     this.fontWeights.setSelected('regular');
     this.isItalicable('regular').subscribe(italicable => {
       this.italicable = italicable;
-      if (this.italicable === false) {
-        // reset italic checkbox on font change in case the newly selected font doesn't support italic
-        this.fontInstance.italic = false;
-      }
+      // reset italic checkbox on font change in case the newly selected font doesn't support italic
+      this.fontInstance.italic = this.italicable ? this.fontInstance.italic : false;
+      this.emitChange();
     }); 
-    this.emitChange();
   }
 
   public selectedWeightChange(selection: DropdownItem) {
@@ -88,8 +84,18 @@ export class FontInstancePickerComponent implements OnInit {
     this.fontInstance.size = size;
     this.emitChange();
   }
+  /**
+   * Create a new object to assign to fontInstance so the change to the input will be picked up by change detection
+   */
+  private setNewFontState() {
+    const newFontInstance: FontInstance = {
+      ...this.fontInstance,
+    };
+    this.fontInstance = Object.assign({}, newFontInstance);
+  }
 
   public emitChange() {
+    this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }
 
