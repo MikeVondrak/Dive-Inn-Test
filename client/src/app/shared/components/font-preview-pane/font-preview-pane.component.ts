@@ -1,5 +1,15 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { AppState } from 'src/app/store/state';
+
+import {
+  //fontInstance, 
+  //getFontInstance, 
+  getPreviewFontFamily,
+  previewFontFamily 
+} from 'src/app/store/selectors/font-instance.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-font-preview-pane',
@@ -14,10 +24,18 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
   public style: object = {};
 
   public styleStr = '';
+  public storeFontInstance$: Observable<FontInstance>;
+  public storeFontFamily$: Observable<string>;
+  public a$;
+  public b$;
 
-  constructor() { }
+  constructor(private store$: Store<AppState>) { }
 
   ngOnInit(): void {
+    // this.storeFontInstance$ = this.store$.select(getFontInstance);
+    this.storeFontFamily$ = this.store$.select(getPreviewFontFamily);
+    // this.a$ = this.store$.select(fontInstance);
+    //this.b$ = this.store$.select('rootStore');
   }
 
   ngOnChanges(changes: SimpleChanges): void {

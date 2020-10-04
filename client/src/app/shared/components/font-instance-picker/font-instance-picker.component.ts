@@ -7,6 +7,10 @@ import { FontVariants, FontWeight } from 'src/app/services/api/font/font.api.mod
 import { DropdownCompare, DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 import { FontInstance } from '../../../models/font-instance.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/state';
+
+import { setFontInstance, setPreviewFontFamily } from '../../../store/actions/font-instance.actions';
 
 type FontWeightDropdownSelection = { key: string, value: boolean };
 
@@ -43,7 +47,7 @@ export class FontInstancePickerComponent implements OnInit {
   
   public selectedFont$: Subject<SelectOption> = new Subject<SelectOption>();
 
-  constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef) {
+  constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef, private store$: Store<AppState>) {
   }
 
   ngOnInit(): void {
@@ -57,6 +61,7 @@ export class FontInstancePickerComponent implements OnInit {
     this.fontWeightOptions$ = this.fontWeights$.pipe(
       map(weightMap => Array.from(weightMap).map(mapPair => mapPair[0]))
     );
+    this.fontInstance.family = font.family;
 
     this.fontWeights.setSelected('regular');
     this.isItalicable('regular').subscribe(italicable => {
@@ -95,6 +100,10 @@ export class FontInstancePickerComponent implements OnInit {
   }
 
   public emitChange() {
+    //debugger;
+    //this.store$.dispatch(setFontInstance({ fontInstance: this.fontInstance }));
+    this.store$.dispatch(setPreviewFontFamily({ family: this.fontInstance.family }));
+
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }
