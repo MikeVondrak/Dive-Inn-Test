@@ -14,7 +14,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 //import { EffectsModule } from '@ngrx/effects';
 //import { AppEffects } from './app.effects';
-import { fontInstanceReducer } from './store/reducers/font-instance.reducer';
 
 @NgModule({
   declarations: [
@@ -26,9 +25,9 @@ import { fontInstanceReducer } from './store/reducers/font-instance.reducer';
     HttpClientModule,
     SharedComponentsModule,
     PagesModule,
-    StoreModule.forRoot({ rootStore: fontInstanceReducer }),    
-    StoreDevtoolsModule.instrument(),
+    StoreModule.forRoot({}),
     //EffectsModule.forRoot([AppEffects]),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
