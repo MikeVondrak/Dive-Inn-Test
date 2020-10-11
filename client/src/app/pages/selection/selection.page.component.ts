@@ -7,6 +7,10 @@ import { FontManagerService } from '../../services/font-manager.service'
 import { ServerTestData } from 'src/app/services/server-test/server-test.model';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/state';
+import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
+import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 
 @Component({
   selector: 'app-selection-page',
@@ -23,9 +27,15 @@ export class SelectionPageComponent implements OnInit {
   }
 
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
-  public fontInstance: FontInstance = this.defaultFontInstance;
+  public fontInstance: FontInstance = { ...this.defaultFontInstance };
+  public activeFontInstance$: Observable<FontInstance>;
 
-  constructor(private serverTestService: ServerTestService, private fontManagerService: FontManagerService) {
+  constructor(
+    private serverTestService: ServerTestService,
+    private fontManagerService: FontManagerService,
+    private store$: Store<AppState>,
+  ) {
+    this.activeFontInstance$ = this.store$.select<FontInstance>(getActiveFontInstance);
   }
 
   ngOnInit(): void {   
@@ -33,8 +43,9 @@ export class SelectionPageComponent implements OnInit {
   }
 
   public fontInstanceChange($event) {
+    this.fontInstance = {...$event};
+    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
     console.log('SELECTION PAGE fontInstanceChange: ' + JSON.stringify($event, null, 4));
-    this.fontInstance = $event;
   }
 
 }

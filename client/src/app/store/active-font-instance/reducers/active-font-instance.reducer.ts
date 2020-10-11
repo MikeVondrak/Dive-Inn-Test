@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { 
   ActiveFontInstanceActions, 
   setActiveFontFamily,
+  setActiveFontInstance,
   setActiveFontItalic,
   setActiveFontSize,
   setActiveFontWeight 
@@ -10,19 +11,20 @@ import { activeFontInstanceInitialState, ActiveFontInstanceState } from '../acti
  
 const _activeFontInstanceReducer = createReducer(
   activeFontInstanceInitialState,
-  // on(setFontInstance, (state, { fontInstance }) => 
-  // { 
-  //   //debugger;
-  //   return ({
-  //     ...state,
-  //     fontInstance: { ...fontInstance },
-  //   });
-  // }
-  // ),
+  on(setActiveFontInstance, (state, { fontInstance }) => 
+  { 
+    return ({
+      ...state,
+      activeFontFamily: fontInstance.family,
+      activeFontWeight: fontInstance.weight,
+      activeFontItalic: fontInstance.italic,
+      activeFontSize: fontInstance.size.toString()
+    });
+  }
+  ),
 
   on(setActiveFontFamily, (state, { family }) => 
   {
-    debugger;
     const newState = {
       ...state,
       activeFontFamily: family

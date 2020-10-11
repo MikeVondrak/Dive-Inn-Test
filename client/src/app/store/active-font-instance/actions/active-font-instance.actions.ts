@@ -2,7 +2,7 @@ import { createAction, props, union } from '@ngrx/store';
 import { FontInstance } from '../../../models/font-instance.model';
 import { FontWeight } from '../../../services/api/font/font.api.model';
 
-export const setFontInstance = createAction(
+export const setActiveFontInstance = createAction(
   '[Font Instance] Set new FontInstance', 
   props<{ fontInstance: FontInstance }>()
 );
@@ -25,7 +25,7 @@ export const setActiveFontItalic = createAction(
 );
 
 const actions = union({
-  //setFontInstance,
+  setActiveFontInstance,
 
   setActiveFontFamily,
   setActiveFontSize,

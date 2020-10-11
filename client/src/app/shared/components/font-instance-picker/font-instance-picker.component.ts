@@ -11,8 +11,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 
 import { 
-  //setFontInstance, 
-  setActiveFontFamily 
+  setActiveFontInstance,
+  //setActiveFontFamily,
 } from '../../../store/active-font-instance/actions/active-font-instance.actions';
 
 type FontWeightDropdownSelection = { key: string, value: boolean };
@@ -33,7 +33,7 @@ export class FontInstancePickerComponent implements OnInit {
 
   @Output() fontInstanceChange: EventEmitter<FontInstance> = new EventEmitter<FontInstance>();
 
-  @Input() fontInstance: FontInstance = this.defaultFontInstance;
+  public fontInstance: FontInstance = { ...this.defaultFontInstance };
 
   @ViewChild('selectableFonts', { static: false }) selectableFonts: DropdownComponent;
   @ViewChild('fontWeights', { static: false }) fontWeights: DropdownComponent;
@@ -104,8 +104,10 @@ export class FontInstancePickerComponent implements OnInit {
 
   public emitChange() {
     //debugger;
-    //this.store$.dispatch(setFontInstance({ fontInstance: this.fontInstance }));
-    this.store$.dispatch(setActiveFontFamily({ family: this.fontInstance.family }));
+    
+    // this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
+    
+    // this.store$.dispatch(setActiveFontFamily({ family: this.fontInstance.family }));
 
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
