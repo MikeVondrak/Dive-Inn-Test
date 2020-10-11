@@ -12,8 +12,9 @@ import { PagesModule } from './pages/pages.module';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-//import { EffectsModule } from '@ngrx/effects';
-//import { AppEffects } from './app.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/app.effects';
+import { AppStoreModule } from './store/store.module';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     SharedComponentsModule,
     PagesModule,
     StoreModule.forRoot({}),
-    //EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument(),
+    AppStoreModule,
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
