@@ -99,16 +99,10 @@ export class FontInstancePickerComponent implements OnInit {
     const newFontInstance: FontInstance = {
       ...this.fontInstance,
     };
-    this.fontInstance = Object.assign({}, newFontInstance);
+    this.fontInstance = newFontInstance;
   }
 
-  public emitChange() {
-    //debugger;
-    
-    // this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
-    
-    // this.store$.dispatch(setActiveFontFamily({ family: this.fontInstance.family }));
-
+  public emitChange() {    
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }
