@@ -27,11 +27,15 @@
         // listen for the "appready" event emitted by the application
         document.addEventListener("appReady", handleAppReady);
 
-        console.log("Index.html: appReady event listener added");
+        console.groupEnd();
+        console.group('Index.html');
+        console.log("appReady event listener added");
 
         // on appready event unload the pre-bootstrap element
         function handleAppReady(event) {
-          console.log("handleAppReady");
+          console.groupEnd();
+          console.group('Index.html');
+          console.log("handleAppReady()");
 
           var preBootstrapContainer = document.getElementById(
             "pre-bootstrap-container"

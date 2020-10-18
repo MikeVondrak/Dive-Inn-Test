@@ -28,7 +28,6 @@ export class HeadUriLoaderService {
     this.fontLinkUrl = this.fontBaseUrl;
     this.fontLinkUrl += fonts.map(font => font.hrefId).join(this.fontNameSeparator);
     this.fontLinkUrl += this.fontBaseUrlParam;
-    console.log('** fontLinkUrl: ' + this.fontLinkUrl);
 
     // construct the link element to append
     const fontLink: HTMLLinkElement = this.renderer.createElement('link');
@@ -48,6 +47,5 @@ export class HeadUriLoaderService {
   }
 
   public onloadCallback(args: string[]) {
-    console.log('** onloadCallback: ' + args[0]);
   }
 }

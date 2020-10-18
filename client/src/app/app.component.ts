@@ -7,13 +7,14 @@ import { HeadUriLoaderService } from './services/head-uri-loader/head-uri-loader
 // import { GoogleFontsApiResponse } from './services/external/google/google-fonts-api.model';
 // import { GoogleFontsApiService } from './services/external/google/google-fonts-api.service';
 import { FontManagerService } from './services/font-manager.service';
+import { BaseComponent } from './shared/components/abstract/base/base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent extends BaseComponent implements OnInit, AfterViewInit {
 
   public loading$ = this.pageLoadingService.pageLoading$;
 
@@ -30,12 +31,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     private headUriLoader: HeadUriLoaderService, 
     private fontManager: FontManagerService
   ) {
+    super();
     // called first time before the ngOnInit()
     this.appReadyEvent = appReady;
+    this.loggerService.enableLogger(true);
   }
 
   ngOnInit(): void {
-    console.log('*****************************************');
+    this.loggerService.log('ngOnInit');
+
     // called after the constructor and called once after the first ngOnChanges()
     this.headUriLoader.loadFontsLink();
     this.fontManager.init();
@@ -43,19 +47,18 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // called once after the first ngAfterContentChecked(), after Angular initializes the component's views and child views
-    console.log('ngAfterViewInit done');
+    this.loggerService.log('ngAfterViewInit');
 
     if (!this.delayAppReadyEvent) {
       this.appReadyEvent.trigger();
-      console.log('ngAfterViewInit done');
+      this.loggerService.log('ngAfterViewInit done');
     } else {
       // simulate load time for app
-      console.log('waiting ' + this.appReadyEventDelay + 'ms to fire appReadyEvent');
+      this.loggerService.log('waiting ' + this.appReadyEventDelay + 'ms to fire appReadyEvent');
 
-      const self = this;
       setTimeout(() => {
-        self.appReadyEvent.trigger();
-        console.log('ngAfterViewInit done');
+        this.appReadyEvent.trigger();
+        this.loggerService.log('ngAfterViewInit done');
       }, this.appReadyEventDelay);
     }
   }

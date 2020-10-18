@@ -12,13 +12,14 @@ import { AppState } from 'src/app/store/state';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { getFontDataLoading } from 'src/app/store/font-library/selectors/font-library.selectors';
+import { BaseComponent } from 'src/app/shared/components/abstract/base/base.component';
 
 @Component({
   selector: 'app-selection-page',
   templateUrl: './selection.page.component.html',
   styleUrls: ['./selection.page.component.scss', '../pages-shared.scss']
 })
-export class SelectionPageComponent implements OnInit {
+export class SelectionPageComponent extends BaseComponent implements OnInit {
 
   private readonly defaultFontInstance: FontInstance = {
     family: '',
@@ -37,6 +38,8 @@ export class SelectionPageComponent implements OnInit {
     private fontManagerService: FontManagerService,
     private store$: Store<AppState>,
   ) {
+    super();
+    this.loggerService.enableLogger(true);
     this.activeFontInstance$ = this.store$.select<FontInstance>(getActiveFontInstance);
     this.fontInstanceLoading$ = this.store$.select<boolean>(getFontDataLoading);
   }
@@ -47,7 +50,7 @@ export class SelectionPageComponent implements OnInit {
   public fontInstanceChange($event) {
     this.fontInstance = {...$event};
     this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
-    console.log('SELECTION PAGE fontInstanceChange: ' + JSON.stringify($event, null, 4));
+    this.loggerService.log('fontInstanceChange', $event);
   }
 
 }

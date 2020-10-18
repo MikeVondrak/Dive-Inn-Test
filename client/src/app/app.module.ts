@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,6 +17,7 @@ import { AppEffects } from './store/app.effects';
 import { AppStoreModule } from './store/store.module';
 
 import { LoadingDirectiveModule } from './directives/loading-directive.module';
+import { AppInjector } from './services/app-injector/app-injector.service';
 
 
 @NgModule({
@@ -38,4 +39,13 @@ import { LoadingDirectiveModule } from './directives/loading-directive.module';
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(
+    injector: Injector
+  ) {
+    // Store a reference to the app injector so child components don't have to pass in dependencies for base
+    AppInjector.setInjector(injector);
+  }
+
+}

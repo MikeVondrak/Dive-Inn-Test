@@ -171,7 +171,9 @@ export class FontManagerService {
         this._availableFonts$.next(Object.assign([], this.availableFonts));
         return true;
       }
-      )).subscribe(() => { console.log('##### parseFontsData subscription COMPLETE'); });
+      )).subscribe(() => { 
+        //console.log('##### parseFontsData subscription COMPLETE'); 
+      });
   }
 
   /**

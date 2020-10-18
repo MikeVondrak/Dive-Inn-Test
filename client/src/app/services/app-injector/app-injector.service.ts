@@ -1,36 +1,21 @@
 import { Injector } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-  
+
+/**
+ * Class to store a reference to the app Injector
+ * - allows base components to register their dependencies manually instead of passing in from all children
+ */
 export class AppInjector {
   
   private static injector: Injector;
-  private static num: number;
   
   static setInjector(injector: Injector) {
     AppInjector.injector = injector;
-
-    AppInjector.num = 1;
-
-    debugger;
   }
   
   static getInjector(): Injector {
     const ai = AppInjector.injector;
-
-    const a = AppInjector.num;
-    debugger;
     return ai;
-  }
-
-
-  private static injector$: Subject<Injector> = new Subject<Injector>();
-  static setInjector$(injector: Injector) {
-    AppInjector.injector$.next(injector);
-    debugger;
-  }
-  
-  static getInjector$(): Observable<Injector> {
-    return AppInjector.injector$.asObservable();
   }
 
 }       

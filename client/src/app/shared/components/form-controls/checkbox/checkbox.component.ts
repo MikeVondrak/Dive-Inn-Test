@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { BaseComponent } from '../../abstract/base/base.component';
 
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent implements OnInit, OnChanges {
+export class CheckboxComponent extends BaseComponent implements OnInit, OnChanges {
 
   @Input() checkboxId: string;
   @Input() title: string;
@@ -15,16 +16,20 @@ export class CheckboxComponent implements OnInit, OnChanges {
   @Output() onOptionChange = new EventEmitter<boolean>();
 
 
-  constructor() { }
+  constructor() {
+    super();
+    this.loggerService.enableLogger(true);
+   }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('@@@@@@ CHECKBOX changes: ' + JSON.stringify(changes,null,4));
   }
 
   onNgModelChange($event) {
+    debugger;
+    this.loggerService.log('onNgModelChange', $event);
     this.onOptionChange.emit($event);
   }
 }

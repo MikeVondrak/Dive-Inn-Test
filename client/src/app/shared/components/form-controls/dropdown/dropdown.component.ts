@@ -51,7 +51,7 @@ export class DropdownComponent implements OnInit, OnChanges {
   }
 
   public optionChange($event: DropdownItem) {
-    console.log("Drowdown optionChange: " + JSON.stringify($event, null, 4));
+    //console.log("Drowdown optionChange: " + JSON.stringify($event, null, 4));
     this.selectedOption = $event;
     this.onOptionChange.emit($event);
   }
@@ -96,7 +96,7 @@ export class DropdownComponent implements OnInit, OnChanges {
           // is an array of number or string, use option for uiLabel and value
           return options.map(option => ({ uiLabel: option, value: option }));
         } else {
-          console.log('DropdownComponent init called with options: ' + options);
+          //console.log('DropdownComponent init called with options: ' + options);
         }
       })
     );

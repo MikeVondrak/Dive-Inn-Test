@@ -3,6 +3,7 @@
 
 import { DOCUMENT } from '@angular/common';
 import { Injectable, Renderer2, Inject, RendererFactory2 } from '@angular/core';
+import { LoggerService } from './services/logger/logger.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +21,12 @@ export class AppReadyEvent {
   // which can be overridden on a per-environment basis.
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private rendererFactory: RendererFactory2
+    private rendererFactory: RendererFactory2,
+    private loggerService: LoggerService
   ) {
     // Renderer2 can't be injected (usually used in a Component), so create using factory
     this.renderer = rendererFactory.createRenderer(null, null);
+    this.loggerService.enableLogger(true);
   }
 
   // ---
@@ -38,7 +41,7 @@ export class AppReadyEvent {
   // message transport that makes more sense for a different platform. Nothing about
   // the DOM-interaction leaks outside of this service.
   public trigger(): void {
-    console.log('AppReadyEvent.trigger - isAppReady: ' + this.isAppReady);
+    this.loggerService.log('trigger', { 'isAppReady': this.isAppReady });
 
     // If the app-ready event has already been triggered, just ignore any subsequent calls to trigger it again.
     if (this.isAppReady) {
@@ -69,18 +72,19 @@ export class AppReadyEvent {
     // IE uses some other kind of event initialization
     // default to trying the "normal" event generation and then fallback to using the IE version
     try {
-      console.log('createEvent: attempting standard event definition');
+      this.loggerService.log('createEvent: attempting standard event definition');
       customEvent = new CustomEvent(eventType, {
         bubbles: bubbles,
         cancelable: cancelable,
       });
     } catch (error) {
-      console.log(
+      this.loggerService.log(
         'createEvent: standard event definition failed, trying IE initCustomEvent'
       );
       const customEvent: any = this.document.createEvent('CustomEvent');
       customEvent.initCustomEvent(eventType, bubbles, cancelable, null);
     }
+    this.loggerService.log('createEvent: event created successfully');
     return customEvent;
   }
 }

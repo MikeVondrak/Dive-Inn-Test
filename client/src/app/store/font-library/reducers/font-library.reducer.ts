@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import { 
   loadFontFamilyData,
   fontFamilyDataLoaded,
@@ -9,7 +10,9 @@ import { fontLibraryInitialState, FontLibraryState } from '../font-library.state
 const _fontLibraryReducer = createReducer(
   fontLibraryInitialState,
   on(loadFontFamilyData, (state, { family }) => {
-    console.log('+++++ FontLibrary loadFontFamilyData: ' + family);
+    const logger = new LoggerService;
+    logger.enableLogger(true, 'FontLibrary');
+    logger.log('loadFontFamilyData', { "family": family }, undefined, 'FontLibrary');
     return ({
       ...state,
       fontDataLoading: true,
@@ -19,7 +22,9 @@ const _fontLibraryReducer = createReducer(
   }),
 
   on(fontFamilyDataLoaded, (state) => {
-    console.log('+++++ FontLibrary fontFamilyDataLoaded');
+    const logger = new LoggerService;
+    logger.enableLogger(true, 'FontLibrary');
+    logger.log('fontFamilyDataLoaded', undefined, undefined, 'FontLibrary');
     return ({
       ...state,
       fontDataLoading: false,

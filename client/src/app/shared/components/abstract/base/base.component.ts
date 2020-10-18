@@ -9,18 +9,12 @@ export abstract class BaseComponent implements OnInit {
 
   public loggerService: LoggerService;
 
-  constructor() {
-    // https://devblogs.microsoft.com/premier-developer/angular-how-to-simplify-components-with-typescript-inheritance/
-    // Manually retrieve the dependencies from the injector    
+  constructor() {    
+    // manually retrieve the dependencies from the app injector
     // so that constructor has no dependencies that must be passed in from child
-
-    //const injector = AppInjector.getInjector$();
-    //this.loggerService = injector?.get(LoggerService);
-    debugger;
-    AppInjector.getInjector$().subscribe(injector => {
-      debugger;
-      this.loggerService = injector.get(LoggerService)
-    })
+    const injector = AppInjector.getInjector();
+    this.loggerService = injector.get(LoggerService);
+    this.loggerService.enableLogger(true);    
   }
 
   ngOnInit(): void {

@@ -22,14 +22,15 @@ export class LoggerService {
    * Allows logging to be enabled per class etc
    * @param watch whether or not to print logs coming from caller
    */
-  public enableLogger(watch: boolean = false) {
-    this.callers.set(this.getCallingFile(), watch);
+  public enableLogger(watch: boolean = false, nameOverride?: string) {
+    const name = !!nameOverride ? nameOverride : this.getCallingFile();
+    this.callers.set(name, watch);
   }
 
-  public log(text: string, props: { [key: string]: any } = {}, timer?: LogTimer) {
-    const caller = this.getCallingFile();
+  public log(text: string, props: { [key: string]: any } = {}, timer?: LogTimer, nameOverride?: string) {
+    const caller = !!nameOverride ? nameOverride : this.getCallingFile();
     const logEnabled = this.callers.get(caller);
-    debugger;
+    //debugger;
     if (logEnabled) {
       if (caller !== this.currentCaller) {
         console.groupEnd();
@@ -51,24 +52,33 @@ export class LoggerService {
 
       Object.keys(props).forEach(key => {
       //props.forEach(prop => {
-        console.log(key + ' = ' + props[key]);
+        console.log('\t' + key + ' = ' + props[key]);
       });
     }
   }
 
+  /**
+   * Parse the stack trace to find the caller of the logger service
+   * - ONLY WORKS FOR CHROME!
+   */
   private getCallingFile(): string {
     const stack = (new Error).stack;
     const stackLines = stack?.split('\n');
     let done = false;
     let file: string;
     let i = 1;
-
-    //debugger;
+    
     do {
       // select/trim the ith line from the stack trace
       const line = stackLines[i].trim();
       // format should be 
+      // - Chrome:    "    at LoggerService.getCallingFile (http://localhost:4200/main.js:1855:24)"
+      // - FireFox:   "getCallingFile@http://localhost:4200/main.js:1855:24"
       let parts = line.split('at ');
+      if (!parts) {
+        // invalid format, browser may not be Chrome
+        return 'unknown';
+      }
       parts = parts[1].split(' ');
       if (!(parts[0].includes('LoggerService'))) {
         done = true;

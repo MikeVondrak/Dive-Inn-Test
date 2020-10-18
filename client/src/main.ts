@@ -11,9 +11,4 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule)
-  .then((moduleRef) => {
-    debugger;
-    AppInjector.setInjector(moduleRef.injector);
-    AppInjector.setInjector$(moduleRef.injector);
-  })
   .catch(err => console.error(err));
