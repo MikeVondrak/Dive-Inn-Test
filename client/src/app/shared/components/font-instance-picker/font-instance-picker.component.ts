@@ -100,10 +100,10 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     const newFontInstance: FontInstance = {
       ...this.fontInstance,
     };
-    this.fontInstance = Object.assign({}, newFontInstance);
+    this.fontInstance = newFontInstance;
   }
 
-  public emitChange() {
+  public emitChange() {    
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }
