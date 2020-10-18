@@ -3,24 +3,24 @@ import { FontInstance } from '../../../models/font-instance.model';
 import { FontWeight } from '../../../services/api/font/font.api.model';
 
 export const setActiveFontInstance = createAction(
-  '[Font Instance] Set new FontInstance', 
+  '[Font Instance] setActiveFontInstance', 
   props<{ fontInstance: FontInstance }>()
 );
 
 export const setActiveFontFamily = createAction(
-  '[Font Instance] Set new FontInstance family',
+  '[Font Instance] setActiveFontFamily',
   props<{ family: string }>()
 );
 export const setActiveFontSize = createAction(
-  '[Font Instance] Set new FontInstance size',
+  '[Font Instance] setActiveFontSize',
   props<{ size: string }>()
 );
 export const setActiveFontWeight = createAction(
-  '[Font Instance] Set new FontInstance weight',
+  '[Font Instance] setActiveFontWeight',
   props<{ weight: FontWeight }>()
 );
 export const setActiveFontItalic = createAction(
-  '[Font Instance] Set new FontInstance italic',
+  '[Font Instance] setActiveFontItalic',
   props<{ italic: boolean }>()
 );
 

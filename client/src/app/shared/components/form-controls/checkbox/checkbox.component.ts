@@ -28,7 +28,6 @@ export class CheckboxComponent extends BaseComponent implements OnInit, OnChange
   }
 
   onNgModelChange($event) {
-    debugger;
     this.loggerService.log('onNgModelChange', $event);
     this.onOptionChange.emit($event);
   }

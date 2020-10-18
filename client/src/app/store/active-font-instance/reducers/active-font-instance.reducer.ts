@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import { 
   ActiveFontInstanceActions, 
   setActiveFontFamily,
@@ -29,7 +30,6 @@ const _activeFontInstanceReducer = createReducer(
       ...state,
       activeFontFamily: family
     };
-    console.log('&&&&& NEW STATE: ' + JSON.stringify(newState, null, 4));
     return newState;
   }
   ),

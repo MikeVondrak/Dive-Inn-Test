@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, tap } from 'rxjs/operators';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 
 import { setActiveFontInstance } from '../actions/active-font-instance.actions';
@@ -16,7 +17,9 @@ export class SetActiveFontInstanceEffect {
     this.actions$.pipe(
       ofType(setActiveFontInstance),
       tap(action => {
-        console.log('------- SetActiveFontInstance Effect: ' + JSON.stringify(action, null, 4));
+        const logger = new LoggerService;
+        logger.enableLogger(true, 'SetActiveFontInstanceEffect');        
+        logger.log('action', action, undefined, 'SetActiveFontInstanceEffect');
 
         // change tap to map and remove dispatch false
         //  - what action to return?

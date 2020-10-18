@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Router, RouterEvent, NavigationEnd, Event, NavigationStart } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { LoggerService } from './logger/logger.service';
 
 
 @Injectable({
@@ -12,11 +13,15 @@ export class PageLoadingService implements OnInit {
   private pageLoadingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public pageLoading$: Observable<boolean> = this.pageLoadingSubject$.asObservable();
 
-  constructor(public router: Router) { 
+  constructor(
+    public router: Router,
+    private loggerService: LoggerService
+  ) {
+    this.loggerService.enableLogger(true);
     router.events.pipe(
       filter((e: Event): e is RouterEvent => e instanceof NavigationStart)
     ).subscribe((e: RouterEvent) => {
-      console.log('NavigationStart event: ' + e.url);
+      this.loggerService.log('NavigationStart', e.url, undefined, 'PageLoadingService');
       this.pageLoadingSubject$.next(true);
     });
   }

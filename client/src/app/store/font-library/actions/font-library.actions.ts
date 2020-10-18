@@ -1,11 +1,11 @@
 import { createAction, props, union } from '@ngrx/store';
 
 export const loadFontFamilyData = createAction(
-  '[Font Library] Ensure Font Family is Available for Use', 
+  '[Font Library] loadFontFamilyData', 
   props<{ family: string }>()
 );
 
-export const fontFamilyDataLoaded = createAction('[Font Library] Signal Font Family is Available for Use');
+export const fontFamilyDataLoaded = createAction('[Font Library] fontFamilyDataLoaded');
 
 const actions = union({
   loadFontFamilyData,

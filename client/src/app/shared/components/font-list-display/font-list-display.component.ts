@@ -3,6 +3,7 @@ import { UiFont, IUiFont, FontListsEnum } from '../../../models/ui-font.model';
 import { FontManagerService } from '../../../services/font-manager.service';
 import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 
 export type DisplayType = 'family-only' | 'variant-details';
 
@@ -28,13 +29,14 @@ export class FontListDisplayComponent implements OnInit {
 
   @Output() fontClicked = new EventEmitter<FontClickedPayload>();
 
-  constructor(private cdr: ChangeDetectorRef, private fontMgr: FontManagerService) { }
+  constructor(private cdr: ChangeDetectorRef, private fontMgr: FontManagerService, private loggerService: LoggerService) {
+    this.loggerService.enableLogger(true);
+   }
 
   ngOnInit(): void { }
 
   public fontClick($event: FontClickedPayload) {
-  
-    console.log('@@@@@  FontListDisplay click\n font: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
+    this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
 
     this.fontClicked.emit($event);
   }

@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject, Subject, ReplaySubject, of } from 'rxjs';
 
 import { GoogleFontsApi, GoogleFontsApiSort, GoogleFontsApiResponse} from './google-fonts-api.model';
 import { shareReplay, pluck } from 'rxjs/operators';
+import { LoggerService } from '../../logger/logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,10 @@ export class GoogleFontsApiService {
   /**
    * @param http HttpClient for API requests
    */
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private loggerService: LoggerService
+  ) { }
 
   /**
    * Gets an array of fonts from the Google Fonts API, optionally sorted
@@ -49,8 +53,11 @@ export class GoogleFontsApiService {
   private getGoogleFontsData$(sortKey: GoogleFontsApiSort, url: string, clearCache: boolean = false): Observable<GoogleFontsApi[]> {
     let cache$ = this.cacheMap.get(sortKey);
     if (!cache$ || clearCache) {
-      //console.log('!!!!! GoogleFontsApiService.getGoogleFontsData$ making HTTP request !!!!!');
+            
+      /** @TODO set up timer logging */
+      this.loggerService.log('getGoogleFontsData$ making HTTP request! clearCache = ', clearCache.toString());
       //console.time('Google Fonts Request');
+            
       cache$ = this.http
         .get<GoogleFontsApiResponse>(url)
         .pipe(
@@ -60,6 +67,7 @@ export class GoogleFontsApiService {
           shareReplay(this.CACHE_SIZE),
         );
       this.cacheMap.set(sortKey, cache$);
+      
       //console.timeEnd('Google Fonts Request');
     }
     return cache$;

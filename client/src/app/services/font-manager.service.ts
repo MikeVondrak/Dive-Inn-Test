@@ -66,9 +66,9 @@ export class FontManagerService {
     private googleFontsApiService: GoogleFontsApiService,
     private fontsApiService: FontApiService,
     private headUriService: HeadUriLoaderService,
-    private logger: LoggerService
+    private loggerService: LoggerService
   ) {
-    // this.logger.enableLogger(true);
+    this.loggerService.enableLogger(true);
   }
 
   public init(): void {
@@ -89,7 +89,7 @@ export class FontManagerService {
         this.parseFontsData(allFonts);
       },
       (err: any) => {
-        console.log('!!!!! FontManagerService Error Handler: ' + err);
+        this.loggerService.log('Error Handler: ', err);
         /** @TODO hande this in the GoogleFontsApiService / NgRx */
         this.setGoogleFontsDataState(GoogleFontsDataStateEnum.ERROR);
       },
@@ -121,7 +121,6 @@ export class FontManagerService {
 
               // !!! REMOVE THIS !!! - test with small data set
               .filter(googleFont => {
-                //console.log('^^^^^ getAllGoogleFonts count: ' + fontCount + ', limit: ' + fontLimit);
                 fontCount++;
                 return fontCount <= fontLimit;
               })
@@ -140,8 +139,8 @@ export class FontManagerService {
    */
   private parseFontsData(fontsData: UiFont[]): void {
     combineLatest([
-      this.fontsApiService.getAllFonts$().pipe(take(1)),
-      this.googleFontDataLoaded.pipe(filter(loaded => !!loaded), take(1)), // fonts data loaded from Google API
+      this.fontsApiService.getAllFonts$().pipe(take(1)), // font data from our DB
+      this.googleFontDataLoaded.pipe(filter(loaded => !!loaded), take(1)), // font data loaded from Google API
     ]).pipe(
       take(1), // unsubscribe after getting result
       every(([dbFonts, googleFontsLoaded]) => {
@@ -163,16 +162,13 @@ export class FontManagerService {
           }
         });
 
-        // this._selectableFonts$.next(this.selectableFonts);
-        // this._blacklistedFonts$.next(this.blacklistedFonts);
-        // this._availableFonts$.next(this.availableFonts);
         this._selectableFonts$.next(Object.assign([], this.selectableFonts));
         this._blacklistedFonts$.next(Object.assign([], this.blacklistedFonts));
         this._availableFonts$.next(Object.assign([], this.availableFonts));
         return true;
       }
-      )).subscribe(() => { 
-        //console.log('##### parseFontsData subscription COMPLETE'); 
+      )).subscribe(() => {
+        // subscribe here to trigger the every() since no component is creating a subscription directly
       });
   }
 
@@ -232,9 +228,6 @@ export class FontManagerService {
     return variants;
   }
 
-  // private mapUiFontToGoogleFontUri(googleFont: GoogleFontsApi): GoogleFontsUri { }
-  // private mapUiFontToDbFont(uiFont: UiFont): DbFont { }
-
   private setGoogleFontsDataState(state: GoogleFontsDataStateEnum): void {
     switch (state) {
       case GoogleFontsDataStateEnum.UNLOADED:
@@ -247,26 +240,16 @@ export class FontManagerService {
         this.googleFontDataLoading.next(false);
         this.googleFontDataLoaded.next(true);
         this.googleFontDataError.next(false);
-
-        //this.googleFontDataLoading.complete();
-        //this.googleFontDataLoaded.complete();
-        //this.googleFontDataError.complete();
         break;
       case GoogleFontsDataStateEnum.ERROR:
         this.googleFontDataLoading.next(false);
         this.googleFontDataLoaded.next(true);
         this.googleFontDataError.next(true);
-
-        //this.googleFontDataLoading.complete();
-        //this.googleFontDataLoaded.complete();
-        //this.googleFontDataError.complete();
         break;
       default: { }
     }
   }
 
-
-  //public updateFontsState(font: UiFont, btn: FontListsEnum) {
   public updateFontsState(payload: FontClickedPayload): void {
     const font = payload.fontObj;
     const moveToList = payload.buttonId;
@@ -318,7 +301,7 @@ export class FontManagerService {
           default: throw new Error('Invalid moveToList argument: ' + moveToList);
         }
         break;
-      default: console.log('ERROR in updateFontsState - Invalid listId: ' + font?.properties?.listId);
+      default: this.loggerService.log('ERROR in updateFontsState - Invalid listId: ', font?.properties?.listId);
     }
 
     // update which list the font exists in (UI side)
@@ -332,7 +315,7 @@ export class FontManagerService {
 
         this.fontsApiService.addFont(font).pipe(
           switchMap(addFontSuccessful => {
-            console.log('FontManagerSerice ADD FONT RESPONSE');
+            this.loggerService.log('FontManagerSerice ADD FONT RESPONSE');
             // if we're adding the font (to Selectable or Blacklisted), it will be removed from Available
             const idx = this.availableFonts.findIndex(f => f.family === font.family);
             // manually remove font from the Available list since it's not updated from server data
@@ -360,7 +343,7 @@ export class FontManagerService {
 
         this.fontsApiService.removeFont(font).pipe(
           switchMap(removeFontSuccessful => {
-            console.log('FontManagerSerice REMOVE FONT RESPONSE');
+            this.loggerService.log('FontManagerSerice REMOVE FONT RESPONSE');
 
             // reset ID of font when removing
             font.properties.id = -1;
@@ -382,7 +365,7 @@ export class FontManagerService {
         throw new Error('Invalid database action: ' + dbAction);
     }
     
-    console.log('***** FontManagerService updateFontsState: ' + font.family + ', font list: ' + font.properties.listId + ', moveToList: ' + moveToList);    
+    this.loggerService.log('updateFontsState: ' + font.family + ', font list: ' + font.properties.listId + ', moveToList: ' + moveToList);
   }
 
   private handleUpdatedFontData(newFontsList: UiFont[]) {
@@ -417,9 +400,6 @@ export class FontManagerService {
     });
     this._selectableFonts$.next(this.selectableFonts);
     this._blacklistedFonts$.next(this.blacklistedFonts);
-    
-    // TODO - update available list before POST?
-    //this._availableFonts$.next(this.availableFonts);
   }
   
 }

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { delay, map, tap } from 'rxjs/operators';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 
 import { loadFontFamilyData, fontFamilyDataLoaded } from '../actions/font-library.actions';
 
@@ -15,12 +16,14 @@ export class LoadFontFamilyDataEffect {
     this.actions$.pipe(
       ofType(loadFontFamilyData),
       tap(action => {
-        console.log('------- loadFontFamilyData Effect: ' + JSON.stringify(action, null, 4));
+        // const logger = new LoggerService;
+        // logger.enableLogger(true, 'LoadFontFamilyDataEffect');        
+        // logger.log('action', action, undefined, 'LoadFontFamilyDataEffect');
 
         // What to do to get new font data here?
     
       }),
-      delay(2000), // REMOVE THIS!!!!!
+      delay(500), // REMOVE THIS!!!!!
       map(action => fontFamilyDataLoaded())
     ),
   );

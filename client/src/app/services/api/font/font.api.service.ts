@@ -8,12 +8,18 @@ import { routes, FontGroupEnum } from '../../../../../../server/src/app/routes';
 import { UiFont, IUiFont, FontListsEnum } from '../../../models/ui-font.model';
 import { FontApi, FontWeight } from './font.api.model';
 import { map } from 'rxjs/operators';
+import { LoggerService } from '../../logger/logger.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FontApiService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private loggerService: LoggerService
+  ) {
+    this.loggerService.enableLogger(true);
+  }
 
   /**
    * Return all Font objects from font table
@@ -27,8 +33,7 @@ export class FontApiService {
   }
 
   public addFont(font: UiFont): Observable<object> {
-    // TODO
-    console.log('ADD FONT: ' + font.family);
+    this.loggerService.log('addFont', font.family);
     
     const headers = { 'content-type': 'application/json' };
     const body = this.mapUiFontToDbFont(font);
@@ -43,7 +48,7 @@ export class FontApiService {
   }
 
   public removeFont(font: UiFont): Observable<object> {
-    console.log('REMOVE FONT: ' + font.family);
+    this.loggerService.log('removeFont', font.family);
 
     const headers = { 'content-type': 'application/json' };
     const body = { id: font.properties.id };
@@ -62,7 +67,6 @@ export class FontApiService {
    * @param dbFonts fonts from db table
    */
   private mapDbFontsToUiFonts(dbFonts: Observable<FontApi[]>): Observable<UiFont[]> {
-    //console.log('font.api mapDbToUi');
     const uiFontArray: Observable<UiFont[]> = dbFonts.pipe(
       map((fontArray: FontApi[]) => {
         return fontArray.map((font: FontApi) => {
@@ -77,17 +81,13 @@ export class FontApiService {
     const listId = font.blacklisted ? FontListsEnum.BLACKLISTED : font.selectable ? FontListsEnum.SELECTABLE : FontListsEnum.AVAILABLE;
     const uiFont: IUiFont = {
       family: font.family,
-      uiText: '',//font.label,
-      hrefId: '',//font.href,
+      uiText: '',
+      hrefId: '',
       properties: {
         id: font.id,
-        //variants: new Map<FontWeight, boolean>([[font.weight, font.italic]]),
-        //category: font.category,
         listId: listId
       },
     };
-    //console.log('font.api mapDbToUi font: ');
-    //console.log(uiFont);
     return new UiFont(uiFont);
   }
 
@@ -101,17 +101,8 @@ export class FontApiService {
     }
     let fontApi: FontApi = {
       family: uiFont.family,
-      //id: uiFont.properties.id,
-      //label: uiFont.uiText,
-      //href: uiFont.hrefId, // refactor and remove? can construct from family
-      
-      //variants: uiFont.properties.variants,
       selectable: isSelectable,
       blacklisted: isBlacklisted,
-      // TODO: refactor and remove these?
-      //italic: false,
-      //category: "text",
-      //weight: "100",
     }
     return fontApi;
   }

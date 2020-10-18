@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BaseComponent } from '../../abstract/base/base.component';
 
 export type DropdownItem = string | number | object;
 
@@ -16,7 +17,7 @@ export interface SelectOption {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements OnInit, OnChanges {
+export class DropdownComponent extends BaseComponent implements OnInit, OnChanges {
   
   @Input() htmlId: string = undefined;
   @Input() title: string = '';
@@ -30,7 +31,10 @@ export class DropdownComponent implements OnInit, OnChanges {
   public selectOptions$: Observable<SelectOption[]>;
   public selectedOption: DropdownItem;
 
-  constructor() { }
+  constructor() {
+    super();
+    this.loggerService.enableLogger(true);
+  }
   
   ngOnInit(): void {
     // take the options array and check whether it's an object
@@ -44,14 +48,12 @@ export class DropdownComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // check if the options$ array changed
     const keyNames = Object.keys(changes);
-    //debugger;
     if (keyNames.includes('options$')) {
       this.init();
     }
   }
 
   public optionChange($event: DropdownItem) {
-    //console.log("Drowdown optionChange: " + JSON.stringify($event, null, 4));
     this.selectedOption = $event;
     this.onOptionChange.emit($event);
   }
@@ -96,7 +98,7 @@ export class DropdownComponent implements OnInit, OnChanges {
           // is an array of number or string, use option for uiLabel and value
           return options.map(option => ({ uiLabel: option, value: option }));
         } else {
-          //console.log('DropdownComponent init called with options: ' + options);
+          this.loggerService.log('DropdownComponent init called with options: ' + options);
         }
       })
     );

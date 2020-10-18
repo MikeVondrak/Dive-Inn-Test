@@ -27,7 +27,7 @@ export class LoggerService {
     this.callers.set(name, watch);
   }
 
-  public log(text: string, props: { [key: string]: any } = {}, timer?: LogTimer, nameOverride?: string) {
+  public log(text: string, props: { [key: string]: any } | string | number = {}, timer?: LogTimer, nameOverride?: string) {
     const caller = !!nameOverride ? nameOverride : this.getCallingFile();
     const logEnabled = this.callers.get(caller);
     //debugger;
@@ -50,10 +50,13 @@ export class LoggerService {
         console.log(text + '\n');
       }
 
-      Object.keys(props).forEach(key => {
-      //props.forEach(prop => {
-        console.log('\t' + key + ' = ' + props[key]);
-      });
+      if (typeof props === 'object') {
+        Object.keys(props).forEach(key => {
+          console.log('\t' + key + ' = ' + props[key]);
+        });
+      } else {
+        console.log('\t' + props.toString());
+      }
     }
   }
 
@@ -75,7 +78,7 @@ export class LoggerService {
       // - Chrome:    "    at LoggerService.getCallingFile (http://localhost:4200/main.js:1855:24)"
       // - FireFox:   "getCallingFile@http://localhost:4200/main.js:1855:24"
       let parts = line.split('at ');
-      if (!parts) {
+      if (!parts || (parts[0] === undefined) || (parts[1] === undefined)) {
         // invalid format, browser may not be Chrome
         return 'unknown';
       }

@@ -60,6 +60,7 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
   public selectedFontChange(font: UiFont) {
     this.loggerService.log('selectedFontChange', font);
 
+    debugger;
     this.selectedFont = font;
     this.fontWeights$ = of(this.selectedFont?.properties?.variants);
     this.fontWeightOptions$ = this.fontWeights$.pipe(
@@ -103,7 +104,8 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     this.fontInstance = newFontInstance;
   }
 
-  public emitChange() {    
+  public emitChange() {
+    debugger;
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }
