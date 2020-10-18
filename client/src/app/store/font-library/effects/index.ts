@@ -1,3 +1,3 @@
-// import { SetActiveFontInstanceEffect } from './set-active-font-instance.effect';
+import { LoadFontFamilyDataEffect } from './load-font-family-data.effect';
 
-// export const ActiveFontInstanceEffects = [SetActiveFontInstanceEffect];
+export const FontLibraryEffects = [LoadFontFamilyDataEffect];

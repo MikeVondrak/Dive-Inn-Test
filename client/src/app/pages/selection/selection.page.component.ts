@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
+import { getFontDataLoading } from 'src/app/store/font-library/selectors/font-library.selectors';
 
 @Component({
   selector: 'app-selection-page',
@@ -29,6 +30,7 @@ export class SelectionPageComponent implements OnInit {
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
   public fontInstance: FontInstance = { ...this.defaultFontInstance };
   public activeFontInstance$: Observable<FontInstance>;
+  public fontInstanceLoading$: Observable<boolean>;
 
   constructor(
     private serverTestService: ServerTestService,
@@ -36,10 +38,10 @@ export class SelectionPageComponent implements OnInit {
     private store$: Store<AppState>,
   ) {
     this.activeFontInstance$ = this.store$.select<FontInstance>(getActiveFontInstance);
+    this.fontInstanceLoading$ = this.store$.select<boolean>(getFontDataLoading);
   }
 
   ngOnInit(): void {   
-
   }
 
   public fontInstanceChange($event) {

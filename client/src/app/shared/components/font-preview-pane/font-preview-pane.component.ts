@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { LoadingDirective } from 'src/app/directives/loading.directive';
 
 @Component({
   selector: 'app-font-preview-pane',

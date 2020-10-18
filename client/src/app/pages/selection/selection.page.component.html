@@ -8,6 +8,7 @@
       ></app-font-instance-picker>
     
       <app-font-preview-pane
+        *loading="fontInstanceLoading$ | async"
         [fontInstance]="activeFontInstance$ | async"
       ></app-font-preview-pane>
     </div>

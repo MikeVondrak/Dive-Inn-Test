@@ -11,6 +11,7 @@ import { SharedComponentsModule } from '../shared/components/shared-components.m
 
 import { activeFontInstanceReducer } from '../store/active-font-instance/reducers/active-font-instance.reducer';
 import { fontLibraryReducer } from '../store/font-library/reducers/font-library.reducer';
+import { LoadingDirectiveModule } from '../directives/loading-directive.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { fontLibraryReducer } from '../store/font-library/reducers/font-library.
     SharedComponentsModule,
     StoreModule.forFeature('activeFontInstance', activeFontInstanceReducer),
     StoreModule.forFeature('fontLibrary', fontLibraryReducer),
+    LoadingDirectiveModule,
   ],
   providers: [],
   exports: [

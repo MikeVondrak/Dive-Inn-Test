@@ -5,10 +5,7 @@ export const loadFontFamilyData = createAction(
   props<{ family: string }>()
 );
 
-export const fontFamilyDataLoaded = createAction(
-  '[Font Library] Signal Font Family is Available for Use', 
-  props<{ family: string }>()
-);
+export const fontFamilyDataLoaded = createAction('[Font Library] Signal Font Family is Available for Use');
 
 const actions = union({
   loadFontFamilyData,

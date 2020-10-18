@@ -16,6 +16,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './store/app.effects';
 import { AppStoreModule } from './store/store.module';
 
+import { LoadingDirectiveModule } from './directives/loading-directive.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +33,9 @@ import { AppStoreModule } from './store/store.module';
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument(),
     AppStoreModule,
+    LoadingDirectiveModule,
   ],
   providers: [HttpClientModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

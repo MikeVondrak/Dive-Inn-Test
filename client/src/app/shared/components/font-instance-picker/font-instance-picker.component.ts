@@ -9,11 +9,7 @@ import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component'
 import { FontInstance } from '../../../models/font-instance.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
-
-import { 
-  setActiveFontInstance,
-  //setActiveFontFamily,
-} from '../../../store/active-font-instance/actions/active-font-instance.actions';
+import { BaseComponent } from '../abstract/base/base.component';
 
 type FontWeightDropdownSelection = { key: string, value: boolean };
 
@@ -22,7 +18,7 @@ type FontWeightDropdownSelection = { key: string, value: boolean };
   templateUrl: './font-instance-picker.component.html',
   styleUrls: ['./font-instance-picker.component.scss'],
 })
-export class FontInstancePickerComponent implements OnInit {
+export class FontInstancePickerComponent extends BaseComponent implements OnInit {
 
   private readonly defaultFontInstance: FontInstance = {
     family: '',
@@ -51,14 +47,19 @@ export class FontInstancePickerComponent implements OnInit {
   public selectedFont$: Subject<SelectOption> = new Subject<SelectOption>();
 
   constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef, private store$: Store<AppState>) {
+    super();
   }
 
   ngOnInit(): void {
     // enable/disable italic checkbox if font supports
     this.isItalicable('regular').subscribe(italicable => this.italicable = italicable);
+
+    this.loggerService.enableLogger(true);
   }
 
   public selectedFontChange(font: UiFont) {
+    this.loggerService.log('selectedFontChange', font);
+
     this.selectedFont = font;
     this.fontWeights$ = of(this.selectedFont?.properties?.variants);
     this.fontWeightOptions$ = this.fontWeights$.pipe(
@@ -103,12 +104,6 @@ export class FontInstancePickerComponent implements OnInit {
   }
 
   public emitChange() {
-    //debugger;
-    
-    // this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
-    
-    // this.store$.dispatch(setActiveFontFamily({ family: this.fontInstance.family }));
-
     this.setNewFontState();
     this.fontInstanceChange.emit(this.fontInstance);
   }

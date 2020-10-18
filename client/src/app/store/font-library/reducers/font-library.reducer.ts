@@ -18,8 +18,8 @@ const _fontLibraryReducer = createReducer(
     });
   }),
 
-  on(fontFamilyDataLoaded, (state, { family }) => {
-    console.log('+++++ FontLibrary fontFamilyDataLoaded: ' + family);
+  on(fontFamilyDataLoaded, (state) => {
+    console.log('+++++ FontLibrary fontFamilyDataLoaded');
     return ({
       ...state,
       fontDataLoading: false,

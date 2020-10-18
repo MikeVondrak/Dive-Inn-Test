@@ -14,6 +14,7 @@ import { FontSetListComponent } from './font-set-list/font-set-list.component';
 import { PageLoadingComponent } from './page-loading/page-loading.component';
 import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     FontListDisplayComponent,
     FontPreviewPaneComponent,
     FontSetListComponent,
+    LoadingIndicatorComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     FontListDisplayComponent,
     FontPreviewPaneComponent,
     FontSetListComponent,
-  ]
+    LoadingIndicatorComponent
+  ],
+  entryComponents: [LoadingIndicatorComponent]
 })
 export class SharedComponentsModule { }
