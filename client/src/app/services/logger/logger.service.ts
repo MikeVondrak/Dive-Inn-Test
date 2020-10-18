@@ -30,7 +30,7 @@ export class LoggerService {
   public log(text: string, props: { [key: string]: any } | string | number = {}, timer?: LogTimer, nameOverride?: string) {
     const caller = !!nameOverride ? nameOverride : this.getCallingFile();
     const logEnabled = this.callers.get(caller);
-    //debugger;
+
     if (logEnabled) {
       if (caller !== this.currentCaller) {
         console.groupEnd();
@@ -89,7 +89,7 @@ export class LoggerService {
       }
       i++;
     } while (!done);
-    //debugger;
+
     return file;
   }
 }

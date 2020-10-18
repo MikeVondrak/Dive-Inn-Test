@@ -86,6 +86,7 @@ export class FontManagerService {
     //  - if we didn't want to load the data unless the UI was using it we could continue the Observable chain and avoid subscribing
     this.allFonts$.subscribe(
       (allFonts: UiFont[]) => {
+        this.allFonts = allFonts;
         this.parseFontsData(allFonts);
       },
       (err: any) => {
