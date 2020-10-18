@@ -37,7 +37,6 @@ export class FontListDisplayComponent implements OnInit {
 
   public fontClick($event: FontClickedPayload) {
     this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
-
     this.fontClicked.emit($event);
   }
 }

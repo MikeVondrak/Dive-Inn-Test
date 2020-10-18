@@ -308,7 +308,7 @@ export class FontManagerService {
     // - because Available font list is not updated from server data we need to set the new listId for fonts being moved into the Available list
     const oldListId = font.properties.listId;
     font.properties.listId = newList;
-    
+
     // update db side
     switch (dbAction) { 
       case DatabaseAction.ADD:
@@ -323,6 +323,15 @@ export class FontManagerService {
             
             // return updated font list from DB
             return this.fontsApiService.getAllFonts$().pipe(
+              map(newDbFonts => {
+                // combine variant and category from Google fonts data into return from our DB
+                return newDbFonts.map(newDbFont => {
+                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
+                  newDbFont.properties.category = googleFont?.properties?.category;
+                  newDbFont.properties.variants = googleFont?.properties?.variants;
+                  return newDbFont;
+                });
+              }),
               catchError(err => {
                 // TODO: how to actually handle errors
                 font.properties.listId = oldListId;
@@ -351,7 +360,17 @@ export class FontManagerService {
             this.availableFonts.push(font);
 
             // return updated font list from DB
-            return this.fontsApiService.getAllFonts$();
+            return this.fontsApiService.getAllFonts$().pipe(
+              map(newDbFonts => {
+                // combine variant and category from Google fonts data into return from our DB
+                return newDbFonts.map(newDbFont => {
+                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
+                  newDbFont.properties.category = googleFont?.properties?.category;
+                  newDbFont.properties.variants = googleFont?.properties?.variants;
+                  return newDbFont;
+                });
+              }),
+            );
           }),
           catchError(err => {
             return of(null);
@@ -365,10 +384,11 @@ export class FontManagerService {
         throw new Error('Invalid database action: ' + dbAction);
     }
     
-    this.loggerService.log('updateFontsState: ' + font.family + ', font list: ' + font.properties.listId + ', moveToList: ' + moveToList);
+    this.loggerService.log('updateFontsState: font list: ' + font.properties.listId + ', moveToList: ' + moveToList, font);
   }
 
   private handleUpdatedFontData(newFontsList: UiFont[]) {
+
     // move the font and emit new data
     this.clearFontLists();
     this.populateFontLists(newFontsList);
@@ -387,7 +407,6 @@ export class FontManagerService {
    * Update the Selectable, Blacklisted, and Available font lists with data from POST response
    */
   private populateFontLists(fontsData: UiFont[]) {
-    
     fontsData.forEach(uiFont => {
       if (uiFont.properties.listId === FontListsEnum.BLACKLISTED) {
         this.blacklistedFonts.push(uiFont);
