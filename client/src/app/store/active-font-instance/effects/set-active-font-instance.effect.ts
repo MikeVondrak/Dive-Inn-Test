@@ -3,10 +3,11 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, tap } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
-
 import { setActiveFontInstance } from '../actions/active-font-instance.actions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SetActiveFontInstanceEffect {
   constructor(
     private actions$: Actions,

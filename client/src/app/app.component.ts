@@ -40,8 +40,8 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
   ngOnInit(): void {
     this.loggerService.log('ngOnInit');
 
-    // called after the constructor and called once after the first ngOnChanges()
-    this.headUriLoader.loadFontsLink();
+    // called after the constructor and called once after the first ngOnChanges() (debug mode)
+    this.headUriLoader.loadDefaultFonts();
     this.fontManager.init();
   }
 

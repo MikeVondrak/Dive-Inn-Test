@@ -9,6 +9,9 @@ import { UiFont, IUiFont, FontListsEnum } from '../models/ui-font.model';
 import { FontVariants, FontWeight } from '../services/api/font/font.api.model';
 import { Observable, BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
 import { FontClickedPayload } from '../shared/components/font-list-display/font-list-display.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/state';
+import { fontFamilyDataLoaded } from '../store/font-library/actions/font-library.actions';
 
 enum DatabaseAction {
   ADD,
@@ -26,12 +29,11 @@ enum GoogleFontsDataStateEnum {
 })
 export class FontManagerService {
 
-  private googleFontCategories: Set<string> = new Set();
-
-  private blacklistedCategories: string[];
-
   public allFonts: UiFont[] = [];
   private allFonts$: Observable<UiFont[]>;
+
+  private googleFontCategories: Set<string> = new Set();
+  private blacklistedCategories: string[];
 
   private validCategoryFonts: UiFont[] = [];
   private blacklistedFonts: UiFont[] = [];
@@ -45,32 +47,27 @@ export class FontManagerService {
   private _availableFonts$: BehaviorSubject<UiFont[]> = new BehaviorSubject<UiFont[]>([]);
 
   // validCategory
-  // public get selectableFonts$(): Subject<UiFont[]> { return this._selectableFonts$; }
-  // public get blacklistedFonts$(): Subject<UiFont[]> { return this._blacklistedFonts$; }
-  // public get availableFonts$(): Subject<UiFont[]> { return this._availableFonts$; }
   public get selectableFonts$(): Observable<UiFont[]> { return this._selectableFonts$.asObservable(); }
   public get blacklistedFonts$(): Observable<UiFont[]> { return this._blacklistedFonts$.asObservable(); }
   public get availableFonts$(): Observable<UiFont[]> { return this._availableFonts$.asObservable(); }
-  // fontsToDownload
-
-  private timeStart;
-  private timeStop;
-
-
+  
   private googleFontDataLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private googleFontDataLoaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private googleFontDataError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
 
   constructor(
     private googleFontsApiService: GoogleFontsApiService,
     private fontsApiService: FontApiService,
     private headUriService: HeadUriLoaderService,
-    private loggerService: LoggerService
+    private loggerService: LoggerService,
+    private store$: Store<AppState>,
   ) {
     this.loggerService.enableLogger(true);
   }
 
+  /**
+   * @TODO - comment
+   */
   public init(): void {
     // clear data to avoid duplicates when run twice in debugging build
     this.validCategoryFonts = [];
@@ -99,6 +96,145 @@ export class FontManagerService {
         this.setGoogleFontsDataState(GoogleFontsDataStateEnum.LOADED);
       }
     );
+  }
+
+  /**
+   * @TODO - comment
+   */
+  public updateFontsState(payload: FontClickedPayload): void {
+    const font = payload.fontObj;
+    const moveToList = payload.buttonId;
+
+    let newList: FontListsEnum;
+    let dbAction: DatabaseAction;
+
+    // determine which list the font is from by listId property in font
+    switch (font.properties.listId) {
+      case FontListsEnum.BLACKLISTED:
+        newList = FontListsEnum.AVAILABLE;
+        dbAction = DatabaseAction.REMOVE;
+        break;
+      case FontListsEnum.SELECTABLE:
+        newList = FontListsEnum.AVAILABLE;
+        dbAction = DatabaseAction.REMOVE;
+        break;
+      case FontListsEnum.AVAILABLE:
+        dbAction = DatabaseAction.ADD;
+        // figure out which list to move the font to, all actions move font from 1 list to another
+        switch (moveToList) {
+          case "left":
+            newList = FontListsEnum.BLACKLISTED;
+            break;
+          case "right":
+            newList = FontListsEnum.SELECTABLE;
+            break;
+          case FontListsEnum.AVAILABLE:
+            throw new Error('Cannot move font, already in Available Fonts: ' + font.family);
+            break;
+          default: throw new Error('Invalid moveToList argument: ' + moveToList);
+        }
+        break;
+      default: this.loggerService.log('ERROR in updateFontsState - Invalid listId: ', font?.properties?.listId);
+    }
+
+    // update which list the font exists in (UI side)
+    // - because Available font list is not updated from server data we need to set the new listId for fonts being moved into the Available list
+    const oldListId = font.properties.listId;
+    font.properties.listId = newList;
+
+    // update db side
+    switch (dbAction) { 
+      case DatabaseAction.ADD:
+
+        this.fontsApiService.addFont(font).pipe(
+          switchMap(addFontSuccessful => {
+            this.loggerService.log('FontManagerSerice ADD FONT RESPONSE');
+            // if we're adding the font (to Selectable or Blacklisted), it will be removed from Available
+            const idx = this.availableFonts.findIndex(f => f.family === font.family);
+            // manually remove font from the Available list since it's not updated from server data
+            this.availableFonts.splice(idx, 1);
+            
+            // return updated font list from DB
+            return this.fontsApiService.getAllFonts$().pipe(
+              map(newDbFonts => {
+                // combine variant and category from Google fonts data into return from our DB
+                return newDbFonts.map(newDbFont => {
+                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
+                  newDbFont.properties.category = googleFont?.properties?.category;
+                  newDbFont.properties.variants = googleFont?.properties?.variants;
+                  return newDbFont;
+                });
+              }),
+              catchError(err => {
+                // TODO: how to actually handle errors
+                font.properties.listId = oldListId;
+                return of(null);
+              })
+            );
+          }),
+          catchError(err => {
+            font.properties.listId = oldListId;
+            return of(null);
+          })
+        ).subscribe((newFontList: UiFont[]) => {
+          this.handleUpdatedFontData(newFontList);
+        });
+        break;
+
+      case DatabaseAction.REMOVE:
+
+        this.fontsApiService.removeFont(font).pipe(
+          switchMap(removeFontSuccessful => {
+            this.loggerService.log('FontManagerSerice REMOVE FONT RESPONSE');
+
+            // reset ID of font when removing
+            font.properties.id = -1;
+            // if we're removing the font (from Selectable or Blacklisted), it will be added to Available
+            this.availableFonts.push(font);
+
+            // return updated font list from DB
+            return this.fontsApiService.getAllFonts$().pipe(
+              map(newDbFonts => {
+                // combine variant and category from Google fonts data into return from our DB
+                return newDbFonts.map(newDbFont => {
+                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
+                  newDbFont.properties.category = googleFont?.properties?.category;
+                  newDbFont.properties.variants = googleFont?.properties?.variants;
+                  return newDbFont;
+                });
+              }),
+            );
+          }),
+          catchError(err => {
+            return of(null);
+          })
+        ).subscribe( (newFontList: UiFont[]) => {
+          this.handleUpdatedFontData(newFontList);
+        });
+        break;
+
+      default:
+        throw new Error('Invalid database action: ' + dbAction);
+    }
+    
+    this.loggerService.log('updateFontsState: font list: ' + font.properties.listId + ', moveToList: ' + moveToList, font);
+  }
+
+  /**
+   * @TODO - comment
+   */
+  public loadFont$(family: string): Observable<string> {
+    // check to see if the font needs to be downloaded from google. download if necessary
+      // call the font downloader service and get font
+      // subscribe to observable?
+
+    // after font is ready, trigger next step
+      // fontFamilyDataLoaded
+
+    // setActiveFontInstance -> loadFontFamilyData -> fontFamilyDataLoaded
+    debugger;
+    // temporarily - use setTimeout and fake wait then action dispatch
+    return of(family);
   }
 
   /**
@@ -249,143 +385,6 @@ export class FontManagerService {
         break;
       default: { }
     }
-  }
-
-  public updateFontsState(payload: FontClickedPayload): void {
-    const font = payload.fontObj;
-    const moveToList = payload.buttonId;
-
-    let fromList: UiFont[];
-    let toList: UiFont[];
-    let fromList$: BehaviorSubject<UiFont[]>;
-    let toList$: BehaviorSubject<UiFont[]>;
-    let newList: FontListsEnum;
-    let dbAction: DatabaseAction;
-
-    // determine which list the font is from by listId property in font
-    switch (font.properties.listId) {
-      case FontListsEnum.BLACKLISTED:
-        fromList = this.blacklistedFonts;
-        fromList$ = this._blacklistedFonts$;
-        toList = this.availableFonts;
-        toList$ = this._availableFonts$;
-        newList = FontListsEnum.AVAILABLE;
-        dbAction = DatabaseAction.REMOVE;
-        break;
-      case FontListsEnum.SELECTABLE:
-        fromList = this.selectableFonts;
-        fromList$ = this._selectableFonts$;
-        toList = this.availableFonts;
-        toList$ = this._availableFonts$;
-        newList = FontListsEnum.AVAILABLE;
-        dbAction = DatabaseAction.REMOVE;
-        break;
-      case FontListsEnum.AVAILABLE:
-        fromList = this.availableFonts;
-        fromList$ = this._availableFonts$;
-        dbAction = DatabaseAction.ADD;
-        // figure out which list to move the font to, all actions move font from 1 list to another
-        switch (moveToList) {
-          case "left":
-            toList = this.blacklistedFonts;
-            toList$ = this._blacklistedFonts$;
-            newList = FontListsEnum.BLACKLISTED;
-            break;
-          case "right":
-            toList = this.selectableFonts;
-            toList$ = this._selectableFonts$;
-            newList = FontListsEnum.SELECTABLE;
-            break;
-          case FontListsEnum.AVAILABLE:
-            throw new Error('Cannot move font, already in Available Fonts: ' + font.family);
-            break;
-          default: throw new Error('Invalid moveToList argument: ' + moveToList);
-        }
-        break;
-      default: this.loggerService.log('ERROR in updateFontsState - Invalid listId: ', font?.properties?.listId);
-    }
-
-    // update which list the font exists in (UI side)
-    // - because Available font list is not updated from server data we need to set the new listId for fonts being moved into the Available list
-    const oldListId = font.properties.listId;
-    font.properties.listId = newList;
-
-    // update db side
-    switch (dbAction) { 
-      case DatabaseAction.ADD:
-
-        this.fontsApiService.addFont(font).pipe(
-          switchMap(addFontSuccessful => {
-            this.loggerService.log('FontManagerSerice ADD FONT RESPONSE');
-            // if we're adding the font (to Selectable or Blacklisted), it will be removed from Available
-            const idx = this.availableFonts.findIndex(f => f.family === font.family);
-            // manually remove font from the Available list since it's not updated from server data
-            this.availableFonts.splice(idx, 1);
-            
-            // return updated font list from DB
-            return this.fontsApiService.getAllFonts$().pipe(
-              map(newDbFonts => {
-                // combine variant and category from Google fonts data into return from our DB
-                return newDbFonts.map(newDbFont => {
-                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
-                  newDbFont.properties.category = googleFont?.properties?.category;
-                  newDbFont.properties.variants = googleFont?.properties?.variants;
-                  return newDbFont;
-                });
-              }),
-              catchError(err => {
-                // TODO: how to actually handle errors
-                font.properties.listId = oldListId;
-                return of(null);
-              })
-            );
-          }),
-          catchError(err => {
-            font.properties.listId = oldListId;
-            return of(null);
-          })
-        ).subscribe((newFontList: UiFont[]) => {
-          this.handleUpdatedFontData(newFontList);
-        });
-        break;
-
-      case DatabaseAction.REMOVE:
-
-        this.fontsApiService.removeFont(font).pipe(
-          switchMap(removeFontSuccessful => {
-            this.loggerService.log('FontManagerSerice REMOVE FONT RESPONSE');
-
-            // reset ID of font when removing
-            font.properties.id = -1;
-            // if we're removing the font (from Selectable or Blacklisted), it will be added to Available
-            this.availableFonts.push(font);
-
-            // return updated font list from DB
-            return this.fontsApiService.getAllFonts$().pipe(
-              map(newDbFonts => {
-                // combine variant and category from Google fonts data into return from our DB
-                return newDbFonts.map(newDbFont => {
-                  const googleFont = this.allFonts.find(f => f.family === newDbFont.family);
-                  newDbFont.properties.category = googleFont?.properties?.category;
-                  newDbFont.properties.variants = googleFont?.properties?.variants;
-                  return newDbFont;
-                });
-              }),
-            );
-          }),
-          catchError(err => {
-            return of(null);
-          })
-        ).subscribe( (newFontList: UiFont[]) => {
-          this.handleUpdatedFontData(newFontList);
-        });
-        break;
-
-      default:
-        throw new Error('Invalid database action: ' + dbAction);
-    }
-    
-    this.loggerService.log('updateFontsState: font list: ' + font.properties.listId + ', moveToList: ' + moveToList, font);
   }
 
   private handleUpdatedFontData(newFontsList: UiFont[]) {

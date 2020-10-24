@@ -1,8 +1,15 @@
+10/20/20
+- Fix the loop
+- Need to clean up subscriptions in FontManagerService
+
+
+
+
 9/29/20
-- Need to refactor the font-instance-picker to break down the map of font weight / italicable and only pass an array of font weights to the Dropdown
+- Need to refactor the font-instance-picker to break down the map of font weight / italicable and only pass an array of font weights to the Dropdown - DONE
 - Remove map handling from the Dropdown (?)
 
-- Need to sync italic value in checkbox with data for FontInstancePicker
+- Need to sync italic value in checkbox with data for FontInstancePicker - DONE
 
 
 8/22/2020
