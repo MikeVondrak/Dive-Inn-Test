@@ -3,7 +3,7 @@ import { GoogleFontsApiService } from '../services/external/google/google-fonts-
 import { GoogleFontsApi } from '../services/external/google/google-fonts-api.model';
 import { FontApiService } from '../services/api/font/font.api.service';
 import { HeadUriLoaderService } from '../services/head-uri-loader/head-uri-loader.service';
-import { take, map, tap, filter, reduce, every, switchMap, catchError } from 'rxjs/operators';
+import { take, map, tap, filter, reduce, every, switchMap, catchError, delay } from 'rxjs/operators';
 import { LoggerService } from './logger/logger.service';
 import { UiFont, IUiFont, FontListsEnum } from '../models/ui-font.model';
 import { FontVariants, FontWeight } from '../services/api/font/font.api.model';
@@ -224,17 +224,8 @@ export class FontManagerService {
    * @TODO - comment
    */
   public loadFont$(family: string): Observable<string> {
-    // check to see if the font needs to be downloaded from google. download if necessary
-      // call the font downloader service and get font
-      // subscribe to observable?
-
-    // after font is ready, trigger next step
-      // fontFamilyDataLoaded
-
-    // setActiveFontInstance -> loadFontFamilyData -> fontFamilyDataLoaded
-    debugger;
-    // temporarily - use setTimeout and fake wait then action dispatch
-    return of(family);
+    this.loggerService.log('loadFont$: family: ' + family);
+    return this.headUriService.loadFont(family);
   }
 
   /**

@@ -5,6 +5,7 @@ import { fonts } from './head-uri-loader.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { fontFamilyDataError, fontFamilyDataLoaded } from 'src/app/store/font-library/actions/font-library.actions';
+import { bindCallback, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,8 @@ export class HeadUriLoaderService {
   private readonly fontBaseUrlParam = '&display=swap';
 
   private renderer: Renderer2;
+
+  private scriptLoaded$: Subject<string> = new Subject<string>();
 
   constructor(
     rendererFactory: RendererFactory2,
@@ -29,25 +32,28 @@ export class HeadUriLoaderService {
   public loadDefaultFonts() {
     // construct the href string for the link element that will be appended to <head>
     let fontLinkUrl = this.fontBaseUrl;
-    fontLinkUrl = fonts.map(font => font.hrefId).join(this.fontNameSeparator);
+    fontLinkUrl += fonts.map(font => font.hrefId).join(this.fontNameSeparator);
     fontLinkUrl += this.fontBaseUrlParam;
 
     this.loadFontsLink(fontLinkUrl);
   }
 
-  public loadFont(family: string) {
+  public loadFont(family: string): Observable<string> {
     let fontLinkUrl = this.fontBaseUrl + family.replace(' ', '+') + this.fontBaseUrlParam;
-    this.loadFontsLink(fontLinkUrl);
+    this.loadFontsLink(fontLinkUrl, family);
+    return this.scriptLoaded$;
   }
 
   public loadFontsLink(fontLinkUrl: string, family: string = 'default fonts') {
     // construct the link element to append
     const fontLink: HTMLLinkElement = this.renderer.createElement('link');
-    fontLink.type = 'text/html';
+    //fontLink.type = 'text/html'; // DO NOT USE THIS - TODO what mime type?
     fontLink.rel = 'stylesheet';
-    fontLink.href = fontLinkUrl;
+    
     fontLink.onload = this.onloadCallback.bind(this, [family]);
     fontLink.onerror = this.onloadError.bind(this, [family]);
+
+    fontLink.href = fontLinkUrl;
 
     // append <link> to <head>
     this.attachToHead(fontLink);
@@ -58,11 +64,12 @@ export class HeadUriLoaderService {
     head.appendChild(element);
   }
 
-  public onloadCallback(args: string[]) {
-    this.store$.dispatch(fontFamilyDataLoaded({ family: args[0] }));
+  public onloadCallback(args: string[], $event: Event) {
+    const a = args[0];
+    this.scriptLoaded$.next(a);
   }
 
   public onloadError(args: string[]) {
-    this.store$.dispatch(fontFamilyDataError({ family: args[0] }));
+    debugger;
   }
 }
