@@ -10,7 +10,8 @@
         </button>
         
         <div>
-          <p class="font-name">{{ font.family }}</p>
+          <!-- <p class="font-name">{{ font.family }}</p> -->
+          <app-font-preview-pane [fontInstance]="getFontInstance(font)" [previewText]="font.family"></app-font-preview-pane>
   
           <div class="font-details">
             <span>id: {{ font.properties.id }}, </span>

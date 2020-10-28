@@ -40,8 +40,8 @@ export class SetActiveFontInstanceEffect {
         // update font style
     
       }),
-      map(action => loadFontFamilyData({ family: action.fontInstance.family }))
+      //map(action => loadFontFamilyData({ family: action.fontInstance.family }))
     ),
-    //{ dispatch: false }
+    { dispatch: false }
   );
 }

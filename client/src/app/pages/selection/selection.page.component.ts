@@ -50,7 +50,7 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   public fontInstanceChange($event) {
     this.loggerService.log('fontInstanceChange', $event);
     this.fontInstance = {...$event};
-    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));    
+    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
   }
 
 }

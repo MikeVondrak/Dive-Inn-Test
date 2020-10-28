@@ -4,6 +4,7 @@ import { FontManagerService } from '../../../services/font-manager.service';
 import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
+import { FontInstance } from 'src/app/models/font-instance.model';
 
 export type DisplayType = 'family-only' | 'variant-details';
 
@@ -20,6 +21,11 @@ export interface FontClickedPayload {
 })
 export class FontListDisplayComponent implements OnInit {
   public fontListEnum = FontListsEnum;
+  public defaultFontInstance: Partial<FontInstance> = {
+    weight: 'regular',
+    italic: false,
+    size: 18
+  };
   
   @Input() displayType: DisplayType = 'variant-details';
   @Input() fontList$: Subject<UiFont[]>;
@@ -38,5 +44,10 @@ export class FontListDisplayComponent implements OnInit {
   public fontClick($event: FontClickedPayload) {
     this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
     this.fontClicked.emit($event);
+  }
+
+  public getFontInstance(font: UiFont): FontInstance {
+    const fontInstance: FontInstance = { ...this.defaultFontInstance, family: font.family } as FontInstance;
+    return fontInstance;
   }
 }
