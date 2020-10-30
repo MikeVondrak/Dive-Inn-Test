@@ -5,6 +5,7 @@ import { Client, Pool, Query, QueryConfig, QueryResult } from 'pg';
 import { routes } from './routes';
 import { Observable, Observer } from 'rxjs';
 import { SQL } from 'sql';
+import { take } from 'rxjs/operators';
 
 export class ServerApp {
   private app: Application;

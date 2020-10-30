@@ -1,7 +1,7 @@
 -- PostgreSQL v12
 
 -- Type of objects the font will be applied to, e.g. main_nav for setting the main navigation sign posts font
-DROP TABLE IF EXISTS font_type;
+DROP TABLE IF EXISTS font_type CASCADE;
 CREATE TABLE font_type (
     id      SERIAL          PRIMARY KEY,
     type    VARCHAR(20)     NOT NULL
@@ -16,7 +16,7 @@ VALUES
 
 
 -- Category that a font is suggested for, e.g. arial-ish fonts for text, to apply categories within dropdowns
-DROP TABLE IF EXISTS font_category;
+DROP TABLE IF EXISTS font_category CASCADE;
 CREATE TABLE font_category (    
     id          SERIAL          PRIMARY KEY,
     category    VARCHAR(20)     NOT NULL
@@ -27,7 +27,7 @@ VALUES
 
 
 -- Create font weight table
-DROP TABLE IF EXISTS font_weight;
+DROP TABLE IF EXISTS font_weight CASCADE;
 CREATE TABLE font_weight (
     id          SERIAL          PRIMARY KEY,
     weight      VARCHAR(20)     NOT NULL
@@ -38,7 +38,7 @@ VALUES
 
 
 -- Create font table
-DROP TABLE IF EXISTS font;
+DROP TABLE IF EXISTS font CASCADE;
 CREATE TABLE font (
     id                  SERIAL          PRIMARY KEY,
     family              VARCHAR(20)     NOT NULL,
@@ -57,44 +57,26 @@ VALUES
     ('Noto Sans JP', false, true),
     ('Open Sans', false, true);
 
--- Create font properties? table - properties for a specific usage of a font
--- TODO: finish this
-DROP TABLE IF EXISTS font_instance;
+-- Create font_instance table - properties for a specific usage of a font
+DROP TABLE IF EXISTS font_instance CASCADE;
 CREATE TABLE font_instance (
     id                  SERIAL          PRIMARY KEY,
-    fk_font_id          INT,
-    CONSTRAINT font_instance_font_id
-        FOREIGN KEY (fk_font_id)
-            REFERENCES font(id)
-            ON DELETE SET NULL,
-    ui_label            VARCHAR(50),
-    href                VARCHAR(50),
+    family              VARCHAR(20)     NOT NULL,
     italic              BOOLEAN         NOT NULL,
+    size                INT             NOT NULL,
     fk_font_weight_id   INT,
     CONSTRAINT font_instance_font_weight
         FOREIGN KEY (fk_font_weight_id)
             REFERENCES font_weight(id)
-            ON DELETE SET NULL,
-    fk_font_category_id INT,
-    CONSTRAINT font_instance_font_category
-        FOREIGN KEY (fk_font_category_id)
-            REFERENCES font_category(id)
             ON DELETE SET NULL
 );
--- INSERT INTO font_props (fk_font_id, ui_label, href, italic, fk_font_weight_id, fk_font_category_id)
--- VALUES
---     ('Roboto', null, null, false, true, false, 4, 2),
---     ('Roboto Mono', null, null, true, false, true, 7, 2),
---     ('Alfa Slab One', null, null, false, true, false, 4, 1),
---     ('Anton', null, null, false, true, false, 4, 1),
---     ('Bevan', null, null, false, true, false, 4, 1),
---     ('Patua One', null, null, false, true, false, 4, 1),
---     ('Piedra', null, null, false, true, false, 4, 1),
---     ('PT Sans', null, null, false, true, false, 4, 2),
---     -- ('PT Sans', 'PT Sans Bold', 'PT+Sans:wght@700', false, true, false, 7, 2),
---     -- ('PT Sans', 'PT Sans Italic', 'PT+Sans:ital@1', true, true, false, 4, 2),
---     ('NOT A FONT ERROR', null, null, false, true, false, 4, 2),
---     ('PT Sans', 'PT Sans Invalid Weight', 'PT+Sans:wght@200', false, true, false, 2, 2);
+INSERT INTO font_instance (family, italic, size, fk_font_weight_id)
+VALUES
+    ('Roboto', false, 16, 4),
+    ('Roboto', true, 16, 4),
+    ('Roboto', true, 26, 4),
+    ('Roboto Mono', false, 16, 4),
+    ('Roboto Condensed', false, 16, 4);
 
 -- create font_set table that maps a font and font_type to a font_set row, 
 -- multiple font_set rows with the same set_id comprise a "font set" that can be applied to the mock site

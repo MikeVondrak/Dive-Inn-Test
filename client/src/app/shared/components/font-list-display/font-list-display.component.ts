@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { UiFont, IUiFont, FontListsEnum } from '../../../models/ui-font.model';
+import { UiFont, FontListsEnum } from '../../../models/ui-font.model';
 import { FontManagerService } from '../../../services/font-manager.service';
 import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';

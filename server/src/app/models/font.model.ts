@@ -6,10 +6,9 @@ export interface DbFont {
 }
 
 export interface DbFontInstance {
-  font: DbFont;
-  href?: string | null;
-  ui_label?: string | null;
-  weight: string; // TODO: enum of font weight values on server side?
+  id: number;
+  family: string;
+  weight: string;
   italic: boolean;
-  category: string; // TODO: enum?
+  size: number;
 }

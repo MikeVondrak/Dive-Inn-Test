@@ -1,23 +1,21 @@
 export type FontWeight = '100' | '200' | '300' | 'regular' | '500' | '600' | '700' | '800' | '900';
 export type FontCategory = 'header' | 'text' | 'nav' | 'title';
 
-// export type FontVariant = { [key in FontWeight]: boolean };
-// export type FontVariant = Record<FontWeight, boolean>;
-export type FontVariants = Map<FontWeight, boolean>;
+// MUST MATCH font_weight TABLE IN DB 
+export const fontWeightIds: Map<string, number> = new Map([
+  ['100', 1],
+  ['200', 2],
+  ['300', 3],
+  ['regular', 4],
+  ['500', 5],
+  ['600', 6],
+  ['700', 7],
+  ['800', 8],
+  ['900', 9],
+]);
 
-// match what the backend is returning for the fonts API
-// export interface FontApi {
-//   id: number;
-//   family: string;
-//   label?: string | null;
-//   href?: string | null;
-//   italic: boolean;
-//   weight: FontWeight;
-//   selectable: boolean;
-//   blacklisted: boolean;
-//   variants: FontVariants;
-//   category: FontCategory;
-// }
+
+export type FontVariants = Map<FontWeight, boolean>;
 
 export interface FontApi {
   id?: number;
@@ -25,11 +23,12 @@ export interface FontApi {
   selectable: boolean;
   blacklisted: boolean;
 }
+
+// Match data coming from DB
+/** @TODO use the same interface for both BE and FE */
 export interface FontApiInstance {
-  font: FontApi;
-  href?: string | null;
-  ui_label?: string | null;
-  weight: string; // TODO: enum of font weight values on server side?
+  family: string;
+  weight: FontWeight;
   italic: boolean;
-  category: string; // TODO: enum?
+  size: number;
 }

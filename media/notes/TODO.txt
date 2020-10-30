@@ -1,9 +1,17 @@
-10/20/20
-- Fix the loop
+Next
+- finish FontInstance router / server side
+- ExpressionChangedAfterItHasBeenCheckedError - FontManagerService loadFont()
+- Clean up IUiFont and UiFont
+- FontApiInstance and fontWeightIds map - use in service to pass weight ID back when adding new font instance
 - Need to clean up subscriptions in FontManagerService
 
 
 
+
+
+
+10/20/20
+- Fix the loop - DONE
 
 9/29/20
 - Need to refactor the font-instance-picker to break down the map of font weight / italicable and only pass an array of font weights to the Dropdown - DONE

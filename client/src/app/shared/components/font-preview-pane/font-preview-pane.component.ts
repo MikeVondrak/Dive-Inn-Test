@@ -48,7 +48,6 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
   }
 
   private loadFontData(family: string) {
-    // TODO: need to check if font has already been loaded (FontLibrary state)
     this.store$.dispatch(loadFontFamilyData({ family }));
   }
 }

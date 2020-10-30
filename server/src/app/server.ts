@@ -21,6 +21,8 @@ import pgPromise from 'pg-promise';
 const pgp = pgPromise({});
 
 import { DbFont } from './models/font.model';
+import { FontsRouter } from './routers/fonts.router';
+import { TestDataRouter } from './routers/test-data.router';
 
 const PORT: string = process.env.PORT || '3000'; // process.env.PORT set by server (e.g. Heroku) when hosted, or use 3000 for local testing
 
@@ -81,84 +83,14 @@ function makePoolQuery<ReturnType>(route: string, query: string, res: Response, 
     );
 }
 
-const fontsRouter = express.Router();
-fontsRouter.get(routes.api.font._root, (req: Request, res: Response) => {
-  console.log('----- fontsRouter GET: ' + routes.api.font._root);
-  // handle routes where request has query parameters included
-  if (req.query && Object.keys(req.query).length > 0) {
-
-    const queryParam = Object.keys(req.query)[0];
-    switch (queryParam) {
-
-      case 'fontdata':
-        const fontdataValue = req.query[queryParam];
-        switch (fontdataValue) {
-
-          case 'family':
-            makePoolQuery<string[]>(routes.api.font._root, sqlQueries.selectFontsFontFamily, res);
-            break;
-
-          default: throw new Error('Invalid fontdata value: ' + fontdataValue);
-        }
-        break;
-      default: throw new Error('Invalid query param: ' + queryParam);
-    }
-
-  } else {
-    makePoolQuery<DbFont>(routes.api.font._root, sqlQueries.selectFontsTable, res);
-  }
-});
-
-// handle adding new font
-const addFontRoute = routes.api.font._root + routes.api.font.add;
-fontsRouter.post(addFontRoute, (req: Request, res: Response) => {
-  const newFont = [req.body as DbFont];
-
-  const fontColumnSet = new pgp.helpers.ColumnSet(newFont[0], { table: 'font' });
-  const query = pgp.helpers.insert(newFont[0], fontColumnSet);
-
-  console.log('fontsRouter ADD: ' + JSON.stringify(newFont, null, 4));
-  console.log('Modified query: ' + query.toString() + '\n\n');
-
-  makePoolQuery<DbFont>(addFontRoute, query, res);
-
-  //res.send([]);
-});
-// handle removing font
-const removeFontRoute = routes.api.font._root + routes.api.font.remove;
-fontsRouter.post(removeFontRoute, (req: Request, res: Response) => {
-  const removeFontId = [req.body.id];
-
-  console.log('fontsRouter REMOVE: ' + removeFontId);
-
-  makePoolQuery<DbFont>(removeFontRoute, sqlQueries.removeFont, res, removeFontId);
-});
-
-interface TestData {
-  id: number,
-  test_char: string,
-  test_null_char: string,
-  test_varchar: string,
-  test_text: string,
-  test_int: number,
-  test_sm_int: number,
-  test_float: number,
-  test_date: Date,
-  test_time: Date,
-  test_timestamp: Date,
-  test_json: JSON
-}
-const testDataRouter = express.Router();
-testDataRouter.get(routes.api.test, (req: Request, res: Response) => {
-  console.log('***** testDataRouter');
-  makePoolQuery<TestData>(routes.api.test, sqlQueries.selectTestTable, res);
-});
+const fontsRouter = new FontsRouter(makePoolQuery);
+const testDataRouter = new TestDataRouter(makePoolQuery);
 
 const allRoutes = express.Router();
 allRoutes.get(routes.api.other, default200Response);
 
-controllers.push(testDataRouter);
-controllers.push(fontsRouter);
+controllers.push(testDataRouter.router);
+controllers.push(fontsRouter.router);
 controllers.push(allRoutes);
 
 

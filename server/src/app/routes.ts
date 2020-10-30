@@ -14,6 +14,10 @@ export const routes = {
       _queryParam: {
         family: '?fontdata=family'
       },
+      instance: {
+        _root: '/instance',
+        add: '/add'
+      }
     },
     test: '/test-data',
     other: '/other'
