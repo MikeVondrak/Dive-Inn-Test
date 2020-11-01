@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { routes } from '../../../../../../server/src/app/routes';
 import { LoggerService } from '../../logger/logger.service';
+import { FontInstanceApi } from './font-instance.api.model';
+import { fontWeightIds } from '../font/font.api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,19 +27,41 @@ export class FontInstanceApiService {
   public getAllFontInstances$(): Observable<any[]> {
     this.loggerService.log('getAllFontInstances');
 
-    const a: Observable<any[]>
-      = this.http.get<any[]>(this.baseRoute);
-    return a;
+    const allFontInstances: Observable<FontInstance[]>
+      = this.http.get<FontInstance[]>(this.baseRoute);
+    return allFontInstances;
   }
 
   /**
    * Add a font instance to font_instance table
    */
-  public addFontInstance(fontInstance: FontInstance): Observable<any> {
+  public addFontInstance(fontInstance: FontInstance): Observable<object> {
     this.loggerService.log('addFontInstance', JSON.stringify(fontInstance,null,4));
-    
-    const a: Observable<any[]>
-      = this.http.get<any[]>(this.baseRoute + routes.api.font.instance.add);
-    return a;
+    const route = this.baseRoute + routes.api.font.instance.add;
+    const headers = { 'content-type': 'application/json' };
+    const body = this.mapFontInstanceUiToDb(fontInstance);
+    //debugger;
+    const postResponse = this.http.post(
+      route, 
+      body, 
+      { 'headers': headers }
+    );
+    return postResponse;
   }
+
+  private mapFontInstanceUiToDb(fontInstance: FontInstance): FontInstanceApi {
+    let fontInstanceApi: FontInstanceApi = {
+      family : fontInstance.family,
+      fk_font_weight_id: fontWeightIds.get(fontInstance.weight),
+      italic : fontInstance.italic,
+      size : fontInstance.size
+    }
+    return fontInstanceApi;
+  }
+
+  // Already convert weight id to FontWeight from string value in db call
+  // private mapFontInstanceDbToUi(fontInstance: FontInstanceApi): FontInstance {
+  // }
+  
 }
+

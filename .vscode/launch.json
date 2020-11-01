@@ -8,7 +8,7 @@
       "name": "Node Inspector",
       "type": "node",
       "request": "launch",
-      "args": ["${workspaceRoot}/server/app/server.ts"],
+      "args": ["${workspaceRoot}/server/src/app/server.ts"],
       "runtimeArgs": ["-r", "ts-node/register"],
       "cwd": "${workspaceRoot}/server",
       "protocol": "inspector",

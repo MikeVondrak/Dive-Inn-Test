@@ -2,7 +2,7 @@ export type FontWeight = '100' | '200' | '300' | 'regular' | '500' | '600' | '70
 export type FontCategory = 'header' | 'text' | 'nav' | 'title';
 
 // MUST MATCH font_weight TABLE IN DB 
-export const fontWeightIds: Map<string, number> = new Map([
+export const fontWeightIds: Map<FontWeight, number> = new Map([
   ['100', 1],
   ['200', 2],
   ['300', 3],

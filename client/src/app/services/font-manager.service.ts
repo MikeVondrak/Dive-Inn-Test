@@ -224,7 +224,7 @@ export class FontManagerService {
    * @TODO - comment
    */
   public loadFont$(family: string): Observable<string> {
-    this.loggerService.log('loadFont$: family: ' + family);
+    this.loggerService.log('loadFont$ family: ' + family);
     return this.headUriService.loadFont(family);
   }
 

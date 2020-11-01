@@ -1,13 +1,17 @@
 Next
-- finish FontInstance router / server side
-- ExpressionChangedAfterItHasBeenCheckedError - FontManagerService loadFont()
+
+- ExpressionChangedAfterItHasBeenCheckedError - selection-page fontInstanceLoading$ when selecting a font
+- Setup CRUD for Font Sets
+  * interview question - what are all the parts to get CRUD working from FE to BE
+
 - Clean up IUiFont and UiFont
-- FontApiInstance and fontWeightIds map - use in service to pass weight ID back when adding new font instance
 - Need to clean up subscriptions in FontManagerService
 
 
 
 
+- FontApiInstance and fontWeightIds map - use in service to pass weight ID back when adding new font instance - DONE
+- finish FontInstance router / server side - DONE
 
 
 10/20/20
