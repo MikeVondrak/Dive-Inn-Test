@@ -12,6 +12,7 @@ import { SharedComponentsModule } from '../shared/components/shared-components.m
 import { activeFontInstanceReducer } from '../store/active-font-instance/reducers/active-font-instance.reducer';
 import { fontLibraryReducer } from '../store/font-library/reducers/font-library.reducer';
 import { LoadingDirectiveModule } from '../directives/loading-directive.module';
+import { FontSetListComponent } from './selection/components/font-set-list/font-set-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoadingDirectiveModule } from '../directives/loading-directive.module';
     SelectionPageComponent,
     NotFoundComponent,
     FontSetSelectorComponent,
+    FontSetListComponent,
   ],
   imports: [
     CommonModule,

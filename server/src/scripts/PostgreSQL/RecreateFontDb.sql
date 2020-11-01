@@ -75,27 +75,30 @@ VALUES
     ('Roboto', false, 16, 4),
     ('Roboto', true, 16, 4),
     ('Roboto', true, 26, 4),
+    ('Roboto', true, 26, 1),
+    ('Roboto', true, 26, 9),
     ('Roboto Mono', false, 16, 4),
     ('Roboto Condensed', false, 16, 4);
 
 -- create font_set table that maps a font and font_type to a font_set row, 
--- multiple font_set rows with the same set_id comprise a "font set" that can be applied to the mock site
+-- multiple font_set rows with the same set_id comprise a 'font set' that can be applied to the mock site
 DROP TABLE IF EXISTS font_set;
 CREATE TABLE font_set (
     id                  SERIAL          PRIMARY KEY,
     set_id              SMALLINT,
+    set_name            VARCHAR(20)     NOT NULL,
     fk_font_type_id     INT,
     CONSTRAINT font_set_font_type_id
         FOREIGN KEY (fk_font_type_id) 
             REFERENCES font_type(id)
             ON DELETE CASCADE,
-    fk_font_id          INT,
-    CONSTRAINT font_set_font_id
-    FOREIGN KEY (fk_font_id) 
-        REFERENCES font(id)
+    fk_font_instance_id          INT,
+    CONSTRAINT font_set_font_instance_id
+    FOREIGN KEY (fk_font_instance_id) 
+        REFERENCES font_instance(id)
         ON DELETE CASCADE
 );
-INSERT INTO font_set (set_id, fk_font_type_id, fk_font_id)
+INSERT INTO font_set (set_id, set_name, fk_font_type_id, fk_font_instance_id)
 VALUES
-    (1, 1, 1), (1, 2, 1), (1, 3, 2), (1, 4, 2), (1, 5, 6),
-    (2, 1, 2), (2, 2, 3), (2, 3, 3), (2, 4, 2), (2, 5, 7);
+    (1, 'Font Set 1', 1, 1), (1, 'Font Set 1', 2, 1), (1, 'Font Set 1', 3, 2), (1, 'Font Set 1', 4, 2), (1, 'Font Set 1', 5, 6),
+    (2, 'Font Set 2', 1, 2), (2, 'Font Set 2', 2, 3), (2, 'Font Set 2', 3, 3), (2, 'Font Set 2', 4, 2), (2, 'Font Set 2', 5, 7);

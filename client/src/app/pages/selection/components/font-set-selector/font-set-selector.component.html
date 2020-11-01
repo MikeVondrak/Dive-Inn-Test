@@ -1,1 +1,6 @@
-<p>font-set-selector works!</p>
+<div *ngFor="let fi of allFontInstances$ | async">
+  {{ fi.family }}<br>
+  {{ fi.weight }}<br>
+  {{ fi.italic }}<br>
+  {{ fi.size }}<br>
+</div>
