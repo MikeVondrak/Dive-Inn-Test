@@ -10,7 +10,6 @@ import { AnimatedCubeComponent } from './animated-cube/animated-cube.component';
 import { FooterComponent } from './footer/footer.component';
 import { FontInstancePickerComponent } from './font-instance-picker/font-instance-picker.component';
 import { FontPreviewPaneComponent } from './font-preview-pane/font-preview-pane.component';
-import { FontSetListComponent } from './font-set-list/font-set-list.component';
 import { PageLoadingComponent } from './page-loading/page-loading.component';
 import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -27,7 +26,6 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     FontInstancePickerComponent,
     FontListDisplayComponent,
     FontPreviewPaneComponent,
-    FontSetListComponent,
     LoadingIndicatorComponent,
   ],
   imports: [
@@ -47,7 +45,6 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     FontInstancePickerComponent,
     FontListDisplayComponent,
     FontPreviewPaneComponent,
-    FontSetListComponent,
     LoadingIndicatorComponent
   ],
   entryComponents: [LoadingIndicatorComponent]

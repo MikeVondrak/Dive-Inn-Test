@@ -4,9 +4,6 @@ Next
 - Setup CRUD for Font Sets
   * interview question - what are all the parts to get CRUD working from FE to BE
 
-- Clean up IUiFont and UiFont
-- Need to clean up subscriptions in FontManagerService
-
 
 
 

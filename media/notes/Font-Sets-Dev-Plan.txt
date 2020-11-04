@@ -1,0 +1,55 @@
+1. What are the major pieces for getting CRUD operations working from Front End to Back End and back?
+
+Front End
+    UI - allows user to select operations
+    Service - takes operation calls and sends to Server
+    FE Model - converted useful object from API
+    FE API Model - matches to BE API Model
+
+Back End
+    Server/API - talks to Services and DB to store data. Uses route-handling to talk to DB
+    - define routes that can be used by FE (/api/fonts etc)
+    - uses queries to talk to DB
+    DB - stores data
+    BE Model - matches to FE API Model and DB
+
+
+2. What specific files would we need to create to get CRUD working for Font Sets?
+  
+  Components:
+    Font-Set-Selector
+    Font-Set-List    
+
+  Services:
+    Font-Set-Manager
+  
+  Models:
+  FontSet.Model
+    { 
+      name: string,
+      lastUpdated: Date,
+      typeInstanceMap<type: string, instanceId: number>
+      voteCount - future enhancement maybe
+    }
+  FontSetAPI.Model
+    {
+      id,
+      set_id,
+      set_name,
+      fk_font_type_id,
+      font_type_name,
+      fk_font_instance_id
+      last_updated (DATETIME ?)
+    }
+
+  Routes:
+    FontSet GET - api/font/font-set
+    FontSet POST - api/font/font-set/add
+    FontSet POST - api/font/font-set/update
+    FontSet DELETE - api/font/font-set/remove
+
+  Queries:
+    Select all font-sets
+    Insert new font-set
+    Update existing font-set
+    Delete font-set

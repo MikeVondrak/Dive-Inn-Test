@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FontSet } from '../../../../models/font-set.model';
 
 @Component({
   selector: 'app-font-set-list',
@@ -7,14 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FontSetListComponent implements OnInit {
 
+  @Input() fontSetList: FontSet[];
+
   constructor() { }
 
   ngOnInit(): void {
-    // 1
-    // validate that fontInstances can be displayed
 
-    // 2
-    // validate that fontInstances can be added
   }
 
 }
