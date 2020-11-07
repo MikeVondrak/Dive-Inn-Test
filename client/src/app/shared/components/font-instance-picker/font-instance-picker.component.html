@@ -1,36 +1,36 @@
-<app-dropdown #selectableFonts
-  htmlId="SelectableFontsDropdown"
-  title="Fonts"
-  [options$]="selectableFonts$"
-  displayProperty="family"
-  valueProperty="family"
-  (onOptionChange)="selectedFontChange($event)"
-></app-dropdown>
+<div>
+  <app-dropdown #selectableFonts
+    htmlId="SelectableFontsDropdown"
+    title="Font"
+    [options$]="selectableFonts$"
+    displayProperty="family"
+    valueProperty="family"
+    (onOptionChange)="selectedFontChange($event)"
+  ></app-dropdown>
 
-Selected font: {{ selectedFont$ | async }}<br><br>
+  <app-textbox
+    dataType="integer"
+    title="Size"
+    [value]="fontInstance?.size"
+    (textChange)="sizeChange($event)"
+  ></app-textbox>
+</div>
 
-<app-dropdown #fontWeights
-  htmlId="FontWeightsDropdown"
-  title="Weight"
-  [options$]="fontWeightOptions$"
-  displayProperty=""
-  valueProperty=""
-  (onOptionChange)="selectedWeightChange($event)"
-></app-dropdown>
-
-Selected weight: {{ selectedWeight$ | async }}<br><br>
-
-<app-checkbox #italicCheckbox
-  checkboxId="ItalicCheckbox"
-  title="Italic"
-  [checkedValue]="this.fontInstance.italic"
-  [disabled]="!italicable"
-  (onOptionChange)="italicChange($event)"
-></app-checkbox>
-
-<app-textbox
-  dataType="integer"
-  title="Size"
-  [value]="fontInstance?.size"
-  (textChange)="sizeChange($event)"
-></app-textbox>
+<div>
+  <app-dropdown #fontWeights
+    htmlId="FontWeightsDropdown"
+    title="Weight"
+    [options$]="fontWeightOptions$"
+    displayProperty=""
+    valueProperty=""
+    (onOptionChange)="selectedWeightChange($event)"
+  ></app-dropdown>
+  
+  <app-checkbox #italicCheckbox
+    checkboxId="ItalicCheckbox"
+    title="Italic"
+    [checkedValue]="this.fontInstance.italic"
+    [disabled]="!italicable"
+    (onOptionChange)="italicChange($event)"
+  ></app-checkbox>
+</div>

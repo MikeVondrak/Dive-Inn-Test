@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LoggerService } from 'src/app/services/logger/logger.service';
 import { FontSet } from '../../../../models/font-set.model';
 
 @Component({
@@ -10,10 +11,16 @@ export class FontSetListComponent implements OnInit {
 
   @Input() fontSetList: FontSet[];
 
-  constructor() { }
+  constructor(private loggerService: LoggerService) {
+    this.loggerService.enableLogger(true);
+   }
 
   ngOnInit(): void {
 
+  }
+
+  removeFontSet(fontSet) {
+    this.loggerService.log('removeFontSet: ' + fontSet.name);
   }
 
 }

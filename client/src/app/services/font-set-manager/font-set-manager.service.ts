@@ -8,8 +8,8 @@ export class FontSetManagerService {
 
   constructor(private fontSetApiService: FontSetApiService) { }
 
-  getAllFontSets() {
-    this.fontSetApiService.getAllFontSets();
+  public getAllFontSets$() {
+    return this.fontSetApiService.getAllFontSets$();
   }
 
 }

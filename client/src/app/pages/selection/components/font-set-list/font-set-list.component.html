@@ -1,1 +1,38 @@
-<p>font-set-list works!</p>
+<!-- Font Sets:
+<div *ngFor="let fontSet of fontSetList">
+  {{ fontSet.name }}
+  <span *ngFor="let type of fontSet.typeInstanceMap | keyvalue">
+    {{ type.key }}: {{ type.value }}
+  </span>
+</div> -->
+
+<div>
+  <h2>Font Sets</h2>
+  <ul>
+    <li *ngFor="let fontSet of fontSetList">
+      
+      <!-- <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
+        class="remove-button" 
+        (click)="fontClick({fontObj: font, buttonId: 'left'})">
+          &lt;
+      </button> -->
+      
+      <div>
+        {{ fontSet.name}}
+
+        <!-- <div class="font-details">
+          <span>id: {{ font.properties.id }}, </span>
+          <span>category: {{ font.properties.category }}</span>
+        </div> -->
+
+      </div>
+      
+      <button
+        class="remove-button" 
+        (click)="removeFontSet(fontSet)">
+          X
+      </button>
+
+    </li>
+  </ul>
+</div>

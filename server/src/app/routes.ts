@@ -17,6 +17,11 @@ export const routes = {
       instance: {
         _root: '/instance',
         add: '/add'
+      },
+      fontSet: {
+        _root: '/font-set',
+        add: '/add',
+        remove: '/remove'
       }
     },
     test: '/test-data',

@@ -2,4 +2,28 @@
 
 :host {
   display: block;
+  min-width: pxToRem(270px);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: $dive-gray-lt;
+  color: $dive-black;
+  font-weight: bold;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5rem;
+
+    &:first-child {
+      margin-bottom: 0.5rem;
+    }
+
+    app-textbox {
+      ::ng-deep {
+        input {
+          max-width: 2rem;
+        }
+      }
+    }
+  }
 }

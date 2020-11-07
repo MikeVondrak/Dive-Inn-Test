@@ -131,6 +131,5 @@ button {
   Select
 */
 select {
-  margin-bottom: 1em;
   @extend %focusOutline;
 }

@@ -6,8 +6,7 @@ export class BaseRouter {
 
   public router: Router = express.Router();
 
-  constructor(baseRoute: string, sqlQuery: string, routerCallback: RouterCallback<any>) {
-
+  constructor(public baseRoute: string, sqlQuery: string, routerCallback: RouterCallback<any>) {
     this.router.get(baseRoute, (req: Request, res: Response) => {
       console.log('----> baseRouter GET: ' + baseRoute);
       routerCallback(baseRoute, sqlQuery, res);

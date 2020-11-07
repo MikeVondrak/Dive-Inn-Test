@@ -21,7 +21,6 @@ export class FontSetSelectorComponent implements OnInit {
     private store$: Store<AppState>,
     private fontInstanceApiService: FontInstanceApiService,
   ) { 
-    debugger;
     if (!this.afiSub) {
       this.addActiveFontInstance();
     }
@@ -34,7 +33,6 @@ export class FontSetSelectorComponent implements OnInit {
   public addActiveFontInstance(): void {
     const afi: Observable<FontInstance> = this.store$.select(getActiveFontInstance);
     const fis: Observable<FontInstance[]> = this.fontInstanceApiService.getAllFontInstances$();
-    debugger;
     this.afiSub = combineLatest([afi, fis]).pipe(
       filter(([activeFontInstance, fontInstances]) => {
         const fontInstanceIsNew = fontInstances.find(fi => 

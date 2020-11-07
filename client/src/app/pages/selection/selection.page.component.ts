@@ -3,7 +3,8 @@ import { Observable, of, Subject } from 'rxjs';
 
 import { PageLoadingService } from 'src/app/services/page-loading.service';
 import { ServerTestService } from 'src/app/services/server-test/server-test.service';
-import { FontManagerService } from '../../services/font-manager.service'
+import { FontManagerService } from '../../services/font-manager.service';
+import { FontSetManagerService } from '../../services/font-set-manager/font-set-manager.service';
 import { ServerTestData } from 'src/app/services/server-test/server-test.model';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontInstance } from 'src/app/models/font-instance.model';
@@ -33,11 +34,12 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   public fontInstance: FontInstance = { ...this.defaultFontInstance };
   public activeFontInstance$: Observable<FontInstance>;
   public fontInstanceLoading$: Observable<boolean>;
-  public fontSetList$: Observable<FontSet[]> = of([]);
+  public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
 
   constructor(
     private serverTestService: ServerTestService,
     private fontManagerService: FontManagerService,
+    private fontSetManagerService: FontSetManagerService,
     private store$: Store<AppState>,
   ) {
     super();
