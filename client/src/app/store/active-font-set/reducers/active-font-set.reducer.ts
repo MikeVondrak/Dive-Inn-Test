@@ -5,16 +5,16 @@ import {
   setActiveFontSet
 } from '../actions/active-font-set.actions';
 import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-set.state';
- 
+
 const _activeFontSetReducer = createReducer(
   activeFontSetInitialState,
   on(setActiveFontSet, (state, { fontSet }) => 
   { 
-    debugger;
-    return ({
+    const r = {
       ...state,
-      //...fontSet
-    });
+      ...fontSet,
+    }
+    return (r);
   })
 );
  

@@ -19,6 +19,9 @@ import { AppStoreModule } from './store/store.module';
 import { LoadingDirectiveModule } from './directives/loading-directive.module';
 import { AppInjector } from './services/app-injector/app-injector.service';
 
+//import { activeFontSetReducer } from './store/active-font-set/reducers/active-font-set.reducer';
+import { ActiveFontSetModule } from './store/active-font-set/active-font-set.module';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +34,8 @@ import { AppInjector } from './services/app-injector/app-injector.service';
     SharedComponentsModule,
     PagesModule,
     StoreModule.forRoot({}),
+    //StoreModule.forRoot({ activeFontSet: activeFontSetReducer}),
+    ActiveFontSetModule,
     EffectsModule.forRoot([AppEffects]),
     StoreDevtoolsModule.instrument(),
     AppStoreModule,

@@ -26,14 +26,12 @@ export class FontSetListComponent implements OnInit {
 
   }
 
-  
   public fontSetClick(index: number, fontSet: FontSet) {
     this.selectedFontSetIndex = index;
     this.selectedFontSet = fontSet;
   }
   
   public loadFontSet(fontSet: FontSet) {
-    debugger;
     this.store$.dispatch(setActiveFontSet({ fontSet: fontSet }));
   }
 

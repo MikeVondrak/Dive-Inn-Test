@@ -9,12 +9,11 @@ import {
   setActiveFontWeight 
 } from '../actions/active-font-instance.actions';
 import { activeFontInstanceInitialState, ActiveFontInstanceState } from '../active-font-instance.state';
- 
+
 const _activeFontInstanceReducer = createReducer(
   activeFontInstanceInitialState,
   on(setActiveFontInstance, (state, { fontInstance }) => 
   { 
-    debugger;
     return ({
       ...state,
       activeFontFamily: fontInstance.family,
