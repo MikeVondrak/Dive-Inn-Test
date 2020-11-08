@@ -1,3 +1,8 @@
+<h2>Font Type Selector</h2>
+<div *ngFor="let fontType of allFontTypes$ | async">
+  {{ fontType.type }}: {{ fontType.id }}
+</div>
+
 <!-- <div *ngFor="let fi of allFontInstances$ | async">
   {{ fi.family }}<br>
   {{ fi.weight }}<br>

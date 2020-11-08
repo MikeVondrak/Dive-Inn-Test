@@ -14,6 +14,7 @@ const _activeFontInstanceReducer = createReducer(
   activeFontInstanceInitialState,
   on(setActiveFontInstance, (state, { fontInstance }) => 
   { 
+    debugger;
     return ({
       ...state,
       activeFontFamily: fontInstance.family,

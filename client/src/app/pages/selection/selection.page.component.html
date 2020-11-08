@@ -12,12 +12,13 @@
         [fontInstance]="activeFontInstance$ | async"
       ></app-font-preview-pane>
     </div>
-    <div>
-      <app-font-set-selector></app-font-set-selector>
+
+    <div class="layout">
+      <app-font-set-selector
+        
+      ></app-font-set-selector>
       <app-font-set-list [fontSetList]="fontSetList$ | async"></app-font-set-list>
     </div>
-
-
     
   </div><!-- end page -->
 </app-page-loading>

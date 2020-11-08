@@ -25,6 +25,7 @@ import { FontsRouter } from './routers/fonts.router';
 import { TestDataRouter } from './routers/test-data.router';
 import { FontInstanceRouter } from './routers/font-instance.router';
 import { FontSetRouter } from './routers/font-set.router';
+import { FontTypeRouter } from './routers/font-type.router';
 
 const PORT: string = process.env.PORT || '3000'; // process.env.PORT set by server (e.g. Heroku) when hosted, or use 3000 for local testing
 
@@ -88,6 +89,7 @@ function makePoolQuery<ReturnType>(route: string, query: string, res: Response, 
 const fontsRouter = new FontsRouter(makePoolQuery);
 const fontInstanceRouter = new FontInstanceRouter(makePoolQuery);
 const fontSetRouter = new FontSetRouter(makePoolQuery);
+const fontTypeRouter = new FontTypeRouter(makePoolQuery);
 const testDataRouter = new TestDataRouter(makePoolQuery);
 
 const allRoutes = express.Router();
@@ -97,6 +99,7 @@ controllers.push(testDataRouter.router);
 controllers.push(fontsRouter.router);
 controllers.push(fontInstanceRouter.router);
 controllers.push(fontSetRouter.router);
+controllers.push(fontTypeRouter.router);
 controllers.push(allRoutes);
 
 const serverApp = new ServerApp(angularDist, PORT, staticPaths, middleWare, controllers);

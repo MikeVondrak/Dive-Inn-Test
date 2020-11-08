@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { LoggerService } from 'src/app/services/logger/logger.service';
+import { AppState } from 'src/app/store/state';
 import { FontSet } from '../../../../models/font-set.model';
+import { setActiveFontSet } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 
 @Component({
   selector: 'app-font-set-list',
@@ -9,9 +12,13 @@ import { FontSet } from '../../../../models/font-set.model';
 })
 export class FontSetListComponent implements OnInit {
 
+  public loadedFontSetIndex: number = -1;
+  public selectedFontSetIndex: number = -1;
+  public selectedFontSet: FontSet = undefined;
+
   @Input() fontSetList: FontSet[];
 
-  constructor(private loggerService: LoggerService) {
+  constructor(private loggerService: LoggerService, private store$: Store<AppState>) {
     this.loggerService.enableLogger(true);
    }
 
@@ -19,8 +26,18 @@ export class FontSetListComponent implements OnInit {
 
   }
 
-  removeFontSet(fontSet) {
-    this.loggerService.log('removeFontSet: ' + fontSet.name);
+  
+  public fontSetClick(index: number, fontSet: FontSet) {
+    this.selectedFontSetIndex = index;
+    this.selectedFontSet = fontSet;
+  }
+  
+  public loadFontSet(fontSet: FontSet) {
+    debugger;
+    this.store$.dispatch(setActiveFontSet({ fontSet: fontSet }));
   }
 
+  public removeFontSet(fontSet: FontSet) {
+    this.loggerService.log('removeFontSet: ' + fontSet.name);
+  }
 }

@@ -1,9 +1,9 @@
 import { ActiveFontInstanceState } from './active-font-instance/active-font-instance.state';
 import { FontLibraryState } from './font-library/font-library.state';
+import { ActiveFontSetState } from './active-font-set/active-font-set.state'
 
 export interface AppState {
-  //selectionPage?: SelectionPageState
-
-  activeFontInstance?: ActiveFontInstanceState,
   fontLibrary?: FontLibraryState,
+  activeFontInstance?: ActiveFontInstanceState,
+  activeFontSet?: ActiveFontSetState,
 }

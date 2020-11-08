@@ -3,9 +3,10 @@ import { Store } from '@ngrx/store';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { FontType } from 'src/app/models/font-type.model';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { AppState } from 'src/app/store/state';
-import { FontInstanceApiService } from '../../../../services/api/font-instance/font-instance.api.service';
+import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
 
 @Component({
   selector: 'app-font-set-selector',
@@ -14,39 +15,17 @@ import { FontInstanceApiService } from '../../../../services/api/font-instance/f
 })
 export class FontSetSelectorComponent implements OnInit {
 
-  public allFontInstances$: Observable<FontInstance[]> = this.fontInstanceApiService.getAllFontInstances$();
-  private afiSub: Subscription = undefined;
+  public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.getAllFontTypes$();
 
   constructor(
     private store$: Store<AppState>,
-    private fontInstanceApiService: FontInstanceApiService,
+    private fontTypeManagerService: FontTypeManagerService
   ) { 
-    if (!this.afiSub) {
-      this.addActiveFontInstance();
-    }
+    
   }
 
   ngOnInit(): void {
     
-  }
-
-  public addActiveFontInstance(): void {
-    const afi: Observable<FontInstance> = this.store$.select(getActiveFontInstance);
-    const fis: Observable<FontInstance[]> = this.fontInstanceApiService.getAllFontInstances$();
-    this.afiSub = combineLatest([afi, fis]).pipe(
-      filter(([activeFontInstance, fontInstances]) => {
-        const fontInstanceIsNew = fontInstances.find(fi => 
-          fi.family === activeFontInstance.family && 
-          fi.weight === activeFontInstance.weight && 
-          fi.size === activeFontInstance.size && 
-          fi.italic === activeFontInstance.italic);
-        return !fontInstanceIsNew;
-      }),
-      map(([afi,]) => afi),
-    ).subscribe(activeFontInstance => {
-      debugger;
-      this.fontInstanceApiService.addFontInstance(activeFontInstance).subscribe();
-    })
   }
 
 }

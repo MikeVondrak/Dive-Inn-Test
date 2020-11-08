@@ -28,12 +28,16 @@ export const sqlQueries = {
   insertFont: 'INSERT INTO font() VALUES($1)',
   removeFont: 'DELETE FROM font WHERE id = $1',
 
+  // font types
+  getFontTypes: 'SELECT * FROM font_type',
+
   // font instance table  
   getFontInstances:
     `SELECT * FROM font_instance 
       INNER JOIN font_weight ON fk_font_weight_id = font_weight.id`,
   addFontInstance: 'INSERT INTO font_instance(family, italic, size, weight) VALUES($1,$2,$3,$4)',
 
+  // font sets
   getFontSets:
     `SELECT * FROM font_set
       INNER JOIN font_type ON fk_font_type_id = font_type.id`,

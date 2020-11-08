@@ -10,7 +10,7 @@ const pgp = pgPromise({});
 
 export class FontInstanceRouter extends BaseRouter {
 
-  constructor(routerCallback: RouterCallback<DbFont>) {
+  constructor(routerCallback: RouterCallback<DbFontInstance>) {
     const baseRoute = routes.api.font._root + routes.api.font.instance._root;
     const baseQuery = sqlQueries.getFontInstances;
     super(baseRoute, baseQuery, routerCallback); // base class handles 'get-all' instances

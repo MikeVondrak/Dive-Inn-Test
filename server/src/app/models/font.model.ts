@@ -29,3 +29,8 @@ export interface DbFontSetReturn {
   last_updated: Date,
   type_instance_map: Map<string, number>
 }
+
+export interface DbFontType {
+  id: number,
+  type: string,
+}

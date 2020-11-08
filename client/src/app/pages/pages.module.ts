@@ -13,6 +13,7 @@ import { activeFontInstanceReducer } from '../store/active-font-instance/reducer
 import { fontLibraryReducer } from '../store/font-library/reducers/font-library.reducer';
 import { LoadingDirectiveModule } from '../directives/loading-directive.module';
 import { FontSetListComponent } from './selection/components/font-set-list/font-set-list.component';
+import { FontTypeInstanceLoaderComponent } from './selection/components/font-type-instance-loader/font-type-instance-loader.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FontSetListComponent } from './selection/components/font-set-list/font-
     NotFoundComponent,
     FontSetSelectorComponent,
     FontSetListComponent,
+    FontTypeInstanceLoaderComponent,
   ],
   imports: [
     CommonModule,

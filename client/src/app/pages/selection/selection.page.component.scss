@@ -6,10 +6,17 @@
   .layout {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: flex-start;
+    column-gap: 4rem;
   }
 
-  app-font-set-list {
-    max-width: 200px;
+  .page {
+    > div {
+      margin-bottom: 3rem;
+    }
+    app-font-set-list {
+      max-width: 200px;
+    }
   }
 }

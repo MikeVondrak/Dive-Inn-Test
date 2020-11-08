@@ -14,6 +14,9 @@ export const routes = {
       _queryParam: {
         family: '?fontdata=family'
       },
+      type: {
+        _root: '/type',
+      },
       instance: {
         _root: '/instance',
         add: '/add'
