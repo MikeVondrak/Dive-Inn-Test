@@ -6,13 +6,6 @@ import { featureKey } from '../feature-key';
 
 export const selectFeatureActiveFontSet = createFeatureSelector<AppState, ActiveFontSetState>(featureKey);
 
-// export const getActiveFontSet = createSelector(
-//   selectFeatureActiveFontSet,
-//   (state: ActiveFontSetState) => {
-//     return state.activeFontSet
-//   }
-// );
-
 export const getActiveFontSetId = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => state.setId
@@ -21,4 +14,14 @@ export const getActiveFontSetId = createSelector(
 export const getActiveFontSetName = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => state.name
+);
+
+export const getActiveFontSetLastUpdated = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => state.lastUpdated
+);
+
+export const getActiveFontSetTypeInstanceMap = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => state.typeInstanceMap
 );

@@ -3,27 +3,26 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { map, tap } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
-import { setActiveFontInstance } from '../actions/active-font-instance.actions';
+import { setDefaultActiveFontSet } from '../actions/active-font-set.actions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SetActiveFontInstanceEffect {
+export class SetDefaultActiveFontSetEffect {
   constructor(
     private actions$: Actions,
     
   ) {}
 
-
-  // logic moved to FontLibrary
-  setActiveFontInstance$ = createEffect(() =>
+  setDefaultActiveFontSet$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(setActiveFontInstance),
+      ofType(setDefaultActiveFontSet),
       tap(action => {
         const logger = new LoggerService;
-        logger.enableLogger(true, 'SetActiveFontInstanceEffect');        
-        logger.log('action', action, undefined, 'SetActiveFontInstanceEffect');
+        logger.enableLogger(true, 'SetDefaultActiveFontSetEffect');        
+        logger.log('action', action, undefined, 'SetDefaultActiveFontSetEffect');    
       }),
+      //map(action => loadFontFamilyData({ family: action.fontInstance.family }))
     ),
     { dispatch: false }
   );

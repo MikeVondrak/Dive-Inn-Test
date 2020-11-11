@@ -1,10 +1,14 @@
-<h2>Font Type Selector</h2>
+<h2>Font Set Selector</h2>
 <div>
-  Active Font Set: {{ (activeFontSet$ | async) }}
+  Active Font Set: {{ (activeFontSetName$ | async) }}
 </div>
 
 <br><br>
 
-<div *ngFor="let fontType of allFontTypes$ | async">
-  {{ fontType.type }}: {{ fontType.id }}
-</div>
+<!-- <div *ngFor="let fontTypeInstance of (activeFontSetTypeInstanceMap$ | async) | keyvalue">
+  <app-font-type-instance-loader
+
+  ></app-font-type-instance-loader>
+  
+  Type: {{ fontTypeInstance.key }}<br>Id: {{ fontTypeInstance.value }}<br><br>
+</div> -->
