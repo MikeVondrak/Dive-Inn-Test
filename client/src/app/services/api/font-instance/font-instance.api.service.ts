@@ -35,7 +35,7 @@ export class FontInstanceApiService {
   /**
    * Add a font instance to font_instance table
    */
-  public addFontInstance(fontInstance: FontInstance): Observable<object> {
+  public addFontInstance$(fontInstance: FontInstance): Observable<object> {
     this.loggerService.log('addFontInstance', JSON.stringify(fontInstance,null,4));
     const route = this.baseRoute + routes.api.font.instance.add;
     const headers = { 'content-type': 'application/json' };
@@ -49,8 +49,15 @@ export class FontInstanceApiService {
     return postResponse;
   }
 
+  public getFontInstanceById$(id: number): Observable<FontInstance> {
+    this.loggerService.log('getFontInstanceById', id);
+    const fi: Observable<FontInstance> = this.http.get<FontInstance>(this.baseRoute + id);
+    return fi;
+  }
+
   private mapFontInstanceUiToDb(fontInstance: FontInstance): FontInstanceApi {
     let fontInstanceApi: FontInstanceApi = {
+      id : fontInstance.id,
       family : fontInstance.family,
       fk_font_weight_id: fontWeightIds.get(fontInstance.weight),
       italic : fontInstance.italic,

@@ -25,3 +25,8 @@ export const getActiveFontSetTypeInstanceMap = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => state.typeInstanceMap
 );
+
+export const getActiveFontSetFontInstances = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => state.fontInstances
+)

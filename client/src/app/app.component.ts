@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-// service to send 'appReady' event to index.html to remove pre-bootstap loader element
-import { AppReadyEvent } from './app-ready-event';
+import { AppReadyEvent } from './app-ready-event'; // service to send 'appReady' event to index.html to remove pre-bootstap loader element
 import { PageLoadingService } from './services/page-loading.service';
 import { HeadUriLoaderService } from './services/head-uri-loader/head-uri-loader.service';
-// import { GoogleFontsApiResponse } from './services/external/google/google-fonts-api.model';
-// import { GoogleFontsApiService } from './services/external/google/google-fonts-api.service';
 import { FontManagerService } from './services/font-manager.service';
 import { BaseComponent } from './shared/components/abstract/base/base.component';
+import { AppState } from './store/state';
+import { loadFontInstances } from './store/font-instance-library/actions/font-instance-library.actions';
+import { setDefaultActiveFontSet } from './store/active-font-set/actions/active-font-set.actions';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
 
   constructor(
     appReady: AppReadyEvent,
+    private store$: Store<AppState>,
     private pageLoadingService: PageLoadingService,
     private headUriLoader: HeadUriLoaderService, 
     private fontManager: FontManagerService
@@ -45,7 +47,10 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
     this.fontManager.init();
 
     // dispatch action to initialize the activeFontSet to a blank state
+    this.store$.dispatch(setDefaultActiveFontSet());
 
+    // dispatch action to load font instance list from DB
+    this.store$.dispatch(loadFontInstances());
   }
 
   ngAfterViewInit(): void {

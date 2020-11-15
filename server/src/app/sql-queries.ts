@@ -35,7 +35,8 @@ export const sqlQueries = {
   getFontInstances:
     `SELECT * FROM font_instance 
       INNER JOIN font_weight ON fk_font_weight_id = font_weight.id`,
-  addFontInstance: 'INSERT INTO font_instance(family, italic, size, weight) VALUES($1,$2,$3,$4)',
+  getFontInstanceById: 'SELECT * FROM font_instance WHERE id = $1',
+  addFontInstance: 'INSERT INTO font_instance(family, italic, size, weight) VALUES($1, $2, $3, $4)',
 
   // font sets
   getFontSets:
@@ -46,3 +47,4 @@ export const sqlQueries = {
 }
 
 // WHERE family = $1 AND italic = $2 AND size = $3 AND weight = $4
+//

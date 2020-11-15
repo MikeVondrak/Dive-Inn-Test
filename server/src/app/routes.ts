@@ -19,7 +19,10 @@ export const routes = {
       },
       instance: {
         _root: '/instance',
-        add: '/add'
+        add: '/add',
+        _routeParam: {
+          id: ':id',
+        }
       },
       fontSet: {
         _root: '/font-set',

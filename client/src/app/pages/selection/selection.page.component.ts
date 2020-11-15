@@ -24,6 +24,7 @@ import { FontSet } from 'src/app/models/font-set.model';
 export class SelectionPageComponent extends BaseComponent implements OnInit {
 
   private readonly defaultFontInstance: FontInstance = {
+    id: -1,
     family: '',
     italic: false,
     size: 36,

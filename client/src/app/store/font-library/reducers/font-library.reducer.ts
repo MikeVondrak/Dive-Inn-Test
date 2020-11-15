@@ -39,7 +39,7 @@ const _fontLibraryReducer = createReducer(
   on(fontFamilyDataError, (state, { family }) => {
     const logger = new LoggerService;
     logger.enableLogger(true, 'FontLibrary');
-    logger.log('reducer fontFamilyDataLoaded', family, undefined, 'FontLibrary');
+    logger.log('reducer fontFamilyDataError', family, undefined, 'FontLibrary');
     return ({
       ...state,
       fontDataLoading: false,

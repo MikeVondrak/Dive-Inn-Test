@@ -4,6 +4,10 @@
 </div>
 
 <br><br>
+moo
+<div *ngFor="let fi of (activeFontSetFontInstances$ | async)">
+  Font Type-Instance: {{ fi.family }} {{ fi.id }}
+</div>
 
 <!-- <div *ngFor="let fontTypeInstance of (activeFontSetTypeInstanceMap$ | async) | keyvalue">
   <app-font-type-instance-loader

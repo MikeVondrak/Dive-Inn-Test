@@ -9,6 +9,7 @@ export const getActiveFontInstance = createSelector(
   selectFeatureActiveFontInstance,
   (state: ActiveFontInstanceState) => {
     const fontInstance: FontInstance = {
+      id: state.activeFontInstanceId,
       family: state.activeFontFamily,
       weight: state.activeFontWeight,
       italic: state.activeFontItalic,

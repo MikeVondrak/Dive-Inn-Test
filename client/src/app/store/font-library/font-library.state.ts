@@ -3,6 +3,7 @@ export interface FontLibraryState {
   readonly fontDataLoading: boolean,
   readonly fontDataLoaded: boolean,
   readonly fontDataError: boolean,
+  readonly testestest: boolean,
 }
 
 
@@ -14,4 +15,5 @@ export const fontLibraryInitialState: FontLibraryState = {
   fontDataLoading: false,
   fontDataLoaded: false,
   fontDataError: false,
+  testestest: true,
 }

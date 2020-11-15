@@ -15,8 +15,22 @@ export class FontInstanceRouter extends BaseRouter {
     const baseQuery = sqlQueries.getFontInstances;
     super(baseRoute, baseQuery, routerCallback); // base class handles 'get-all' instances
 
+    // get FontInstance by ID
+    let route = baseRoute + routes.api.font.instance._routeParam.id;
+    this.router.get(route, (req: Request, res: Response) => {
+      
+      // create query w/req.params.id as SQL query param
+      const query = sqlQueries.getFontInstanceById;
+      const fontSetId = [req.params.id];
+
+      console.log('fontInstanceRouter GET by ID: ' + fontSetId);
+      console.log('query: ' + query.toString() + '\n\n');
+
+      routerCallback(route, query, res, fontSetId);
+    });
+    
     // handle adding a new font instance
-    let route = baseRoute + routes.api.font.instance.add;
+    route = baseRoute + routes.api.font.instance.add;
     this.router.post(route, (req: Request, res: Response) => {
       const newFont = [req.body as DbFontInstance];
       const fontInstanceColumnSet = new pgp.helpers.ColumnSet(newFont[0], { table: 'font_instance' });
@@ -28,6 +42,16 @@ export class FontInstanceRouter extends BaseRouter {
       routerCallback(route, query, res);
     });
 
-    // font instances are never removed in case they are reused in the future
+
+
+
+
+
+
+
+
+
+
+    // NOTE: font instances are never removed in case they are reused in the future
   }
 }

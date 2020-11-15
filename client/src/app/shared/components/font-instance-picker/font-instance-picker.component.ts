@@ -21,6 +21,7 @@ type FontWeightDropdownSelection = { key: string, value: boolean };
 export class FontInstancePickerComponent extends BaseComponent implements OnInit {
 
   private readonly defaultFontInstance: FontInstance = {
+    id: -1,
     family: '',
     italic: false,
     size: 36,

@@ -27,6 +27,12 @@ export class LoggerService {
     this.callers.set(name, watch);
   }
 
+  /**
+   * text: text to log to console
+   * props: optional object/propery to output
+   * timer: start/stop timer
+   * nameOverride: use instead of parsing stack trace for function name
+   */
   public log(text: string, props: { [key: string]: any } | string | number = {}, timer?: LogTimer, nameOverride?: string) {
     const caller = !!nameOverride ? nameOverride : this.getCallingFile();
     const logEnabled = this.callers.get(caller);
