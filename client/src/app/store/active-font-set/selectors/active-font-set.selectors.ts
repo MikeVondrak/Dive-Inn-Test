@@ -21,9 +21,9 @@ export const getActiveFontSetLastUpdated = createSelector(
   (state: ActiveFontSetState) => state.lastUpdated
 );
 
-export const getActiveFontSetTypeInstanceMap = createSelector(
+export const getActiveFontSetTypeInstances = createSelector(
   selectFeatureActiveFontSet,
-  (state: ActiveFontSetState) => state.typeInstanceMap
+  (state: ActiveFontSetState) => state.typeInstances
 );
 
 export const getActiveFontSetFontInstances = createSelector(

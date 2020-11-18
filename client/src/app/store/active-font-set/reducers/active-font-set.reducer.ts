@@ -13,14 +13,14 @@ import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-se
 const _activeFontSetReducer = createReducer(
   activeFontSetInitialState,
   on(setActiveFontSet, (state, { fontSet }) => { 
-    debugger;
     const r = {
       ...state,
       ...fontSet,
       typeInstanceMap: new Map(fontSet.typeInstanceMap),
+      typeInstances: Array.from(fontSet.typeInstanceMap),
       fontInstances: [],
       fontSetLoading: true,
-    }
+    };
     return (r);
   }),
   on(setDefaultActiveFontSet, (state) => {
@@ -36,10 +36,11 @@ const _activeFontSetReducer = createReducer(
     return state;
   }),
   on(setActiveFontSetFontInstance, (state, { fontType, fontInstance }) => {
-    return ({
+    const r = {
       ...state,
       fontInstances: [...state.fontInstances, fontInstance]
-    });
+    };
+    return (r);
   }),
   on(fontSetLoaded, (state) => {
     return({

@@ -26,9 +26,10 @@ export class FontInstanceApiService {
    */
   public getAllFontInstances$(): Observable<any[]> {
     this.loggerService.log('getAllFontInstances');
-
+    
     const allFontInstances: Observable<FontInstance[]>
       = this.http.get<FontInstance[]>(this.baseRoute);
+
     return allFontInstances;
   }
 

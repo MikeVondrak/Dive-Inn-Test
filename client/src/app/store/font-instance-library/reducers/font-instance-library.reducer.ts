@@ -23,7 +23,6 @@ const _fontInstanceLibraryReducer = createReducer(
   }),
   on(fontInstancesLoaded, (state, { allFontInstances }) => {
     logger('fontInstancesLoaded');
-    debugger;
     return ({
       ...state,
       fontInstancesLoading: false,
