@@ -10,8 +10,8 @@ export interface FontInstance {
 
 export const defaultFontInstance: FontInstance = {
   id: -1,
-  family: '',
+  family: 'Roboto',
   italic: false,
-  size: 36,
-  weight: '100'
+  size: 16,
+  weight: 'regular'
 }

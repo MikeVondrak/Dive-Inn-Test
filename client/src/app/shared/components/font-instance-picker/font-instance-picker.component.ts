@@ -56,11 +56,14 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     // check if the fontInstance input changed
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
+      //debugger;
       if (!!this.fontInstance.family) {
         this.selectableFonts$.subscribe(fonts => {
           const uiFont = fonts.find(font => font.family === this.fontInstance.family);
           if (uiFont && (!this.selectedFont || !uiFont.equals(this.selectedFont))) {
-            this.selectableFonts.setSelected(uiFont);
+            if (!!this.selectableFonts) {
+              this.selectableFonts.setSelected(uiFont);
+            }
             setTimeout(() => {
               this.fontWeights.setSelected(this.fontInstance.weight);
             });

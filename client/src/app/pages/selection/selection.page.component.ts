@@ -42,13 +42,13 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
+    this.store$.dispatch(setActiveFontInstance({ fontInstance: {...this.fontInstance} }));
   }
 
-  public fontInstanceChange($event) {
-    this.loggerService.log('fontInstanceChange', $event);
-    this.fontInstance = {...$event};
-    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
+  public fontInstanceChange(newFontInstance: FontInstance) {
+    this.loggerService.log('fontInstanceChange', newFontInstance);
+    this.fontInstance = {...newFontInstance};
+    this.store$.dispatch(setActiveFontInstance({ fontInstance: {...this.fontInstance} }));
   }
 
 }

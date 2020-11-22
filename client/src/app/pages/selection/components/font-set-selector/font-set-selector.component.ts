@@ -43,12 +43,10 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public storeActiveFontInstanceToSet(fontTypeInstanceKvp: FontTypeInstanceKvp) {
-    // what steps need to happen, in english?
-    // save activeFontInstance to activeFontSet
-    //  dispatch existing fontType instance of the activeFontSet in the store
+    const ftiKvp = {...fontTypeInstanceKvp};
     this.store$.select(getActiveFontInstance).pipe(take(1)).subscribe(afi => {
-      fontTypeInstanceKvp.value = afi;
-      this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstanceKvp: fontTypeInstanceKvp}));
+      ftiKvp.value = Object.assign({}, afi);
+      this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstanceKvp: ftiKvp}));
     });
   }
 

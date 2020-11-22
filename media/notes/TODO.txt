@@ -1,12 +1,12 @@
 Next
 
-- ExpressionChangedAfterItHasBeenCheckedError - selection-page fontInstanceLoading$ when selecting a font
 - Setup CRUD for Font Sets
   * interview question - what are all the parts to get CRUD working from FE to BE
 
+- handle default font instance loading overwriting user-selected font instance selection
 
 
-
+- ExpressionChangedAfterItHasBeenCheckedError - selection-page fontInstanceLoading$ when selecting a font - DONE
 - FontApiInstance and fontWeightIds map - use in service to pass weight ID back when adding new font instance - DONE
 - finish FontInstance router / server side - DONE
 
