@@ -7,4 +7,4 @@ export interface FontType {
 
 export type FontTypeIdKvp = [string, number];
 
-export type FontTypeInstanceKvp = [string, FontInstance]; // font type as string e.g. "Header Text" + FontInstance
+export type FontTypeInstanceKvp = {key: string, value: FontInstance}; // font type as string e.g. "Header Text" + FontInstance

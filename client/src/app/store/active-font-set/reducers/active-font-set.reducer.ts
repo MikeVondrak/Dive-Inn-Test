@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   ActiveFontSetActions, 
@@ -35,11 +36,12 @@ const _activeFontSetReducer = createReducer(
 
     return state;
   }),
-  on(setActiveFontSetFontInstance, (state, { fontType, fontInstance }) => {
+  on(setActiveFontSetFontInstance, (state, { fontTypeInstanceKvp }) => {
     const r = {
       ...state,
-      fontInstances: [...state.fontInstances, fontInstance]
+      fontInstances: [...state.fontInstances, fontTypeInstanceKvp]
     };
+    debugger;
     return (r);
   }),
   on(fontSetLoaded, (state) => {

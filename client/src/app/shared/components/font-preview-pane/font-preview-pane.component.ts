@@ -22,15 +22,20 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
   constructor(private store$: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.buildStyleString();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // debugger;
     // check if the fontInstance input changed
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
       if (!!this.fontInstance.family) {
         // make sure the font to be displayed has been downloaded
-        this.loadFontData(this.fontInstance.family);
+        setTimeout(() => {
+          this.loadFontData(this.fontInstance.family);
+        });
+        
         // rebuild the style string whenever fontInstance changes
         this.buildStyleString();
       }

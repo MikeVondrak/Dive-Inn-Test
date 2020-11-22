@@ -23,12 +23,12 @@ export class TextboxComponent<TextboxType> implements OnInit {
   ngOnInit(): void {
   }
 
-  public onNgModelChange($event: Event) {
+  public onNgModelChange(value: string) {
+    this.value = value;
     this.textChange.emit(this.value);
 
     if (this.dataType === 'integer') {
       let parsed = Number(this.value);
-      //if (!Number.isInteger(this.value)) {
       if (isNaN(parsed)) {
         this.setErrorState();
       } else {

@@ -6,6 +6,9 @@ import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontSet } from 'src/app/models/font-set.model';
 import { FontType, FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
+import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
+import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
+import { setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { getActiveFontSetFontInstances, getActiveFontSetName, getActiveFontSetTypeInstances } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { AppState } from 'src/app/store/state';
 import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
@@ -34,5 +37,19 @@ export class FontSetSelectorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  public setActiveFontInstance(fontTypeInstanceKvp: FontTypeInstanceKvp) {
+    this.store$.dispatch(setActiveFontInstance({fontInstance: fontTypeInstanceKvp.value}));
+  }
+
+  public storeActiveFontInstanceToSet(fontTypeInstanceKvp: FontTypeInstanceKvp) {
+    // what steps need to happen, in english?
+    // save activeFontInstance to activeFontSet
+    //  dispatch existing fontType instance of the activeFontSet in the store
+    this.store$.select(getActiveFontInstance).pipe(take(1)).subscribe(afi => {
+      fontTypeInstanceKvp.value = afi;
+      this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstanceKvp: fontTypeInstanceKvp}));
+    });
+  }
 
 }

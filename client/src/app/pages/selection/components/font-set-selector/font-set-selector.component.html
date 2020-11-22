@@ -3,25 +3,31 @@
   Active Font Set: {{ (activeFontSetName$ | async) }}
 </div>
 
-<div *ngFor="let fontTypeInstance of (activeFontSetTypeInstanceIds$ | async) | keyvalue">
+<div *ngFor="let fontTypeInstance of (activeFontSetFontInstances$ | async)">
+  <h4>{{fontTypeInstance.key}}</h4>
   <app-font-type-instance-loader
-    [fontInstance]="fontTypeInstance"
-    [previewText]="fontTypeInstance.value"
+    [fontTypeInstanceKvp]="fontTypeInstance"
+    [displayText]="fontTypeInstance.value.family + ' ' + fontTypeInstance.value.size + ' ' + fontTypeInstance.value.weight"
+    (upClicked)="setActiveFontInstance($event)"
+    (downClicked)="storeActiveFontInstanceToSet($event)"
   ></app-font-type-instance-loader>
+  <!-- <div>
+    Font Type-Instance: {{ fontTypeInstance?.key }} - {{ fontTypeInstance?.value?.family }}
+  </div> -->
 </div>
 
 <br><br>
 <h3>Font Type-Instance Array</h3>
-<div *ngFor="let fi of (activeFontSetTypeInstanceIds$ | async)">
-  Font Type-Instance: {{ fi[0] }} {{ fi[1] }}
+<div *ngFor="let fi1 of (activeFontSetTypeInstanceIds$ | async)">
+  Font Type-Instance: {{ fi1[0] }} {{ fi1[1] }}
 </div>
 
-<h3>Active Set Font Instances</h3>
-<div *ngFor="let fi of (activeFontSetFontInstances$ | async)">
-  Font Type-Instance: {{ fi.family }} {{ fi.id }}
-</div>
+<!-- <h3>Active Set Font Instances</h3>
+<div *ngFor="let fi2 of (activeFontSetFontInstances$ | async)">
+  Font Type-Instance: {{ fi2.key }} {{ fi2.value }}
+</div> -->
 
 <h3>All Font Instances</h3>
-<div *ngFor="let fi of (allFontInstances$ | async)">
-  Font Type-Instance: {{ fi.family }} {{ fi.id }}
+<div *ngFor="let fi3 of (allFontInstances$ | async)">
+  Font Type-Instance: {{ fi3.family }} {{ fi3.id }}
 </div>

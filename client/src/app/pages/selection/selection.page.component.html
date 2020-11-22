@@ -5,6 +5,7 @@
     <div class="layout">
       <app-font-instance-picker
         (fontInstanceChange)="fontInstanceChange($event)"
+        [fontInstance]="activeFontInstance$ | async"
       ></app-font-instance-picker>
     
       <app-font-preview-pane

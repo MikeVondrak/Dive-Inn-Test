@@ -1,8 +1,9 @@
 <button (click)="upClick()">&uarr;</button>
+<!-- <button (click)="upClick()">&#x21E7;</button> -->
 
 <app-font-preview-pane
-  [fontInstance]="fontInstance"
-  [previewText]="previewText"  
+  [fontInstance]="fontTypeInstanceKvp.value"
+  [previewText]="displayText"  
 ></app-font-preview-pane>
 
 <button (click)="downClick()">&darr;</button>

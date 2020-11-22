@@ -7,7 +7,7 @@ import { FontManagerService } from '../../services/font-manager.service';
 import { FontSetManagerService } from '../../services/font-set-manager/font-set-manager.service';
 import { ServerTestData } from 'src/app/services/server-test/server-test.model';
 import { UiFont } from 'src/app/models/ui-font.model';
-import { FontInstance } from 'src/app/models/font-instance.model';
+import { defaultFontInstance, FontInstance } from 'src/app/models/font-instance.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
@@ -23,16 +23,8 @@ import { FontSet } from 'src/app/models/font-set.model';
 })
 export class SelectionPageComponent extends BaseComponent implements OnInit {
 
-  private readonly defaultFontInstance: FontInstance = {
-    id: -1,
-    family: '',
-    italic: false,
-    size: 36,
-    weight: '100',
-  }
-
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
-  public fontInstance: FontInstance = { ...this.defaultFontInstance };
+  public fontInstance: FontInstance = { ...defaultFontInstance };
   public activeFontInstance$: Observable<FontInstance>;
   public fontInstanceLoading$: Observable<boolean>;
   public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
@@ -49,7 +41,8 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
     this.fontInstanceLoading$ = this.store$.select<boolean>(getFontDataLoading);
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
+    this.store$.dispatch(setActiveFontInstance({ fontInstance: this.fontInstance }));
   }
 
   public fontInstanceChange($event) {

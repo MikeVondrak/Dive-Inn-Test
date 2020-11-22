@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 
 @Component({
   selector: 'app-font-type-instance-loader',
@@ -8,11 +9,11 @@ import { FontInstance } from 'src/app/models/font-instance.model';
 })
 export class FontTypeInstanceLoaderComponent implements OnInit {
 
-  @Input() fontInstance: FontInstance;
-  @Input() previewText: string;
+  @Input() fontTypeInstanceKvp: FontTypeInstanceKvp;
+  @Input() displayText: string;
 
-  @Output() upClicked: EventEmitter<void> = new EventEmitter<void>();
-  @Output() downClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() upClicked: EventEmitter<FontTypeInstanceKvp> = new EventEmitter<FontTypeInstanceKvp>();
+  @Output() downClicked: EventEmitter<FontTypeInstanceKvp> = new EventEmitter<FontTypeInstanceKvp>();
 
   constructor() { }
 
@@ -20,11 +21,11 @@ export class FontTypeInstanceLoaderComponent implements OnInit {
   }
 
   public upClick() {
-    this.upClicked.emit();
+    this.upClicked.emit(this.fontTypeInstanceKvp);
   }
 
   public downClick() {
-    this.downClicked.emit();
+    this.downClicked.emit(this.fontTypeInstanceKvp);
   }
 
 }
