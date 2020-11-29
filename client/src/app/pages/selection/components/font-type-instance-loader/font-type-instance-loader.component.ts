@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 
 @Component({

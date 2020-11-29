@@ -1,4 +1,4 @@
-import { FontVariants, FontWeight } from '../services/api/font/font.api.model';
+import { FontVariants } from '../services/api/font/font.api.model';
 
 export enum FontListsEnum {
   SELECTABLE = "SELECTABLE",

@@ -5,6 +5,7 @@ import { groupBy, map } from 'rxjs/operators';
 import { FontSet } from 'src/app/models/font-set.model';
 import { FontSetApi } from '../../../services/api/font-set/font-set.api.model';
 import { routes } from '../../../../../../server/src/app/routes';
+import { FontSetManagerService } from '../../font-set-manager/font-set-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,12 @@ export class FontSetApiService {
 
   private baseRoute: string = routes.api._root + routes.api.font._root + routes.api.font.fontSet._root;
 
+  constructor(
+    private http: HttpClient,
+    private fontSetManagerService: FontSetManagerService
+  ) { }
 
-  constructor(private http: HttpClient) { }
-
-  public getAllFontSets$(): Observable<any[]> {
+  public getAllFontSets$(): Observable<FontSet[]> {
     const allFontSets: Observable<FontSet[]>
       = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        
         map(fontSetApiArray => {
@@ -48,6 +51,43 @@ export class FontSetApiService {
       );
       
       return allFontSets;
+  }
+
+  public updateFontSet$(): Observable<FontSet> {
+    const route = this.baseRoute + routes.api.font.fontSet.add;
+    const headers = { 'content-type': 'application/json' };
+    
+    // need to get the active font set
+    const body = this.fontSetManagerService.
+    const postResponse = this.http.post(
+      route, 
+      body,
+      { 'headers': headers }
+    );
+    
+  }
+
+  public addFontSet$(newFontSetName: string): Observable<FontSet> {
+    const payload = this.fontSetToFontSetApiArray(newFontSet);
+  }
+
+  private fontSetToFontSetApiArray(fontSet: FontSet): FontSetApi[] {
+    // break FontSet up into an array of FontSetApi for table rows
+
+    // getActiveFontSetId
+    // getActiveFontSetName
+    // getActiveFontSetLastUpdated
+    // getActiveFontSetTypeInstances
+    // getActiveFontSetFontInstances
+
+    // id: number;
+    // set_id: number;
+    // set_name: string;
+    // fk_font_type_id: number;
+    // fk_font_instance_id: number;
+    // type: string;
+
+    return [];
   }
 
 }

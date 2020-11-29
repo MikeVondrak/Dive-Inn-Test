@@ -4,7 +4,7 @@ import { FontInstance } from '../../../models/font-instance.model';
 export const loadFontInstances = createAction('[Font Instance Library] loadFontInstances');
 export const fontInstancesLoaded = createAction(
   '[Font Instance Library] fontInstancesLoaded',
-    props<{ allFontInstances: FontInstance[] }>()
+    props<{ allFontInstances: FontInstance[] }>()  
   );
 export const fontInstancesError = createAction('[Font Instance Library] fontInstancesError');
 
@@ -24,6 +24,9 @@ export const fontInstanceError = createAction(
 );
 
 const actions = union({
+  loadFontInstances,
+  fontInstancesLoaded,
+  fontInstancesError,
   loadFontInstanceById,
   fontInstanceLoaded,
   fontInstanceError,

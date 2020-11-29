@@ -42,7 +42,7 @@ export const sqlQueries = {
   getFontSets:
     `SELECT font_set.*, font_type.type FROM font_set
       INNER JOIN font_type ON fk_font_type_id = font_type.id`,
-  addFontSet: 'INSERT INTO font_set(set_id, set_name, fk_font_type_id, fk_font_instance_id) VALUES($1,$2,$3,$4)',
+  addFontSet: 'INSERT INTO font_set(set_id, set_name, fk_font_type_id, fk_font_instance_id) VALUES($1, $2, $3, $4)',
   removeFontSet: 'DELETE FROM font_set WHERE set_id = $1'
 }
 

@@ -24,7 +24,8 @@ import { FontSet } from 'src/app/models/font-set.model';
 export class SelectionPageComponent extends BaseComponent implements OnInit {
 
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
-  public fontInstance: FontInstance = { ...defaultFontInstance };
+  public fontInstance: FontInstance;
+  
   public activeFontInstance$: Observable<FontInstance>;
   public fontInstanceLoading$: Observable<boolean>;
   public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
@@ -42,7 +43,9 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store$.dispatch(setActiveFontInstance({ fontInstance: {...this.fontInstance} }));
+    this.activeFontInstance$.subscribe(afi => {
+      this.fontInstance = {...afi};
+    })
   }
 
   public fontInstanceChange(newFontInstance: FontInstance) {

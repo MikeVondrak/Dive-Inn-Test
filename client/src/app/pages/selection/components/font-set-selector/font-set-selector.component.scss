@@ -1,6 +1,25 @@
 :host {
   display: block;
 
+
+  .font-set-name-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 1rem;
+  
+    .font-set-name {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid white;
+      min-width: 20rem;
+      min-height: 2rem;
+      margin: 0 1rem;
+      padding: 0 0.5rem;
+    }
+  }
+
   app-font-type-instance-loader {
     margin-bottom: 1rem;
   }

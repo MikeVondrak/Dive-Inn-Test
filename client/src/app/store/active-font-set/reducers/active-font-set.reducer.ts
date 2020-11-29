@@ -39,10 +39,12 @@ const _activeFontSetReducer = createReducer(
   on(setActiveFontSetFontInstance, (state, { fontTypeInstanceKvp }) => {
     const newState = state.fontInstances.map(fi => {
       if (fi.key === fontTypeInstanceKvp.key) {
+        // if the key matches an existing key map to the new KVP
         return fontTypeInstanceKvp;
       }
       return fi;
     });
+    // add to ActiveFontSetState   FontInstances
     if (!newState.includes(fontTypeInstanceKvp)) {
       newState.push(fontTypeInstanceKvp);
     }

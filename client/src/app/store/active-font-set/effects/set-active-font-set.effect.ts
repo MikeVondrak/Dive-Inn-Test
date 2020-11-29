@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
 import { of } from "rxjs";
 import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
+import { FontType, FontTypeIdKvp, FontTypeInstanceKvp, FontTypes } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { getLoadedFontInstances } from '../../font-instance-library/selectors/font-instance-library.selectors';
@@ -37,20 +37,24 @@ export class SetActiveFontSetEffect {
         ),
       )),
       switchMap(([action, typeInstances, fontInstances]) => {
-        // Load all the font instances on app load - DONE
-        // When a new instance is added update the DB and refresh the FE list
-        // When a new active font set is selected,
-        //  loop through the font set type-instance map and grab the FontInstance object from the ID
-        //    get from the FE list because it should be up to date, don't need to call DB here
-
         // loop through type->instanceId map of new active font set and check if instance has been loaded
-        // e.g. on app load the FE 
-        
         action.fontSet.typeInstanceMap.forEach((value: number, key: string) => {
+          
           // check to see if instances in the font set have already been loaded
           const fontInstance = fontInstances.find(fi => fi.id === value);
+
+          // match type and construct FontType
+          const fontTypeIdKvp: FontTypeIdKvp = typeInstances.find(ti => ti[0] === key);
+          const ftiKvpKey: FontType = fontTypeIdKvp.map(ti => {            
+            const ft: FontType = {
+              id: value,
+              type: key as FontTypes
+            };
+            return ft;
+          })[0];          
+          
           const ftiKvp: FontTypeInstanceKvp = {
-            key: key,
+            key: ftiKvpKey,
             value: fontInstance
           }
           if (fontInstance) {
@@ -63,6 +67,5 @@ export class SetActiveFontSetEffect {
         return of(fontSetLoaded());
       })
     ),
-    //{ dispatch: false }
   );
 }

@@ -1,9 +1,27 @@
 Next
+- Convert using services to store
+  - Facade ?
+- breakdown Font Set data into rows to post to DB
+- update the font instance id in the type-instance array when a font-set type is changed
+- fix FontTypes model/interface
 
+11/24/20
+
+- get the DB saving Font Sets
+- UI to save Font Sets
+- DB to remove Font Sets
+
+- Login, user accounts, access levels
+  * should only allow creator of set to delete the set (or admin)
+  * OAuth or what provider?
+
+- GraphQL / Hasura - look into implementing
+
+-------------------------------
 - Setup CRUD for Font Sets
-  * interview question - what are all the parts to get CRUD working from FE to BE
+  * interview question - what are all the parts to get CRUD working from FE to BE - DONE
 
-- handle default font instance loading overwriting user-selected font instance selection
+- handle default font instance loading overwriting user-selected font instance selection - DONE
 
 
 - ExpressionChangedAfterItHasBeenCheckedError - selection-page fontInstanceLoading$ when selecting a font - DONE
