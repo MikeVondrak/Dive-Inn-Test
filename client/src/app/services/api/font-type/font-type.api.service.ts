@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { routes } from '../../../../../../server/src/app/routes';
 import { LoggerService } from '../../logger/logger.service';
+import { FontTypeApi } from './font-type.api.model';
 import { FontType } from '../../../models/font-type.model';
 
 @Injectable({
@@ -22,11 +23,12 @@ export class FontTypeApiService {
   /**
    * Return all from font_type table
    */
-  public getAllFontTypes$(): Observable<FontType[]> {
+  public getAllFontTypes$(): Observable<FontTypeApi[]> {
     this.loggerService.log('getAllFontTypes');
 
-    const allFontTypes: Observable<FontType[]>
-      = this.http.get<FontType[]>(this.baseRoute);
+    const allFontTypes: Observable<FontTypeApi[]>
+      = this.http.get<FontTypeApi[]>(this.baseRoute);
+
     return allFontTypes;
   }
 }

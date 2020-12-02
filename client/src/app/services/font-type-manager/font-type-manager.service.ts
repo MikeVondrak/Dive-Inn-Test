@@ -14,7 +14,7 @@ export class FontTypeManagerService {
   public allFontTypes$: Observable<FontType[]>;
 
   constructor(private store$: Store<AppState>) { 
-    this.allFontTypes$ = this.store$.select(getAllFontTypes);
+    //this.allFontTypes$ = this.store$.select(getAllFontTypes);
   }
 
   // public getAllFontTypes$() {

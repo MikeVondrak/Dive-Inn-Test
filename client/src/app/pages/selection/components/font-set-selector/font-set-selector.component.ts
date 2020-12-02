@@ -22,12 +22,12 @@ import { FontTypeManagerService } from '../../../../services/font-type-manager/f
 export class FontSetSelectorComponent implements OnInit {
 
   
-  public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.getAllFontTypes$();
+  //public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.getAllFontTypes$();
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = this.store$.select(getActiveFontSetTypeInstances);
   public allFontInstances$: Observable<FontInstance[]> = this.fontInstanceManagerService.getAllFontInstances$();
   
   
-  public activeFontSet$: Observable<FontSet> = this.store$.select(getActiveFontSet);
+  //public activeFontSet$: Observable<FontSet> = this.store$.select(getActiveFontSet);
   public activeFontSetName$: Observable<string> = this.store$.select(getActiveFontSetName);
   public activeFontSetFontInstances$: Observable<FontTypeInstanceKvp[]> = this.store$.select(getActiveFontSetFontInstances);
 
@@ -55,9 +55,9 @@ export class FontSetSelectorComponent implements OnInit {
   public saveActiveFontSet() {
     // get the activeFontSet from store?
     //  dispatch action that updates (get active font set from store state) ?
-    const afi: FontSet = this.activeFontSet$;
+    //const afi: FontSet = this.activeFontSet$;
 
-    this.fontSetManagerService.updateFontSet$(afi);
+    //this.fontSetManagerService.updateFontSet$(afi);
   }
 
   public createFontSet() {

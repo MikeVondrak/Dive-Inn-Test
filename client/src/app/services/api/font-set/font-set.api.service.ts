@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { groupBy, map } from 'rxjs/operators';
+import { groupBy, map, switchMap, take } from 'rxjs/operators';
 import { FontSet } from 'src/app/models/font-set.model';
 import { FontSetApi } from '../../../services/api/font-set/font-set.api.model';
 import { routes } from '../../../../../../server/src/app/routes';
@@ -53,23 +53,25 @@ export class FontSetApiService {
       return allFontSets;
   }
 
-  public updateFontSet$(): Observable<FontSet> {
-    const route = this.baseRoute + routes.api.font.fontSet.add;
-    const headers = { 'content-type': 'application/json' };
+  // public updateFontSet$(): Observable<FontSet> {
+  //   const route = this.baseRoute + routes.api.font.fontSet.add;
+  //   const headers = { 'content-type': 'application/json' };
     
-    // need to get the active font set
-    const body = this.fontSetManagerService.
-    const postResponse = this.http.post(
-      route, 
-      body,
-      { 'headers': headers }
-    );
     
-  }
+  //   // need to get the active font set
+  //   return this.fontSetManagerService.allFontSets$.pipe(
+  //     switchMap(allFontSets => {
+  //       return this.http.post<FontSet>(
+  //         route, 
+  //         allFontSets,
+  //         { 'headers': headers }
+  //       );
+  //     }));
+  // }
 
-  public addFontSet$(newFontSetName: string): Observable<FontSet> {
-    const payload = this.fontSetToFontSetApiArray(newFontSet);
-  }
+  // public addFontSet$(newFontSetName: string): Observable<FontSet> {
+  //   const payload = this.fontSetToFontSetApiArray(newFontSet);
+  // }
 
   private fontSetToFontSetApiArray(fontSet: FontSet): FontSetApi[] {
     // break FontSet up into an array of FontSetApi for table rows

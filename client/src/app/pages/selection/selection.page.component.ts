@@ -28,7 +28,8 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   
   public activeFontInstance$: Observable<FontInstance>;
   public fontInstanceLoading$: Observable<boolean>;
-  public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
+  // public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
+  public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.allFontSets$;
 
   constructor(
     private serverTestService: ServerTestService,

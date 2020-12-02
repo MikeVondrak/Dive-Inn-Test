@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently --kill-others \"nodemon -x ts-node server/src/app/server.ts\" \"cd client && ng serve --proxy-config proxy.config.json --port 4201\"",
+    "dev": "concurrently --kill-others \"nodemon -x ts-node server/src/app/server.ts\" \"cd client && ng serve --proxy-config proxy.config.json\"",
     "start": "ts-node server/src/app/server.ts",
     "dev-node": "nodemon -x ts-node server/src/app/server.ts",
     "__heroku-predeploy": "echo \"********* HEROKU PREBUILD ***********\" && cd client/ && ng build --prod",

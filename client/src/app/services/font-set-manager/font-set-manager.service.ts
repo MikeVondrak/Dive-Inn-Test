@@ -17,8 +17,8 @@ import { FontSetLibraryState } from 'src/app/store/font-set-library/font-set-lib
 })
 export class FontSetManagerService {
 
-  public allFontSets: Observable<FontSet[]> = this.store$.select(getFontSets);
-  //public activeFontSet: Observable<FontSet> = this.store$.select(getActiveFontSet);
+  public allFontSets$: Observable<FontSet[]> = this.store$.select(getFontSets);
+  //public activeFontSet: Observable<FontSet> = this.store$.select(ge);
 
   constructor(
     // TODO: how to use a slice of the store instead of entire AppState?
