@@ -123,6 +123,11 @@
           }
         }
       }
-    }},
-  "defaultProject": "dive-inn-fonts-test"
+    }
+  },
+  "defaultProject": "dive-inn-fonts-test",
+  "cli": {
+    "analytics": "78cdcea8-202d-45ca-9a63-6cf8c92000be",
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
