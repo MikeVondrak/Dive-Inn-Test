@@ -4,13 +4,12 @@ import { catchError, map, concatMap, withLatestFrom, switchMap } from 'rxjs/oper
 import { EMPTY, of } from 'rxjs';
 
 import * as FontTypeActions from '../actions/font-type.actions';
-import { FontTypeApiService } from 'src/app/services/api/font-type/font-type.api.service';
-import { FontTypes } from 'src/app/models/font-type.model';
-
+import { FontTypeApiService } from '../../../services/api/font-type/font-type.api.service';
+import { FontTypes } from '../../../models/font-type.model';
 
 
 @Injectable()
-export class FontTypeEffects {
+export class LoadFontTypesEffect {
 
   loadFontTypes$ = createEffect(() => {
     return this.actions$.pipe( 

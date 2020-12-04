@@ -7,6 +7,7 @@ import { ActiveFontSetEffectsModule } from './active-font-set/active-font-set-ef
 import { FontInstanceLibraryEffectsModule } from './font-instance-library/font-instance-library-effects.module';
 import { FontSetLibraryEffectsModule } from './font-set-library/font-set-library-effects.module';
 import { FontTypeStoreModule } from './font-type/font-type-store.module';
+import { FontTypeEffectsModule } from './font-type/effects/font-type-effects.module';
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,8 @@ import { FontTypeStoreModule } from './font-type/font-type-store.module';
     ActiveFontSetEffectsModule,
     FontInstanceLibraryEffectsModule,
     FontSetLibraryEffectsModule,
-    FontTypeStoreModule
+    FontTypeStoreModule,
+    FontTypeEffectsModule
   ]
 })
 export class AppStoreModule { }

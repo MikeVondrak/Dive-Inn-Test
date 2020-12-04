@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 
+import { FontTypesEffects } from './';
 
+const DEPENDENCIES = [EffectsModule.forFeature([...FontTypesEffects])];
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    DEPENDENCIES
   ]
 })
 export class FontTypeEffectsModule { }

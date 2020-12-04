@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
 import { of } from "rxjs";
 import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { FontType, FontTypeIdKvp, FontTypeInstanceKvp } from 'src/app/models/font-type.model';
+import { FontTypes, FontTypeIdKvp, FontTypeInstanceKvp, FontType } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { getLoadedFontInstances } from '../../font-instance-library/selectors/font-instance-library.selectors';
@@ -43,14 +43,18 @@ export class SetActiveFontSetEffect {
           // check to see if instances in the font set have already been loaded
           const fontInstance = fontInstances.find(fi => fi.id === value);
 
+
+
+          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
           // match type and construct FontType
           const fontTypeIdKvp: FontTypeIdKvp = typeInstances.find(ti => ti[0] === key);
           const ftiKvpKey: FontType = fontTypeIdKvp.map(ti => {            
-            const ft: FontType = key as FontType;
-            // const ft: FontType = {
-            //   id: value,
-            //   type: key as FontType
-            // };
+            //const ft: FontTypes = key as FontTypes;
+            const ft: FontType = {
+              id: value,
+              type: key as FontTypes
+            };
             return ft;
           })[0];          
           
@@ -58,6 +62,11 @@ export class SetActiveFontSetEffect {
             key: ftiKvpKey,
             value: fontInstance
           }
+          
+          
+          
+          
+          
           if (fontInstance) {
             // dispatch action to update active font set type instance for type "key"
             this.store$.dispatch(setActiveFontSetFontInstance({ fontTypeInstanceKvp: ftiKvp }));

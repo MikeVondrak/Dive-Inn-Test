@@ -2,21 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { FontTypeEffects } from './font-type.effects';
+import { LoadFontTypesEffect } from './load-font-types.effect';
 
 describe('FontTypeEffects', () => {
   let actions$: Observable<any>;
-  let effects: FontTypeEffects;
+  let effects: LoadFontTypesEffect;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        FontTypeEffects,
+        LoadFontTypesEffect,
         provideMockActions(() => actions$)
       ]
     });
 
-    effects = TestBed.inject(FontTypeEffects);
+    effects = TestBed.inject(LoadFontTypesEffect);
   });
 
   it('should be created', () => {
