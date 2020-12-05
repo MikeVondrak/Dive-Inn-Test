@@ -24,7 +24,6 @@ export class FontTypeApiService {
    * Return all from font_type table
    */
   public getAllFontTypes$(): Observable<FontTypeApi[]> {
-    debugger;
     this.loggerService.log('getAllFontTypes');
 
     const allFontTypes: Observable<FontTypeApi[]>
