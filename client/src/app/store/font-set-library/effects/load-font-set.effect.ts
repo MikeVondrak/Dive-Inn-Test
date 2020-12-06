@@ -28,8 +28,8 @@ export class LoadFontSetDataEffect {
       switchMap((action) => {
         debugger;
         return this.fontSetApiService.getAllFontSets$().pipe(
-          switchMap(() => {
-            return of(fontSetsLoaded());
+          switchMap((fontSets) => {
+            return of(fontSetsLoaded({ fontSets }));
           })
         );
       })

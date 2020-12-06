@@ -9,75 +9,69 @@ import {
   fontInstanceError,
   FontInstanceLibraryActions,
 } from '../actions/font-instance-library.actions';
-import { fontInstanceLibraryInitialState, FontInstanceLibraryState } from '../font-instance-library.state';
+import { initialFontInstanceState, FontInstanceState, fontInstanceAdapter } from '../entity/font-instance.entity';
  
 const _fontInstanceLibraryReducer = createReducer(
-  fontInstanceLibraryInitialState,
+  initialFontInstanceState,
   
   on(loadFontInstances, (state) => {
     logger('loadFontInstances');
     return ({
       ...state,
-      fontInstancesLoading: true,
+      fontInstanceLoading: true,
     });
   }),
   on(fontInstancesLoaded, (state, { allFontInstances }) => {
     logger('fontInstancesLoaded');
-    return ({
+    const newState = {
       ...state,
-      fontInstancesLoading: false,
-      fontInstancesLoaded: true,
-      loadedFontInstances: [...allFontInstances]
-    });
+      fontInstanceLoading: false,
+      fontInstanceLoaded: true,
+    };
+    return fontInstanceAdapter.setAll(allFontInstances, newState);
   }),
   on(fontInstancesError, (state) => {
     logger('fontInstancesError');
     return ({
       ...state,
-      fontInstancesLoading: false,
-      fontInstancesError: true,
+      fontInstanceLoading: false,
+      fontInstanceError: true,
     });
   }),
   
-  on(loadFontInstanceById, (state, { fontInstanceId }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer loadFontInstanceById', { "family": fontInstanceId }, undefined, 'FontInstanceLibrary');
-    return ({
-      ...state,
-      fontInstanceDataLoading: true,
-      fontInstanceDataLoaded: false,
-      fontInstanceDataError: false
-    });
-  }),
+  // on(loadFontInstanceById, (state, { fontInstanceId }) => {
+  //   logger('loadFontInstanceById', "family: " + fontInstanceId);
+  //   return ({
+  //     ...state,
+  //     fontInstanceDataLoading: true,
+  //     fontInstanceDataLoaded: false,
+  //     fontInstanceDataError: false
+  //   });
+  // }),
 
-  on(fontInstanceLoaded, (state, { fontInstance }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer fontInstanceLoaded', fontInstance.family, undefined, 'FontInstanceLibrary');
-    return ({
-      ...state,
-      loadedFontInstances: [...state.loadedFontInstances],
-      fontInstanceDataLoading: false,
-      fontInstanceDataLoaded: true,
-      fontInstanceDataError: false
-    });
-  }),
+  // on(fontInstanceLoaded, (state, { fontInstance }) => {
+  //   logger('fontInstanceLoaded', fontInstance.family);
+  //   const newState = {
+  //     ...state,
+  //     fontInstanceDataLoading: false,
+  //     fontInstanceDataLoaded: true,
+  //     fontInstanceDataError: false
+  //   };
+  //   return fontInstanceAdapter.addOne(fontInstance, newState);
+  // }),
 
-  on(fontInstanceError, (state, { fontInstanceId }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer fontInstanceError', fontInstanceId, undefined, 'FontInstanceLibrary');
-    return ({
-      ...state,
-      fontInstanceDataLoading: false,
-      fontInstanceDataLoaded: false,
-      fontInstanceDataError: true
-    });
-  }),
+  // on(fontInstanceError, (state, { fontInstanceId }) => {
+  //   logger('fontInstanceError', fontInstanceId.toString());
+  //   return ({
+  //     ...state,
+  //     fontInstanceDataLoading: false,
+  //     fontInstanceDataLoaded: false,
+  //     fontInstanceDataError: true
+  //   });
+  // }),
 );
  
-export function fontInstanceLibraryReducer(state: FontInstanceLibraryState, action: FontInstanceLibraryActions) {
+export function fontInstanceLibraryReducer(state: FontInstanceState, action: FontInstanceLibraryActions) {
   return _fontInstanceLibraryReducer(state, action);
 }
 

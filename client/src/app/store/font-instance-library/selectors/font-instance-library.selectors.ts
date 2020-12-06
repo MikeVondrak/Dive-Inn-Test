@@ -1,36 +1,39 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../../state';
-import { FontInstanceLibraryState } from '../font-instance-library.state';
+import { FontInstanceState } from '../entity/font-instance.entity';
+import * as fontInstanceEntitySelectors from '../entity/font-instance.entity';
 
-export const selectFeatureFontInstanceLibrary = createFeatureSelector<AppState, FontInstanceLibraryState>('fontInstanceLibrary');
+export const selectFeatureFontInstanceLibrary = createFeatureSelector<AppState, FontInstanceState>('fontInstanceLibrary');
 
-export const getLoadedFontInstances = createSelector(
-  selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.loadedFontInstances
-);
+// export const getAllFontInstances = createSelector(
+//   selectFeatureFontInstanceLibrary,
+//   (state: FontInstanceState) => state.loadedFontInstances
+// );
+
+export const getAllFontInstances = createSelector(selectFeatureFontInstanceLibrary, fontInstanceEntitySelectors.selectAll);
 
 export const getFontInstancesLoading = createSelector(
   selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstancesLoading
+  (state: FontInstanceState) => state.fontInstanceLoading
 );
 export const getFontInstancesLoaded = createSelector(
   selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstancesLoaded
+  (state: FontInstanceState) => state.fontInstanceLoaded
 );
 export const getFontInstancesError = createSelector(
   selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstancesError
+  (state: FontInstanceState) => state.fontInstanceError
 );
 
-export const getFontInstanceLoading = createSelector(
-  selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstanceDataLoading
-);
-export const getFontInstanceLoaded = createSelector(
-  selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstanceDataLoaded
-);
-export const getFontInstanceError = createSelector(
-  selectFeatureFontInstanceLibrary,
-  (state: FontInstanceLibraryState) => state.fontInstanceDataError
-);
+// export const getFontInstanceLoading = createSelector(
+//   selectFeatureFontInstanceLibrary,
+//   (state: FontInstanceState) => state.fontInstanceDataLoading
+// );
+// export const getFontInstanceLoaded = createSelector(
+//   selectFeatureFontInstanceLibrary,
+//   (state: FontInstanceState) => state.fontInstanceDataLoaded
+// );
+// export const getFontInstanceError = createSelector(
+//   selectFeatureFontInstanceLibrary,
+//   (state: FontInstanceState) => state.fontInstanceDataError
+// );

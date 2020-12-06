@@ -2,11 +2,12 @@ import { createAction, props, union } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
 
 export const loadFontSets = createAction(
-  '[Font Set] loadFontSetData'
+  '[Font Set] loadFontSets'
 );
 
 export const fontSetsLoaded = createAction(
-  '[Font Set] fontSetsLoaded'
+  '[Font Set] fontSetsLoaded',
+  props<{ fontSets: FontSet[] }>()
 );
 
 export const fontSetsError = createAction(
