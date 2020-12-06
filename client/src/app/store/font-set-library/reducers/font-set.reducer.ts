@@ -4,12 +4,12 @@ import {
   loadFontSets,
   fontSetsLoaded,
   fontSetsError,
-  FontSetLibraryActions
-} from '../actions/font-set-library.actions';
-import { FontSetLibraryState, fontSetLibraryInitialState } from '../font-set-library.state';
+  FontSetActions
+} from '../actions/font-set.actions';
+import { FontSetState, initialFontSetState } from '../entity/font-set.entity';
  
-const _FontSetReducer = createReducer(
-  fontSetLibraryInitialState,
+export const reducer = createReducer(
+  initialFontSetState,
   
   on(loadFontSets, (state) => {
     const logger = new LoggerService;
@@ -47,7 +47,3 @@ const _FontSetReducer = createReducer(
     });
   }),
 );
- 
-export function FontSetReducer(state: FontSetLibraryState, action: FontSetLibraryActions) {
-  return _FontSetReducer(state, action);
-}

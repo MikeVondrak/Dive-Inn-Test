@@ -5,7 +5,8 @@ import { FontLibraryEffectsModule } from './font-library/font-library-effects.mo
 import { ActiveFontSetModule } from './active-font-set/active-font-set.module';
 import { ActiveFontSetEffectsModule } from './active-font-set/active-font-set-effects.module';
 import { FontInstanceLibraryEffectsModule } from './font-instance-library/font-instance-library-effects.module';
-import { FontSetLibraryEffectsModule } from './font-set-library/font-set-library-effects.module';
+import { FontSetStoreModule } from './font-set-library/font-set-store.module';
+import { FontSetEffectsModule } from './font-set-library/effects/font-set-effects.module';
 import { FontTypeStoreModule } from './font-type/font-type-store.module';
 import { FontTypeEffectsModule } from './font-type/effects/font-type-effects.module';
 
@@ -17,7 +18,8 @@ import { FontTypeEffectsModule } from './font-type/effects/font-type-effects.mod
     FontLibraryEffectsModule,
     ActiveFontSetEffectsModule,
     FontInstanceLibraryEffectsModule,
-    FontSetLibraryEffectsModule,
+    FontSetStoreModule,
+    FontSetEffectsModule,
     FontTypeStoreModule,
     FontTypeEffectsModule
   ]

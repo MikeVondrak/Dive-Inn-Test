@@ -1,18 +1,10 @@
-import { FontType } from '../../../models/font-type.model';
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { FontType } from '../../../models/font-type.model';
 
-
-export const fontTypeFeatureKey = 'fontType';
+export const fontTypeFeatureKey = 'fontTypes';
 export const fontTypeAdapter = createEntityAdapter<FontType>();
 
 export interface FontTypeState extends EntityState<FontType> {
-  // extended shape is:
-  // EntityState<V> { 
-  //   ids: string[] | number[]; 
-  //   entities: { 
-  //     [id: string | nunber]: V }; 
-  // }
-
   fontTypeLoading: boolean,
   fontTypeLoaded: boolean,
   fontTypeError: boolean
@@ -23,3 +15,11 @@ export const initialFontTypeState: FontTypeState = fontTypeAdapter.getInitialSta
   fontTypeLoaded: false,
   fontTypeError: false
 });
+
+// TODO: understand how to do this export as a named object?
+export const {
+  selectAll,
+  selectEntities,
+  selectIds,
+  selectTotal
+} = fontTypeAdapter.getSelectors();

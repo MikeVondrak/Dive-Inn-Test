@@ -36,3 +36,9 @@
 <div *ngFor="let fi3 of (allFontInstances$ | async)">
   Font Type-Instance: {{ fi3.family }} {{ fi3.id }}
 </div>
+
+
+<h3>All Font Types</h3>
+<div *ngFor="let ft of (allFontTypes$ | async)">
+  Font Type-Instance: {{ ft.id }} - {{ ft.type }}
+</div>

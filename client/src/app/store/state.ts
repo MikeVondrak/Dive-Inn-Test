@@ -2,12 +2,14 @@ import { FontLibraryState } from './font-library/font-library.state';
 import { ActiveFontInstanceState } from './active-font-instance/active-font-instance.state';
 import { ActiveFontSetState } from './active-font-set/active-font-set.state';
 import { FontInstanceLibraryState } from './font-instance-library/font-instance-library.state';
-import { FontSetLibraryState } from './font-set-library/font-set-library.state';
+import { FontSetState } from './font-set-library/entity/font-set.entity';
+import { FontTypeState } from './font-type/entity/font-type.entity';
 
 export interface AppState {
   fontLibrary?: FontLibraryState,
   fontInstanceLibrary?: FontInstanceLibraryState,
   activeFontInstance?: ActiveFontInstanceState,
   activeFontSet?: ActiveFontSetState,
-  fontSetLibrary?: FontSetLibraryState
+  fontSets?: FontSetState,
+  fontTypes?: FontTypeState
 }

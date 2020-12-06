@@ -7,10 +7,10 @@ import { FontSet } from 'src/app/models/font-set.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 //import { ActiveFontSetState } from 'src/app/store/active-font-set/active-font-set.state';
-import { loadFontSets, createFontSet, updateFontSet } from 'src/app/store/font-set-library/actions/font-set-library.actions';
+import { loadFontSets, createFontSet, updateFontSet } from 'src/app/store/font-set-library/actions/font-set.actions';
 import { getFontSets } from 'src/app/store/font-set-library/selectors/font-set-library.selectors';
 //import { getActiveFontSet } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
-import { FontSetLibraryState } from 'src/app/store/font-set-library/font-set-library.state';
+import { FontSetState } from 'src/app/store/font-set-library/entity/font-set.entity';
 
 @Injectable({
   providedIn: 'root'

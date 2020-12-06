@@ -2,29 +2,34 @@ import { createAction, props, union } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
 
 export const loadFontSets = createAction(
-  '[Font Set Library] loadFontSetData'
+  '[Font Set] loadFontSetData'
 );
 
 export const fontSetsLoaded = createAction(
-  '[Font Set Library] fontSetsLoaded'
+  '[Font Set] fontSetsLoaded'
 );
 
 export const fontSetsError = createAction(
-  '[Font Set Library] fontSetsError'
+  '[Font Set] fontSetsError'
 );
 
 export const updateFontSet = createAction(
-  '[Font Set Library] updateFontSet',
+  '[Font Set] updateFontSet',
   props<{ updatedFontSet: FontSet }>()
 );
 
 export const createFontSet = createAction(
-  '[Font Set Library] createFontSet',
+  '[Font Set] createFontSet',
   props<{ newFontSetName: string }>()
 );
 
+export const deleteFontSet = createAction(
+  '[Font Set] deleteFontSet',
+  props<{ fontSetId: number }>()
+);
+
 export const changeFontSetName = createAction(
-  '[Font Set Library] changeFontSetName',
+  '[Font Set] changeFontSetName',
   props<{ updatedFontSetName: string }>()
 );
 
@@ -34,6 +39,7 @@ const actions = union({
   fontSetsError,
   updateFontSet,
   createFontSet,
+  deleteFontSet,
   changeFontSetName
 })
-export type FontSetLibraryActions = typeof actions;
+export type FontSetActions = typeof actions;

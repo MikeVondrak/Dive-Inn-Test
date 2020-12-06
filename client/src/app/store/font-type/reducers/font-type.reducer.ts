@@ -29,6 +29,4 @@ export const reducer = createReducer(
       fontTypeError: true 
     });
   }),
-
 );
-

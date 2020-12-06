@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 
-import { FontSetLibraryEffects } from './effects';
+import { FontSetLibraryEffects } from './';
 
 const DEPENDENCIES = [EffectsModule.forFeature([...FontSetLibraryEffects])];
 
@@ -11,4 +11,4 @@ const DEPENDENCIES = [EffectsModule.forFeature([...FontSetLibraryEffects])];
     DEPENDENCIES
   ]
 })
-export class FontSetLibraryEffectsModule { }
+export class FontSetEffectsModule { }

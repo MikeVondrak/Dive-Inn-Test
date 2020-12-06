@@ -22,7 +22,7 @@ import { FontTypeManagerService } from '../../../../services/font-type-manager/f
 export class FontSetSelectorComponent implements OnInit {
 
   
-  //public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.getAllFontTypes$();
+  public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = this.store$.select(getActiveFontSetTypeInstances);
   public allFontInstances$: Observable<FontInstance[]> = this.fontInstanceManagerService.getAllFontInstances$();
   
