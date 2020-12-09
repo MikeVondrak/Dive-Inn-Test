@@ -1,4 +1,5 @@
-export interface FontSet { 
+export interface FontSet {
+  id: number,
   setId: number,
   name: string,
   lastUpdated: Date,

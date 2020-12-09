@@ -6,7 +6,8 @@ export const loadFontSets = createAction(
 );
 
 export const fontSetsLoaded = createAction(
-  '[Font Set] fontSetsLoaded'
+  '[Font Set] fontSetsLoaded',
+  props<{ fontSets: FontSet[] }>()
 );
 
 export const fontSetsError = createAction(

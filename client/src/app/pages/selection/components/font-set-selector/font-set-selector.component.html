@@ -6,7 +6,7 @@
 </div>
 
 <div *ngFor="let fontTypeInstance of (activeFontSetFontInstances$ | async)">
-  <h4>{{fontTypeInstance.key}}</h4>
+  <h4>{{fontTypeInstance.key.type}}</h4>
   <app-font-type-instance-loader
     [fontTypeInstanceKvp]="fontTypeInstance"
     [displayText]="fontTypeInstance.value.family + ' ' + fontTypeInstance.value.size + ' ' + fontTypeInstance.value.weight"
@@ -19,7 +19,11 @@
 </div>
 
 <br><br>
-<button *ngIf="(activeFontSetFontInstances$ | async)?.length > 0" (click)="saveActiveFontSet()">SAVE</button>
+<button *ngIf="(activeFontSetFontInstances$ | async)?.length > 0" 
+  (click)="saveActiveFontSet()"
+>
+  SAVE
+</button>
 
 <br><br>
 <h3>Font Type-Instance Array</h3>

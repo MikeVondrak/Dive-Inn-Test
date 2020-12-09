@@ -22,7 +22,7 @@ export const reducer = createReducer(
     };
     return fontTypeAdapter.setAll(action.fontTypes, newState);
   }),
-  on(FontTypeActions.loadFontTypesFailure, (state, action) => {
+  on(FontTypeActions.loadFontTypesFailure, (state) => {
     return ({ 
       ...state, 
       fontTypeLoading: false, 

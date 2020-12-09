@@ -53,9 +53,8 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public saveActiveFontSet() {
-    // get the activeFontSet from store?
-    //  dispatch action that updates (get active font set from store state) ?
-    //const afi: FontSet = this.activeFontSet$;
+    // dispatch action that updates (get active font set from store state) ?
+    //this.store$.dispatch();
 
     //this.fontSetManagerService.updateFontSet$(afi);
   }

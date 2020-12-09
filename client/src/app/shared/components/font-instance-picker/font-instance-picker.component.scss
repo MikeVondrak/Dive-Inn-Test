@@ -18,6 +18,12 @@
       margin-bottom: 0.5rem;
     }
 
+    .weight-btn {
+      padding: 0;
+      width: 1.5em;
+      height: 1.5em;
+    }
+
     app-textbox {
       ::ng-deep {
         input {

@@ -1,36 +1,40 @@
 import { createReducer, on } from '@ngrx/store';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import {
-  loadFontInstances,
-  fontInstancesLoaded,
-  fontInstancesError,
-  loadFontInstanceById,
-  fontInstanceLoaded,
-  fontInstanceError,
-  FontInstanceLibraryActions,
-} from '../actions/font-instance-library.actions';
-import { fontInstanceLibraryInitialState, FontInstanceLibraryState } from '../font-instance-library.state';
+// import {
+//   loadFontInstances,
+//   fontInstancesLoaded,
+//   fontInstancesError,
+//   loadFontInstanceById,
+//   fontInstanceLoaded,
+//   fontInstanceError,
+//   FontInstanceLibraryActions,
+// } from '../actions/font-instance-library.actions';
+import { FontInstanceActions } from '../actions/font-instance-library.actions';
+import * as FontInstanceAction from '../actions/font-instance-library.actions';
+import { fontInstanceAdapter, FontInstanceState } from '../entity/font-instance.entity';
+import { initialFontInstanceState } from '../entity/font-instance.entity';
  
 const _fontInstanceLibraryReducer = createReducer(
-  fontInstanceLibraryInitialState,
+  initialFontInstanceState,
   
-  on(loadFontInstances, (state) => {
+  on(FontInstanceAction.loadFontInstances, (state) => {
     logger('loadFontInstances');
     return ({
       ...state,
       fontInstancesLoading: true,
     });
   }),
-  on(fontInstancesLoaded, (state, { allFontInstances }) => {
+  on(FontInstanceAction.fontInstancesLoaded, (state, action) => {
     logger('fontInstancesLoaded');
-    return ({
+    let newState = {
       ...state,
       fontInstancesLoading: false,
-      fontInstancesLoaded: true,
-      loadedFontInstances: [...allFontInstances]
-    });
+      fontInstancesLoaded: true
+    };
+    return fontInstanceAdapter.setAll(action.allFontInstances, newState);
+
   }),
-  on(fontInstancesError, (state) => {
+  on(FontInstanceAction.fontInstancesError, (state) => {
     logger('fontInstancesError');
     return ({
       ...state,
@@ -39,10 +43,8 @@ const _fontInstanceLibraryReducer = createReducer(
     });
   }),
   
-  on(loadFontInstanceById, (state, { fontInstanceId }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer loadFontInstanceById', { "family": fontInstanceId }, undefined, 'FontInstanceLibrary');
+  on(FontInstanceAction.loadFontInstanceById, (state, { fontInstanceId }) => {
+    logger('loadFontInstanceById', 'family: ' + fontInstanceId );
     return ({
       ...state,
       fontInstanceDataLoading: true,
@@ -51,23 +53,19 @@ const _fontInstanceLibraryReducer = createReducer(
     });
   }),
 
-  on(fontInstanceLoaded, (state, { fontInstance }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer fontInstanceLoaded', fontInstance.family, undefined, 'FontInstanceLibrary');
-    return ({
+  on(FontInstanceAction.fontInstanceLoaded, (state, action) => {
+    logger('fontInstanceLoaded', action.fontInstance.family);
+    const newState = {
       ...state,
-      loadedFontInstances: [...state.loadedFontInstances],
       fontInstanceDataLoading: false,
       fontInstanceDataLoaded: true,
       fontInstanceDataError: false
-    });
+    };
+    return fontInstanceAdapter.addOne(action.fontInstance, state);
   }),
 
-  on(fontInstanceError, (state, { fontInstanceId }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontInstanceLibrary');
-    logger.log('reducer fontInstanceError', fontInstanceId, undefined, 'FontInstanceLibrary');
+  on(FontInstanceAction.fontInstanceError, (state) => {
+    logger('fontInstanceError');
     return ({
       ...state,
       fontInstanceDataLoading: false,
@@ -77,7 +75,7 @@ const _fontInstanceLibraryReducer = createReducer(
   }),
 );
  
-export function fontInstanceLibraryReducer(state: FontInstanceLibraryState, action: FontInstanceLibraryActions) {
+export function fontInstanceLibraryReducer(state: FontInstanceState, action: FontInstanceActions) {
   return _fontInstanceLibraryReducer(state, action);
 }
 

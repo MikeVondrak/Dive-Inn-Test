@@ -131,9 +131,11 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
 
   public upClick() {
     this.fontInstance.size++;
+    this.emitChange();
   }
 
   public downClick() {
     this.fontInstance.size--;
+    this.emitChange();
   }
 }

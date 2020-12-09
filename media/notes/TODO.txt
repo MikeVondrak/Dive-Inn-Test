@@ -1,4 +1,21 @@
 Next
+
+font-set-selector-component
+pushing down button needs to check if Active Font Instance already exists (has an ID), and if not upload it to the DB
+
+active-font-set.selectors
+create getActiveFontSet selector
+
+font-set.model
+change typeInstanceMap to array? or map<id, id> ?
+
+font-type.model
+figure out combining KVP's
+
+font-instance-library 
+use entity
+
+
 - (S)CSS worksheet
 
 - Convert using services to store

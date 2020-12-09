@@ -6,23 +6,22 @@ import { featureKey } from '../feature-key';
 
 export const selectFeatureActiveFontSet = createFeatureSelector<AppState, ActiveFontSetState>(featureKey);
 
-// export const getActiveFontSet = createSelector(
-//   selectFeatureActiveFontSet,
-//   (state: ActiveFontSetState) => {
-//     const tiMap = state.typeInstances.map(ti => {
-//       return {
-        
-//       }
-//     });
-//     const fontSet: FontSet = {
-//       setId: state.setId,
-//       name: state.name,
-//       lastUpdated: state.lastUpdated,
-//       typeInstanceMap : state.typeInstance
-//     }
-//     return fontSet;
-//   }
-// )
+export const getActiveFontSet = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => {
+    const tiMap = state.typeInstances.map(ti => {
+      return [ti[0], ti[1]];
+    });
+    const fontSet: FontSet = {
+      id: state.id,
+      setId: state.setId,
+      name: state.name,
+      lastUpdated: state.lastUpdated,
+      typeInstanceMap : new Map() // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+    return fontSet;
+  }
+)
 
 export const getActiveFontSetId = createSelector(
   selectFeatureActiveFontSet,

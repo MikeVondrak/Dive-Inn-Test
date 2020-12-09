@@ -31,4 +31,4 @@ const actions = union({
   fontInstanceLoaded,
   fontInstanceError,
 })
-export type FontInstanceLibraryActions = typeof actions;
+export type FontInstanceActions = typeof actions;

@@ -34,6 +34,7 @@ export class FontSetApiService {
               });
               if (newSet) {
                 const newFontSet: FontSet = {
+                  id: item.id,
                   setId: item.set_id,
                   name: item.set_name,
                   lastUpdated: new Date,

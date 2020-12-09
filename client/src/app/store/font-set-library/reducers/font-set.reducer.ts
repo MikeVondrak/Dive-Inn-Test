@@ -6,7 +6,7 @@ import {
   fontSetsError,
   FontSetActions
 } from '../actions/font-set.actions';
-import { FontSetState, initialFontSetState } from '../entity/font-set.entity';
+import { fontSetAdapter, FontSetState, initialFontSetState } from '../entity/font-set.entity';
  
 export const reducer = createReducer(
   initialFontSetState,
@@ -23,22 +23,18 @@ export const reducer = createReducer(
     });
   }),
 
-  on(fontSetsLoaded, (state) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontSetLibrary');
-    logger.log('reducer fontSetsLoaded', undefined, undefined, 'FontSetLibrary');
-    return ({
+  on(fontSetsLoaded, (state, { fontSets }) => {
+    logger('fontSetsLoaded', fontSets.length.toString());
+    let newState = {
       ...state,
       fontSetsLoading: false,
-      fontSetsLoaded: true,
-      fontSetsError: false
-    });
+      fontSetsLoaded: true
+    };
+    return fontSetAdapter.setAll(fontSets, newState);
   }),
 
   on(fontSetsError, (state) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontSetLibrary');
-    logger.log('reducer fontSetsError', undefined, undefined, 'FontSetLibrary');
+    logger('fontSetsError');
     return ({
       ...state,
       fontSetsLoading: false,
@@ -47,3 +43,10 @@ export const reducer = createReducer(
     });
   }),
 );
+
+function logger(id: string, output?: string) {
+  const context = 'FontSetLibrary';
+  const logger = new LoggerService;
+  logger.enableLogger(true, context);
+  logger.log('reducer ' + id, output, undefined, context);
+}
