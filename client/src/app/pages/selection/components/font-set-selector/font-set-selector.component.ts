@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { combineLatest, Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontSet } from 'src/app/models/font-set.model';
@@ -10,7 +10,7 @@ import { FontSetManagerService } from 'src/app/services/font-set-manager/font-se
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
-import { getActiveFontSetFontInstances, getActiveFontSetName, getActiveFontSetTypeInstances } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
+import { getActiveFontSetFontInstances, getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { AppState } from 'src/app/store/state';
 import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
 
@@ -23,7 +23,7 @@ export class FontSetSelectorComponent implements OnInit {
 
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
-  public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = this.store$.select(getActiveFontSetTypeInstances);
+  public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
   public allFontInstances$: Observable<FontInstance[]> = this.fontInstanceManagerService.allFontInstances$;
   
   

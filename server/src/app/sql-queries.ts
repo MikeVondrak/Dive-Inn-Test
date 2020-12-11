@@ -31,6 +31,9 @@ export const sqlQueries = {
   // font types
   getFontTypes: 'SELECT * FROM font_type',
 
+  // font weights
+  getFontWeights: 'SELECT * FROM font_weight',
+
   // font instance table  
   getFontInstances:
     `SELECT font_instance.id, font_instance.family, font_instance.italic, font_instance.size, font_weight.weight FROM font_instance 

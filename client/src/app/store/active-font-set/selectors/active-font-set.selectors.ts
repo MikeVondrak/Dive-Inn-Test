@@ -9,9 +9,9 @@ export const selectFeatureActiveFontSet = createFeatureSelector<AppState, Active
 export const getActiveFontSet = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => {
-    const tiMap = state.typeInstances.map(ti => {
-      return [ti[0], ti[1]];
-    });
+    // const tiMap = state.typeInstances.map(ti => {
+    //   return [ti[0], ti[1]];
+    // });
     const fontSet: FontSet = {
       id: state.id,
       setId: state.setId,
@@ -38,10 +38,10 @@ export const getActiveFontSetLastUpdated = createSelector(
   (state: ActiveFontSetState) => state.lastUpdated
 );
 
-export const getActiveFontSetTypeInstances = createSelector(
-  selectFeatureActiveFontSet,
-  (state: ActiveFontSetState) => state.typeInstances
-);
+// export const getActiveFontSetTypeInstances = createSelector(
+//   selectFeatureActiveFontSet,
+//   (state: ActiveFontSetState) => state.typeInstances
+// );
 
 export const getActiveFontSetFontInstances = createSelector(
   selectFeatureActiveFontSet,

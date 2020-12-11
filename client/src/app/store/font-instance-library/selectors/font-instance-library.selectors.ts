@@ -2,10 +2,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AppState } from '../../state';
 import { FontInstanceState } from '../entity/font-instance.entity';
 import * as fontInstanceEntitySelectors from '../entity/font-instance.entity'
+import { FontInstanceApi } from 'src/app/services/api/font-instance/font-instance.api.model';
+import { FontInstance } from 'src/app/models/font-instance.model';
 
 export const selectFeatureFontInstanceLibrary = createFeatureSelector<AppState, FontInstanceState>('fontInstanceLibrary');
 
-export const getLoadedFontInstances = createSelector(
+export const getAllFontInstanceApis = createSelector(
   selectFeatureFontInstanceLibrary,
   fontInstanceEntitySelectors.selectAll
 );

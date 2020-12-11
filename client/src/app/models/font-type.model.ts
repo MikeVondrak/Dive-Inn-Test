@@ -13,6 +13,6 @@ export interface FontType {
 
 
 // remove this? combine w/FontTypeInstanceKvp
-export type FontTypeIdKvp = [string, number];
+//export type FontTypeIdKvp = [string, number];
 
 export type FontTypeInstanceKvp = { key: FontType, value: FontInstance }; // font type as string e.g. "Header Text" + FontInstance

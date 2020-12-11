@@ -34,3 +34,8 @@ export interface DbFontType {
   id: number,
   type: string,
 }
+
+export interface DbFontWeight {
+  id: number,
+  weight: string,
+}

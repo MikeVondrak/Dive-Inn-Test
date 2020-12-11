@@ -1,10 +1,11 @@
 import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { FontInstance } from '../../../models/font-instance.model';
+import { FontInstanceApi } from 'src/app/services/api/font-instance/font-instance.api.model';
+//import { FontInstance } from '../../../models/font-instance.model';
 
 export const fontInstanceFeatureKey = 'fontInstances';
-export const fontInstanceAdapter = createEntityAdapter<FontInstance>();
+export const fontInstanceAdapter = createEntityAdapter<FontInstanceApi>();
 
-export interface FontInstanceState extends EntityState<FontInstance> {  
+export interface FontInstanceState extends EntityState<FontInstanceApi> {  
   readonly fontInstancesLoading: boolean,
   readonly fontInstancesLoaded: boolean,
   readonly fontInstancesError: boolean

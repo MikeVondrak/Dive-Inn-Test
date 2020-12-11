@@ -17,6 +17,9 @@ export const routes = {
       type: {
         _root: '/type',
       },
+      weight: {
+        _root: '/weight',
+      },
       instance: {
         _root: '/instance',
         add: '/add',

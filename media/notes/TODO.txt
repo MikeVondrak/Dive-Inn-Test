@@ -12,7 +12,7 @@ change typeInstanceMap to array? or map<id, id> ?
 font-type.model
 figure out combining KVP's
 
-font-instance-library 
+font-instance-library - DONE
 use entity
 
 

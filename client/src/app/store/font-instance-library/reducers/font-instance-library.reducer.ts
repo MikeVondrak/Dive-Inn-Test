@@ -1,14 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-// import {
-//   loadFontInstances,
-//   fontInstancesLoaded,
-//   fontInstancesError,
-//   loadFontInstanceById,
-//   fontInstanceLoaded,
-//   fontInstanceError,
-//   FontInstanceLibraryActions,
-// } from '../actions/font-instance-library.actions';
 import { FontInstanceActions } from '../actions/font-instance-library.actions';
 import * as FontInstanceAction from '../actions/font-instance-library.actions';
 import { fontInstanceAdapter, FontInstanceState } from '../entity/font-instance.entity';

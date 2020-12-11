@@ -18,7 +18,7 @@ const _activeFontSetReducer = createReducer(
       ...state,
       ...fontSet,
       typeInstanceMap: new Map(fontSet.typeInstanceMap),
-      typeInstances: Array.from(fontSet.typeInstanceMap),
+      //typeInstances: Array.from(fontSet.typeInstanceMap),
       fontInstances: [],
       fontSetLoading: true,
     };

@@ -14,7 +14,6 @@ export const fontWeightIds: Map<FontWeight, number> = new Map([
   ['900', 9],
 ]);
 
-
 export type FontVariants = Map<FontWeight, boolean>;
 
 export interface FontApi {
