@@ -6,7 +6,7 @@ import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontTypes, FontTypeIdKvp, FontTypeInstanceKvp, FontType } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { getLoadedFontInstances } from '../../font-instance-library/selectors/font-instance-library.selectors';
+import { getAllFontInstances } from '../../font-instance-library/selectors/font-instance-library.selectors';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { fontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
@@ -33,7 +33,7 @@ export class SetActiveFontSetEffect {
       switchMap(action => of(action).pipe(
         withLatestFrom(
           this.store$.select(getActiveFontSetTypeInstances),
-          this.store$.select(getLoadedFontInstances),
+          this.store$.select(getAllFontInstances),
         ),
       )),
       switchMap(([action, typeInstances, fontInstances]) => {

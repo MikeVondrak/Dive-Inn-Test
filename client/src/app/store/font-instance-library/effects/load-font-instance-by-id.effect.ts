@@ -8,7 +8,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import { AppState } from '../../state';
 
 import { loadFontInstanceById, fontInstanceLoaded } from '../actions/font-instance-library.actions';
-import { getLoadedFontInstances } from '../selectors/font-instance-library.selectors';
+import { getAllFontInstances } from '../selectors/font-instance-library.selectors';
 
 @Injectable()
 export class LoadFontInstanceByIdEffect {
@@ -23,7 +23,7 @@ export class LoadFontInstanceByIdEffect {
       ofType(loadFontInstanceById),
       concatMap(action => of(action).pipe(
         withLatestFrom(
-          this.store$.select(getLoadedFontInstances)
+          this.store$.select(getAllFontInstances)
         )
       )),
       switchMap(([action, loadedFontInstances]) => {

@@ -1,8 +1,7 @@
 // import { FontInstance } from 'src/app/models/font-instance.model';
 
-// export interface FontInstanceLibraryState {
+// export interface FontInstanceState {
 //   readonly loadedFontInstances: FontInstance[],
-//   readonly fontInstances: FontInstance[],
 
 //   readonly fontInstancesLoading: boolean,
 //   readonly fontInstancesLoaded: boolean,
@@ -11,16 +10,12 @@
 //   readonly fontInstanceDataLoading: boolean,
 //   readonly fontInstanceDataLoaded: boolean,
 //   readonly fontInstanceDataError: boolean,
-
-//   readonly fontInstanceUpdating: boolean,
-//   readonly fontInstanceUpdated: boolean,
-//   readonly fontInstanceUpdateError: boolean,
 // }
 
 // /**
 //  * @TODO use NgRx entity here??
 //  */
-// export const fontInstanceLibraryInitialState: FontInstanceLibraryState = {
+// export const fontInstanceLibraryInitialState: FontInstanceState = {
 //   loadedFontInstances: [],
 //   fontInstancesLoading: false,
 //   fontInstancesLoaded: false,
