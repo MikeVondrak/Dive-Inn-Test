@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-
 import { FontType } from 'src/app/models/font-type.model';
 
 

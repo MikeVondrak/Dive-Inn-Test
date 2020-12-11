@@ -6,7 +6,7 @@ import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontTypes, FontTypeInstanceKvp, FontType } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { getAllFontInstances } from '../../font-instance-library/selectors/font-instance-library.selectors';
+import { getAllFontInstances } from '../../app.selectors';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { fontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';

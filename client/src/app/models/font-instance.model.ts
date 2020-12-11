@@ -1,4 +1,4 @@
-import { FontWeight } from '../services/api/font/font.api.model';
+import { FontWeight } from '../models/font-weight.model';
 
 export interface FontInstance {
   id: number;

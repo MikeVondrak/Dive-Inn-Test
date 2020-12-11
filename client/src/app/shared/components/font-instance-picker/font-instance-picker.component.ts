@@ -3,13 +3,14 @@ import { Observable, of, Subject } from 'rxjs';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
 import { map } from 'rxjs/operators';
-import { FontVariants, FontWeight } from 'src/app/services/api/font/font.api.model';
+import { FontVariants } from 'src/app/services/api/font/font.api.model';
 import { DropdownCompare, DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 import { FontInstance, defaultFontInstance } from '../../../models/font-instance.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { BaseComponent } from '../abstract/base/base.component';
+import { FontWeight } from 'src/app/models/font-weight.model';
 
 type FontWeightDropdownSelection = { key: string, value: boolean };
 

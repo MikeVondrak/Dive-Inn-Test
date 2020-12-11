@@ -6,12 +6,13 @@ import { HeadUriLoaderService } from '../services/head-uri-loader/head-uri-loade
 import { take, map, tap, filter, reduce, every, switchMap, catchError, delay } from 'rxjs/operators';
 import { LoggerService } from './logger/logger.service';
 import { UiFont, IUiFont, FontListsEnum } from '../models/ui-font.model';
-import { FontVariants, FontWeight } from '../services/api/font/font.api.model';
+import { FontVariants } from '../services/api/font/font.api.model';
 import { Observable, BehaviorSubject, combineLatest, of, Subject } from 'rxjs';
 import { FontClickedPayload } from '../shared/components/font-list-display/font-list-display.component';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/state';
 import { fontFamilyDataLoaded } from '../store/font-library/actions/font-library.actions';
+import { FontWeight } from '../models/font-weight.model';
 
 enum DatabaseAction {
   ADD,
@@ -301,7 +302,7 @@ export class FontManagerService {
   }
 
   /**
-   * Add the category of the provided font to a Set to capture all category values
+   * Add the category of the provided font to a Set to capture all category values used by Google fonts
    * @param uiFont font to parse for category value
    */
   private parseFontCategory(uiFont: UiFont) {

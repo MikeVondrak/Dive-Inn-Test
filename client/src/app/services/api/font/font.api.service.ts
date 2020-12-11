@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { routes, FontGroupEnum } from '../../../../../../server/src/app/routes';
 
 import { UiFont, IUiFont, FontListsEnum } from '../../../models/ui-font.model';
-import { FontApi, FontWeight } from './font.api.model';
+import { FontApi } from './font.api.model';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '../../logger/logger.service';
 

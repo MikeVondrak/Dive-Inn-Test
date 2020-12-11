@@ -1,5 +1,5 @@
 import { FontInstance } from '../../models/font-instance.model';
-import { FontWeight } from '../../services/api/font/font.api.model';
+import { FontWeight } from '../../models/font-weight.model';
 
 export interface ActiveFontInstanceState {
   readonly activeFontInstanceId: number,

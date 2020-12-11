@@ -11,7 +11,7 @@ export class FontWeightRouter extends BaseRouter {
 
   constructor(routerCallback: RouterCallback<DbFontWeight>) {
     const baseRoute = routes.api.font._root + routes.api.font.weight._root;
-    const baseQuery = sqlQueries.getFontTypes;
+    const baseQuery = sqlQueries.getFontWeights;
     super(baseRoute, baseQuery, routerCallback);
   }
 }

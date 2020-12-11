@@ -11,6 +11,7 @@ import { loadFontInstances } from './store/font-instance-library/actions/font-in
 import { setDefaultActiveFontSet } from './store/active-font-set/actions/active-font-set.actions';
 import { loadFontTypes } from './store/font-type/actions/font-type.actions';
 import { loadFontSets } from './store/font-set-library/actions/font-set.actions';
+import { loadFontWeights } from './store/font-weight/actions/font-weight.actions';
 
 @Component({
   selector: 'app-root',
@@ -59,6 +60,9 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
 
     // dispatch action to load font sets entity from DB
     this.store$.dispatch(loadFontSets());
+
+    // dispatch action to load font sets entity from DB
+    this.store$.dispatch(loadFontWeights());
   }
 
   ngAfterViewInit(): void {

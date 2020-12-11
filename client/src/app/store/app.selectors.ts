@@ -7,25 +7,27 @@ import { FontInstance } from '../models/font-instance.model';
 
 import { FontWeightState } from './font-weight/entity/font-weight.entity';
 import { FontWeightApi } from '../services/api/font-weight/font-weight.api.model';
-import { FontWeight } from '../services/api/font/font.api.model'; // TODO: move to its own file for consistency?
+import { FontWeight } from '../models/font-weight.model'; // TODO: move to its own file for consistency?
 
-import { getAllFontInstanceApis } from './font-instance-library/selectors/font-instance-library.selectors';
-import { getAllFontWeights } from './font-weight/selectors/font-weight.selectors';
+import { getFontInstances } from './font-instance-library/selectors/font-instance-library.selectors';
+import { getFontWeights } from './font-weight/selectors/font-weight.selectors';
 
 export const getAllFontInstances = createSelector(
-  getAllFontInstanceApis,
-  getAllFontWeights,
+  getFontInstances,
+  getFontWeights,
   (fontInstanceApis: FontInstanceApi[], fontWeightApis: FontWeightApi[]) => {
     
     const fontInstances: FontInstance[] = fontInstanceApis
       .map(fiApi => {
-        const fontWeight: FontWeight = fontWeightApis.find(fwApi => fwApi.id === fiApi.fontWeightId)
+        const fontWeight: FontWeight = fontWeightApis.find(fwApi => fwApi.id === fiApi.id)?.weight as FontWeight;
         const fi: FontInstance = {
-        id: fiApi.id,
-        family: fiApi.family,
-        weight: fontWeight,
-        italic: fiApi.italic,
-        size: fiApi.size,
+          id: fiApi.id,
+          family: fiApi.family,
+          weight: fontWeight,
+          italic: fiApi.italic,
+          size: fiApi.size,
+        }
+        return fi;
       }
     );
     return fontInstances;

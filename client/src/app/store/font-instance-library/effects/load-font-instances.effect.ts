@@ -7,9 +7,8 @@ import { FontInstanceApiService } from 'src/app/services/api/font-instance/font-
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { AppState } from '../../state';
-
 import { loadFontInstances, fontInstancesLoaded } from '../actions/font-instance-library.actions';
-import { getAllFontInstances } from '../selectors/font-instance-library.selectors';
+
 
 @Injectable()
 export class LoadFontInstancesEffect {

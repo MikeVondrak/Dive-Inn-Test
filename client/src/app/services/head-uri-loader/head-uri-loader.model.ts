@@ -2,7 +2,7 @@
 /** @TODO compile this programatically from the list of selectable + available fonts */
 
 import { IUiFont, UiFont } from '../../models/ui-font.model';
-import { FontWeight } from '../api/font/font.api.model';
+import { FontWeight } from '../../models/font-weight.model';
 
 /**
  * Include fonts here, will be downloaded via <link> element and added as an option in font dropdowns

@@ -1,5 +1,5 @@
 import { selectFontTypeState } from './font-type.selectors';
-import { fontTypeFeatureKey } from '../font-type.state';
+import { fontTypeFeatureKey } from '../entity/font-type.entity';
 
 describe('FontType Selectors', () => {
   it('should select the feature state', () => {

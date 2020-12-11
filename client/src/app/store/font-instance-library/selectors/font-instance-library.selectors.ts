@@ -7,7 +7,7 @@ import { FontInstance } from 'src/app/models/font-instance.model';
 
 export const selectFeatureFontInstanceLibrary = createFeatureSelector<AppState, FontInstanceState>('fontInstanceLibrary');
 
-export const getAllFontInstanceApis = createSelector(
+export const getFontInstances = createSelector(
   selectFeatureFontInstanceLibrary,
   fontInstanceEntitySelectors.selectAll
 );

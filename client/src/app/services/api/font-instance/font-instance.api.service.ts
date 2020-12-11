@@ -5,7 +5,7 @@ import { FontInstance } from 'src/app/models/font-instance.model';
 import { routes } from '../../../../../../server/src/app/routes';
 import { LoggerService } from '../../logger/logger.service';
 import { FontInstanceApi } from './font-instance.api.model';
-import { fontWeightIds } from '../font/font.api.model';
+import { fontWeightIds } from '../../../models/font-weight.model';
 
 @Injectable({
   providedIn: 'root'
