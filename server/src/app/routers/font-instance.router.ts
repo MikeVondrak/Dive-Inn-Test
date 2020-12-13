@@ -12,7 +12,7 @@ export class FontInstanceRouter extends BaseRouter {
 
   constructor(routerCallback: RouterCallback<DbFontInstance>) {
     const baseRoute = routes.api.font._root + routes.api.font.instance._root;
-    const baseQuery = sqlQueries.getFontInstances;
+    const baseQuery = sqlQueries.getFontInstanceApis;
     super(baseRoute, baseQuery, routerCallback); // base class handles 'get-all' instances
 
     // get FontInstance by ID

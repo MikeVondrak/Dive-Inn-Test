@@ -8,7 +8,7 @@
 // import { AppState } from '../../state';
 
 // import { loadFontInstanceById, fontInstanceLoaded } from '../actions/font-instance-library.actions';
-// import { getAllFontInstances } from '../../app.selectors';
+// import { getUiFontInstances } from '../../app.selectors';
 
 // @Injectable()
 // export class LoadFontInstanceByIdEffect {
@@ -23,7 +23,7 @@
 //       ofType(loadFontInstanceById),
 //       concatMap(action => of(action).pipe(
 //         withLatestFrom(
-//           this.store$.select(getAllFontInstances)
+//           this.store$.select(getUiFontInstances)
 //         )
 //       )),
 //       switchMap(([action, loadedFontInstances]) => {

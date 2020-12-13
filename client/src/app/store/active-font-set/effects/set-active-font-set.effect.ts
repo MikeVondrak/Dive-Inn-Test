@@ -6,7 +6,7 @@ import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontTypes, FontTypeInstanceKvp, FontType } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { getAllFontInstances } from '../../app.selectors';
+import { getUiFontInstances } from '../../app.selectors';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { fontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
@@ -33,10 +33,12 @@ export class SetActiveFontSetEffect {
       switchMap(action => of(action).pipe(
         withLatestFrom(
           //this.store$.select(getActiveFontSetTypeInstances),
-          this.store$.select(getAllFontInstances),
+          this.store$.select(getUiFontInstances),
         ),
       )),
-      switchMap(([action, typeInstances]) => {//, fontInstances]) => {
+      switchMap(([action, allFontInstances]) => {//, fontInstances]) => {
+        debugger;
+
         // loop through type->instanceId map of new active font set and check if instance has been loaded
         action.fontSet.typeInstanceMap.forEach((value: number, key: string) => {
           

@@ -10,7 +10,7 @@ import * as fromAppSelectors from 'src/app/store/app.selectors';
 })
 export class FontInstanceManagerService {
 
-public allFontInstances$: Observable<FontInstance[]> = this.store$.select(fromAppSelectors.getAllFontInstances);
+public apiFontInstances$: Observable<FontInstance[]> = this.store$.select(fromAppSelectors.getUiFontInstances);
 
   constructor(
     private fontInstanceApiService: FontInstanceApiService,

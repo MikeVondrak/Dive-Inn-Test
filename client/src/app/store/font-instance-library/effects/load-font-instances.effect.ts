@@ -17,18 +17,21 @@ export class LoadFontInstancesEffect {
     private store$: Store<AppState>,
     private fontInstanceManagerService: FontInstanceManagerService,
     private fontInstanceApiService: FontInstanceApiService
-  ) {}
+  ) { }
 
   loadFontInstances$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadFontInstances),
       switchMap((action) => {
         // load font instances list from DB
-        return this.fontInstanceApiService.getAllFontInstances$().pipe(
-          switchMap((allFontInstances) => of(fontInstancesLoaded({ allFontInstances: allFontInstances})))
+        return this.fontInstanceApiService.getApiFontInstances$().pipe(
+          switchMap((apiFontInstances) => {
+            debugger;
+            return of(fontInstancesLoaded({ allFontInstances: apiFontInstances })) 
+          })
         );
       })
     )
   );
-    
+
 }    

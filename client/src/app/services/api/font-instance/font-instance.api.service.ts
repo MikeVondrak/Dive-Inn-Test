@@ -24,13 +24,13 @@ export class FontInstanceApiService {
   /**
    * Return all from font_instance table
    */
-  public getAllFontInstances$(): Observable<any[]> {
-    this.loggerService.log('getAllFontInstances');
+  public getApiFontInstances$(): Observable<any[]> {
+    this.loggerService.log('getApiFontInstances');
     
-    const allFontInstances: Observable<FontInstance[]>
+    const apiFontInstances: Observable<FontInstance[]>
       = this.http.get<FontInstance[]>(this.baseRoute);
 
-    return allFontInstances;
+    return apiFontInstances;
   }
 
   /**
@@ -38,10 +38,11 @@ export class FontInstanceApiService {
    */
   public addFontInstance$(fontInstance: FontInstance): Observable<object> {
     this.loggerService.log('addFontInstance', JSON.stringify(fontInstance,null,4));
+
     const route = this.baseRoute + routes.api.font.instance.add;
     const headers = { 'content-type': 'application/json' };
     const body = this.mapFontInstanceUiToDb(fontInstance);
-    //debugger;
+
     const postResponse = this.http.post(
       route, 
       body, 
@@ -64,6 +65,7 @@ export class FontInstanceApiService {
       italic : fontInstance.italic,
       size : fontInstance.size
     }
+    debugger;
     return fontInstanceApi;
   }
 

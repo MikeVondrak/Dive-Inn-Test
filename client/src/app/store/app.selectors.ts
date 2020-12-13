@@ -12,14 +12,15 @@ import { FontWeight } from '../models/font-weight.model'; // TODO: move to its o
 import { getFontInstances } from './font-instance-library/selectors/font-instance-library.selectors';
 import { getFontWeights } from './font-weight/selectors/font-weight.selectors';
 
-export const getAllFontInstances = createSelector(
+export const getUiFontInstances = createSelector(
   getFontInstances,
   getFontWeights,
   (fontInstanceApis: FontInstanceApi[], fontWeightApis: FontWeightApi[]) => {
     
     const fontInstances: FontInstance[] = fontInstanceApis
       .map(fiApi => {
-        const fontWeight: FontWeight = fontWeightApis.find(fwApi => fwApi.id === fiApi.id)?.weight as FontWeight;
+
+        const fontWeight: FontWeight = fontWeightApis.find(fwApi => fwApi.id === fiApi.fk_font_weight_id)?.weight as FontWeight;
         const fi: FontInstance = {
           id: fiApi.id,
           family: fiApi.family,

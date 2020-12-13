@@ -11,6 +11,7 @@ import { setActiveFontInstance } from 'src/app/store/active-font-instance/action
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { getActiveFontSetFontInstances, getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
+import { getUiFontInstances } from 'src/app/store/app.selectors';
 import { AppState } from 'src/app/store/state';
 import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
 
@@ -24,7 +25,7 @@ export class FontSetSelectorComponent implements OnInit {
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
-  public allFontInstances$: Observable<FontInstance[]> = this.fontInstanceManagerService.allFontInstances$;
+  public uiFontInstances$: Observable<FontInstance[]> = this.store$.select(getUiFontInstances);
   
   
   //public activeFontSet$: Observable<FontSet> = this.store$.select(getActiveFontSet);

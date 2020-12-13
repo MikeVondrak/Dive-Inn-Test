@@ -37,12 +37,12 @@
 </div> -->
 
 <h3>All Font Instances</h3>
-<div *ngFor="let fi3 of (allFontInstances$ | async)">
-  Font Type-Instance: {{ fi3.family }} {{ fi3.id }}
+<div *ngFor="let fi3 of (uiFontInstances$ | async)">
+  {{ fi3.family }} {{ fi3.id }} weight: {{ fi3.weight }}
 </div>
 
 
 <h3>All Font Types</h3>
 <div *ngFor="let ft of (allFontTypes$ | async)">
-  Font Type-Instance: {{ ft.id }} - {{ ft.type }}
+  TypeId: {{ ft.id }} - {{ ft.type }}
 </div>
