@@ -37,10 +37,10 @@ export class SetActiveFontSetEffect {
         ),
       )),
       switchMap(([action, allFontInstances]) => {//, fontInstances]) => {
-        debugger;
+        //debugger;
 
         // loop through type->instanceId map of new active font set and check if instance has been loaded
-        action.fontSet.typeInstanceMap.forEach((value: number, key: string) => {
+        // action.fontSet.typeInstanceMap.forEach((value: number, key: string) => {
           
           // check to see if instances in the font set have already been loaded
           // const fontInstance = fontInstances.find(fi => fi.id === value);
@@ -75,7 +75,7 @@ export class SetActiveFontSetEffect {
           // } else {
           //   throw new Error('Active Font Set instance ID does not exist: ' + value);
           // }
-        });
+        // });
         return of(fontSetLoaded());
       })
     ),

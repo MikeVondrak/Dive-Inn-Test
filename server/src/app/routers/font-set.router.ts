@@ -12,7 +12,7 @@ export class FontSetRouter extends BaseRouter {
 
   constructor(routerCallback: RouterCallback<DbFontSet>) {
     const baseRoute = routes.api.font._root + routes.api.font.fontSet._root;
-    const baseQuery = sqlQueries.getFontSets;
+    const baseQuery = sqlQueries.getFontSetsApis;
     super(baseRoute, baseQuery, routerCallback);
 
     // handle adding a fontSet

@@ -16,3 +16,6 @@ export interface FontType {
 //export type FontTypeIdKvp = [string, number];
 
 export type FontTypeInstanceKvp = { key: FontType, value: FontInstance }; // font type as string e.g. "Header Text" + FontInstance
+
+// define kvp to allow access as FontTypeInstance.FontTypes e.g. myFontInstance.page_title
+export type FontTypeInstanceSet = {[key in FontTypes]: FontInstance};

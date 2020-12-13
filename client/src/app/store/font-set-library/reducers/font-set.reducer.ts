@@ -22,15 +22,22 @@ export const reducer = createReducer(
   }),
 
   on(fontSetsLoaded, (state, action) => {
-    const fontSets = action.fontSets;
+    const fontSetApis = action.fontSetApis;
     let newState = {
       ...state,
       fontSetsLoading: false,
       fontSetsLoaded: true
     };
-    logger('fontSetsLoaded', 'count=' + fontSets.length);
+    logger('fontSetsLoaded', 'count=' + fontSetApis.length);
+
+
+
+    // populate type-instance id "map" here???
     
-    return fontSetAdapter.setAll(action.fontSets, newState);
+    
+
+
+    return fontSetAdapter.setAll(action.fontSetApis, newState);
   }),
 
   on(fontSetsError, (state) => {

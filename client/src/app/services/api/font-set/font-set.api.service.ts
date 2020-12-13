@@ -19,40 +19,52 @@ export class FontSetApiService {
     private fontSetManagerService: FontSetManagerService
   ) { }
 
-  public getAllFontSets$(): Observable<FontSet[]> {
-    const allFontSets: Observable<FontSet[]>
-      = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        
-        map(fontSetApiArray => {
-          const groupedSet = fontSetApiArray.reduce(
-            (accum, item) => {
-              let newSet = true;
-              accum.forEach(fontSet => {
-                if (item.set_id === fontSet.setId) {
-                  fontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-                  newSet = false;
-                }
-              });
-              if (newSet) {
-                const newFontSet: FontSet = {
-                  id: item.id,
-                  setId: item.set_id,
-                  name: item.set_name,
-                  lastUpdated: new Date,
-                  typeInstanceMap: new Map<string, number>()
-                }
-                newFontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-                accum.push(newFontSet);
-              }
-              return accum;
-            },
-            new Array<FontSet>()
-          );          
-          return groupedSet;
-        })
-      );
-      
-      return allFontSets;
+  /**
+   * get the raw data from the DB w/o packaging set rows into a single object
+   */
+  public getFontSetApis$(): Observable<FontSetApi[]> {
+    const fontSetApis: Observable<FontSetApi[]>
+      = this.http.get<FontSetApi[]>(this.baseRoute);
+    
+    return fontSetApis;
   }
+
+  //public getMappedFontSetApis$(): Observable<FontSetApi[]>
+
+  // public getAllFontSets$(): Observable<FontSet[]> {
+  //   const allFontSets: Observable<FontSet[]>
+  //     = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        
+  //       map(fontSetApiArray => {
+  //         const groupedSet = fontSetApiArray.reduce(
+  //           (accum, item) => {
+  //             let newSet = true;
+  //             accum.forEach(fontSet => {
+  //               if (item.set_id === fontSet.setId) {
+  //                 fontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
+  //                 newSet = false;
+  //               }
+  //             });
+  //             if (newSet) {
+  //               const newFontSet: FontSet = {
+  //                 id: item.id,
+  //                 setId: item.set_id,
+  //                 name: item.set_name,
+  //                 lastUpdated: new Date,
+  //                 typeInstanceMap: new Map<string, number>()
+  //               }
+  //               newFontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
+  //               accum.push(newFontSet);
+  //             }
+  //             return accum;
+  //           },
+  //           new Array<FontSet>()
+  //         );          
+  //         return groupedSet;
+  //       })
+  //     );
+      
+  //     return allFontSets;
+  // }
 
   // public updateFontSet$(): Observable<FontSet> {
   //   const route = this.baseRoute + routes.api.font.fontSet.add;

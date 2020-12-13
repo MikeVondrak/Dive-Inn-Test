@@ -14,7 +14,7 @@ import { setActiveFontInstance } from 'src/app/store/active-font-instance/action
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { getFontDataLoading } from 'src/app/store/font-library/selectors/font-library.selectors';
 import { BaseComponent } from 'src/app/shared/components/abstract/base/base.component';
-import { FontSet } from 'src/app/models/font-set.model';
+import { FontSet, FontSetListView } from 'src/app/models/font-set.model';
 
 @Component({
   selector: 'app-selection-page',
@@ -29,7 +29,7 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   public activeFontInstance$: Observable<FontInstance>;
   public fontInstanceLoading$: Observable<boolean>;
   // public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.getAllFontSets$();
-  public fontSetList$: Observable<FontSet[]> = this.fontSetManagerService.allFontSets$;
+  public fontSetList$: Observable<FontSetListView[]> = this.fontSetManagerService.fontSetsListView$;
 
   constructor(
     private serverTestService: ServerTestService,

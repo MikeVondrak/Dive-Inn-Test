@@ -13,6 +13,7 @@ import { FontSetApiService } from '../../../services/api/font-set/font-set.api.s
 
 import { loadFontSets, fontSetsLoaded } from '../actions/font-set.actions';
 import { FontSet } from 'src/app/models/font-set.model';
+import { FontSetApi } from "src/app/services/api/font-set/font-set.api.model";
 
 
 @Injectable()
@@ -28,9 +29,9 @@ export class LoadFontSetDataEffect {
       ofType(loadFontSets),
       switchMap((action) => {
 
-        return this.fontSetApiService.getAllFontSets$().pipe(
-          switchMap((fontSets: FontSet[]) => {
-            return of(fontSetsLoaded({ fontSets }));
+        return this.fontSetApiService.getFontSetApis$().pipe(
+          switchMap((fontSetApis: FontSetApi[]) => {
+            return of(fontSetsLoaded({ fontSetApis }));
           })
         );
       })

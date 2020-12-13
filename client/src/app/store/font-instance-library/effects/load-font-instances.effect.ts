@@ -26,7 +26,6 @@ export class LoadFontInstancesEffect {
         // load font instances list from DB
         return this.fontInstanceApiService.getApiFontInstances$().pipe(
           switchMap((apiFontInstances) => {
-            debugger;
             return of(fontInstancesLoaded({ allFontInstances: apiFontInstances })) 
           })
         );

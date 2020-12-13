@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { AppState } from 'src/app/store/state';
-import { FontSet } from '../../../../models/font-set.model';
+import { FontSet, FontSetListView } from '../../../../models/font-set.model';
 import { setActiveFontSet } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 
 @Component({
@@ -16,7 +16,7 @@ export class FontSetListComponent implements OnInit {
   public selectedFontSetIndex: number = -1;
   public selectedFontSet: FontSet = undefined;
 
-  @Input() fontSetList: FontSet[];
+  @Input() fontSetList: Set<FontSetListView>;
 
   constructor(private loggerService: LoggerService, private store$: Store<AppState>) {
     this.loggerService.enableLogger(true);
