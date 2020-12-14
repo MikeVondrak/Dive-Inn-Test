@@ -33,4 +33,20 @@ export const getUiFontInstances = createSelector(
     );
     return fontInstances;
   }
-)
+);
+
+// export const getUiActiveFontSet = createSelector(
+//   selectFeatureActiveFontSet,
+//   (state: ActiveFontSetState) => {
+//     const tiMap = state.fontTypeInstanceIds.map(ti => {
+//       return [ti[0], ti[1]];
+//     });
+//     const fontSet: FontSet = {
+//       setId: state.setId,
+//       name: state.name,
+//       lastUpdated: state.lastUpdated,
+//       typeInstanceMap : new Map(state.fontTypeInstanceIds) // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//     }
+//     return fontSet;
+//   }
+// );

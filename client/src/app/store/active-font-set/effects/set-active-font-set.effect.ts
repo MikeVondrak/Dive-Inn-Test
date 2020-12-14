@@ -9,7 +9,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import { getUiFontInstances } from '../../app.selectors';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
-import { fontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
+import { activeFontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
 import { getActiveFontSetFontInstances } from '../selectors/active-font-set.selectors';
 
 @Injectable({
@@ -76,7 +76,7 @@ export class SetActiveFontSetEffect {
           //   throw new Error('Active Font Set instance ID does not exist: ' + value);
           // }
         // });
-        return of(fontSetLoaded());
+        return of(activeFontSetLoaded());
       })
     ),
   );

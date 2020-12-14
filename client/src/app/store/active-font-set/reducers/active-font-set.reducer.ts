@@ -1,11 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
+import { FontSet } from 'src/app/models/font-set.model';
 import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   ActiveFontSetActions, 
-  fontSetError, 
-  fontSetLoaded, 
+  activeFontSetError, 
+  activeFontSetLoaded, 
   setActiveFontSet,
+  setActiveFontSetById,
   setActiveFontSetFontInstance,
   setDefaultActiveFontSet
 } from '../actions/active-font-set.actions';
@@ -14,15 +16,27 @@ import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-se
 const _activeFontSetReducer = createReducer(
   activeFontSetInitialState,
   on(setActiveFontSet, (state, { fontSet }) => { 
-    const r = {
+
+    // TODO: need this anymore?
+
+    const newState: ActiveFontSetState = {
       ...state,
       ...fontSet,
-      //typeInstanceMap: new Map(fontSet.typeInstanceMap),
-      //typeInstances: Array.from(fontSet.typeInstanceMap),
-      fontInstances: [],
-      fontSetLoading: true,
+      activeFontSetLoading: true,
+      activeFontSetLoaded: false, // reset loaded and error state each time new active font set is loaded
+      activeFontSetError: false,
     };
-    return (r);
+    debugger;
+    return (newState);
+  }),
+  on(setActiveFontSetById, (state, { fontSetId }) => {
+    const newState: ActiveFontSetState = {
+      ...state,
+      activeFontSetLoading: true,
+      activeFontSetLoaded: false, // reset loaded and error state each time new active font set is loaded
+      activeFontSetError: false,
+    }
+    return newState;
   }),
   on(setDefaultActiveFontSet, (state) => {
     // get FontType array from DB
@@ -54,18 +68,18 @@ const _activeFontSetReducer = createReducer(
     };
     return (r);
   }),
-  on(fontSetLoaded, (state) => {
+  on(activeFontSetLoaded, (state) => {
     return({
       ...state,
-      fontSetLoading: false,
-      fontSetLoaded: true
+      activeFontSetLoading: false,
+      activeFontSetLoaded: true
     });
   }),
-  on(fontSetError, (state) => {
+  on(activeFontSetError, (state) => {
     return({
       ...state,
-      fontSetLoading: false,
-      fontSetError: true,
+      activeFontSetLoading: false,
+      activeFontSetError: true,
     });
   }),
 );

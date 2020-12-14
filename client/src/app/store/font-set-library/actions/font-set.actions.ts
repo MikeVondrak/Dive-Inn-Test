@@ -30,8 +30,8 @@ export const deleteFontSet = createAction(
   props<{ fontSetId: number }>()
 );
 
-export const changeFontSetName = createAction(
-  '[Font Set] changeFontSetName',
+export const updateFontSetName = createAction(
+  '[Font Set] updateFontSetName',
   props<{ updatedFontSetName: string }>()
 );
 
@@ -42,6 +42,6 @@ const actions = union({
   updateFontSet,
   createFontSet,
   deleteFontSet,
-  changeFontSetName
+  updateFontSetName,
 })
 export type FontSetActions = typeof actions;

@@ -1,5 +1,4 @@
-import { KeyValueNumber } from './app.model';
-import { FontTypeInstanceSet } from './font-type.model';
+import { FontTypeInstanceMap } from './font-type.model';
 
 export interface FontSet {
   //id: number,
@@ -9,7 +8,7 @@ export interface FontSet {
    
   //typeInstanceIdsMap: KeyValueNumber[];
   //typeInstanceMap: Map<FontTypeInstancePair> // maps the font type (e.g. "header") to a specific font instance to compose a set
-  typeInstanceSet: FontTypeInstanceSet;
+  typeInstanceMap: FontTypeInstanceMap;
   
 }
 

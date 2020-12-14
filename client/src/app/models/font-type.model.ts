@@ -1,6 +1,7 @@
 import { FontInstance } from './font-instance.model';
 
-// type names to match DB values, temporary solution
+// TODO: any better solution for this? no way to handle types at runtime since the type system is removed when transpiled to js
+// type names to match DB values, make sure we don't accidentally magic string
 export type FontTypes = 'page_title' | 'main_nav' | 'section_title' | 'section_header' | 'section_text';
 
 /**
@@ -11,11 +12,12 @@ export interface FontType {
     type: FontTypes;
 }
 
-
-// remove this? combine w/FontTypeInstanceKvp
-//export type FontTypeIdKvp = [string, number];
-
 export type FontTypeInstanceKvp = { key: FontType, value: FontInstance }; // font type as string e.g. "Header Text" + FontInstance
+export type FontTypeInstanceIdPair = { typeId: number, instanceId: number };
 
 // define kvp to allow access as FontTypeInstance.FontTypes e.g. myFontInstance.page_title
-export type FontTypeInstanceSet = {[key in FontTypes]: FontInstance};
+export type FontTypeInstancePair = {[key in FontTypes]: FontInstance};
+
+export type FontTypeInstancePair2 = {[key: string]: FontInstance};
+
+export type FontTypeInstanceMap = Map<FontTypes, FontInstance>;

@@ -1,4 +1,5 @@
 import { KeyValueNumber } from "src/app/models/app.model";
+import { FontTypeInstanceIdPair } from 'src/app/models/font-type.model';
 
 /**
  * represents a single row from the font_set table
@@ -12,12 +13,8 @@ export interface FontSetApi {
     fk_font_instance_id: number;
 }
 
-// export interface FontSetApiMapped {
-//     id: number;
-//     set_id: number;
-//     set_name: string;
-//     typeInstanceIdMap: KeyValueNumber[];
-//     //fk_font_type_id: number;
-//     //fk_font_instance_id: number;
-//     //type: string;
-// }
+export interface FontSetApiMapped {
+    set_id: number;
+    set_name: string;
+    typeInstanceIdMap: FontTypeInstanceIdPair[];
+}

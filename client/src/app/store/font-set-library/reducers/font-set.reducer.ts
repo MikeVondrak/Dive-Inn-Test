@@ -11,7 +11,7 @@ import { fontSetAdapter, FontSetState, initialFontSetState } from '../entity/fon
 export const reducer = createReducer(
   initialFontSetState,
   
-  on(loadFontSets, (state) => {
+  on(loadFontSets, (state: FontSetState) => {
     logger('loadfontSets');
     return ({
       ...state,
@@ -30,13 +30,6 @@ export const reducer = createReducer(
     };
     logger('fontSetsLoaded', 'count=' + fontSetApis.length);
 
-
-
-    // populate type-instance id "map" here???
-    
-    
-
-
     return fontSetAdapter.setAll(action.fontSetApis, newState);
   }),
 
@@ -49,6 +42,7 @@ export const reducer = createReducer(
       fontSetsError: true
     });
   }),
+
 );
 
 function logger(id: string, output?: string) {
