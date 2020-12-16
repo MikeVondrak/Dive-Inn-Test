@@ -76,12 +76,17 @@ const _activeFontSetReducer = createReducer(
     return (r);
   }),
 
-  on(activeFontSetLoaded, (state) => {
-    return({
+  on(activeFontSetLoaded, (state, action) => {
+    const fontSet = action.fontSet;
+    const newState = {
       ...state,
+      setId: fontSet.set_id,
+      name: fontSet.set_name,
+      fontTypeInstanceIds: Array.from(fontSet.typeInstanceIdMap),
       activeFontSetLoading: false,
       activeFontSetLoaded: true
-    });
+    }
+    return newState;
   }),
   on(activeFontSetError, (state) => {
     return({

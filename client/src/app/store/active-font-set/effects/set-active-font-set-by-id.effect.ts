@@ -23,19 +23,20 @@ export class SetActiveFontSetByIdEffect {
     this.actions$.pipe(
       ofType(setActiveFontSetById),
       tap(action => {
+        debugger;
         const logger = new LoggerService;
         logger.enableLogger(true, 'SetActiveFontSetByIdEffect');        
         logger.log('action', 'id: ' + action.fontSetId, undefined, 'SetActiveFontSetByIdEffect');    
       }),
       switchMap((action) => {
-        // get FontSet data from store and find the set matching action's setId
-        const fontSet = this.store$.select(getFontSetById, { setId: action.fontSetId }).pipe(
+        // get FontSet data from store and find the set matching the action's setId
+        return this.store$.select(getFontSetById, { setId: action.fontSetId }).pipe(
           take(1),
-          map(fontSet => {
-            return of(activeFontSetLoaded)
+          switchMap(fontSet => {
+            return of(activeFontSetLoaded({ fontSet: fontSet }))
           })
         );
-        return of(action)
+       // return of(action)
       }),
     ),
     //{ dispatch: false }
