@@ -10,7 +10,7 @@ import { getUiFontInstances } from '../../app.selectors';
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { activeFontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
-import { getActiveFontSetFontInstances } from '../selectors/active-font-set.selectors';
+import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -76,7 +76,7 @@ export class SetActiveFontSetEffect {
           //   throw new Error('Active Font Set instance ID does not exist: ' + value);
           // }
         // });
-        return of(activeFontSetLoaded());
+        return of(activeFontSetLoaded({ fontSet: { set_id: -1, set_name: '', typeInstanceIdMap: undefined } }));
       })
     ),
   );

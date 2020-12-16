@@ -5,7 +5,7 @@
   <button (click)="updateFontSetName()">CHANGE</button>
 </div>
 
-<div *ngFor="let fontTypeInstance of (activeFontSetFontInstances$ | async)">
+<div *ngFor="let fontTypeInstance of (activeFontSetTypeInstances$ | async) | keyvalue">
   <h4>{{fontTypeInstance.key.type}}</h4>
   <app-font-type-instance-loader
     [fontTypeInstanceKvp]="fontTypeInstance"
@@ -19,7 +19,7 @@
 </div>
 
 <br><br>
-<button *ngIf="(activeFontSetFontInstances$ | async)?.length > 0" 
+<button *ngIf="(activeFontSetTypeInstances$ | async)?.length > 0" 
   (click)="saveActiveFontSet()"
 >
   SAVE

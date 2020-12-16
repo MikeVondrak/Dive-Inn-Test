@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontTypeInstanceKvp } from 'src/app/models/font-type.model';
+import { FontTypeInstanceIdPair, FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   ActiveFontSetActions, 
@@ -51,23 +51,31 @@ const _activeFontSetReducer = createReducer(
     return state;
   }),
   on(setActiveFontSetFontInstance, (state, { fontTypeInstanceKvp }) => {
-    const newState = state.fontInstances.map(fi => {
-      if (fi.key === fontTypeInstanceKvp.key) {
-        // if the key matches an existing key map to the new KVP
-        return fontTypeInstanceKvp;
-      }
-      return fi;
-    });
-    // add to ActiveFontSetState   FontInstances
-    if (!newState.includes(fontTypeInstanceKvp)) {
-      newState.push(fontTypeInstanceKvp);
+    
+    const ftipFromKvp: FontTypeInstanceIdPair = {
+      typeId: fontTypeInstanceKvp.key.id,
+      instanceId: fontTypeInstanceKvp.value.id
     }
-    const r = {
+
+    const newTypeInstanceIds = state.fontTypeInstanceIds.map(fti => {
+      // determine which type-instance needs to be updated by checking the type ID
+      if (fti.typeId === fontTypeInstanceKvp.key.id) {    
+        return ftipFromKvp;
+      }
+      return fti;
+    });
+
+    // when we're initially building the array the type won't exist until we push the first time
+    if (!newTypeInstanceIds.includes(ftipFromKvp)) {
+      newTypeInstanceIds.push(ftipFromKvp);
+    }
+    const r: ActiveFontSetState = {
       ...state,
-      fontInstances: newState
+      fontTypeInstanceIds: newTypeInstanceIds
     };
     return (r);
   }),
+
   on(activeFontSetLoaded, (state) => {
     return({
       ...state,
