@@ -23,7 +23,6 @@ export class SetActiveFontSetByIdEffect {
     this.actions$.pipe(
       ofType(setActiveFontSetById),
       tap(action => {
-        debugger;
         const logger = new LoggerService;
         logger.enableLogger(true, 'SetActiveFontSetByIdEffect');        
         logger.log('action', 'id: ' + action.fontSetId, undefined, 'SetActiveFontSetByIdEffect');    

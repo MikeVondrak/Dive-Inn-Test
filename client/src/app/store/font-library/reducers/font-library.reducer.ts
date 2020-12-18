@@ -12,9 +12,7 @@ const _fontLibraryReducer = createReducer(
   fontLibraryInitialState,
   
   on(loadFontFamilyData, (state, { family }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontLibrary');
-    logger.log('reducer loadFontFamilyData', { "family": family }, undefined, 'FontLibrary');
+    logger('loadFontFamilyData', family);
     return ({
       ...state,
       fontDataLoading: true,
@@ -24,22 +22,25 @@ const _fontLibraryReducer = createReducer(
   }),
 
   on(fontFamilyDataLoaded, (state, { family }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontLibrary');
-    logger.log('reducer fontFamilyDataLoaded', family, undefined, 'FontLibrary');
-    return ({
+    logger('fontFamilyDataLoaded', family);
+    
+    const loadedFonts = [...state.loadedFonts];
+    if (!state.loadedFonts.includes(family)) {
+      loadedFonts.push(family);
+    }
+    
+    const newState: FontLibraryState = {
       ...state,
-      loadedFonts: [...state.loadedFonts, family],
+      loadedFonts: loadedFonts,
       fontDataLoading: false,
       fontDataLoaded: true,
       fontDataError: false
-    });
+    }
+    return newState;
   }),
 
   on(fontFamilyDataError, (state, { family }) => {
-    const logger = new LoggerService;
-    logger.enableLogger(true, 'FontLibrary');
-    logger.log('reducer fontFamilyDataError', family, undefined, 'FontLibrary');
+    logger('fontFamilyDataError');
     return ({
       ...state,
       fontDataLoading: false,
@@ -51,4 +52,10 @@ const _fontLibraryReducer = createReducer(
  
 export function fontLibraryReducer(state: FontLibraryState, action: FontLibraryActions) {
   return _fontLibraryReducer(state, action);
+}
+
+function logger(id: string, output?: string) {
+  const logger = new LoggerService;
+  logger.enableLogger(true, 'FontLibrary');
+  logger.log('reducer ' + id, output, undefined, 'FontLibrary');
 }
