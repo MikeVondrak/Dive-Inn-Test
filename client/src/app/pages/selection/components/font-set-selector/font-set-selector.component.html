@@ -6,12 +6,12 @@
 </div>
 
 <div *ngFor="let fontTypeInstance of (activeFontSetTypeInstances$ | async) | keyvalue">
-  <h4>{{fontTypeInstance.key?.type}}</h4>
+  <h4>{{fontTypeInstance.key}}</h4>
   <app-font-type-instance-loader
     [fontTypeInstanceKvp]="fontTypeInstance"
     [displayText]="fontTypeInstance.value?.family + ' ' + fontTypeInstance.value?.size + ' ' + fontTypeInstance.value?.weight"
-    (upClicked)="setActiveFontInstance($event)"
-    (downClicked)="storeActiveFontInstanceToSet($event)"
+    (upClicked)="setActiveFontInstance(fontTypeInstance)"
+    (downClicked)="storeActiveFontInstanceToSet(fontTypeInstance)"
   ></app-font-type-instance-loader>
   <!-- <div>
     Font Type-Instance: {{ fontTypeInstance?.key }} - {{ fontTypeInstance?.value?.family }}
@@ -27,8 +27,8 @@
 
 <br><br>
 <h3>Font Type-Instance Array</h3>
-<div *ngFor="let fi1 of (activeFontSetTypeInstanceIds$ | async)">
-  Font Type-Instance: {{ fi1[0] }} {{ fi1[1] }}
+<div *ngFor="let fi1 of (activeFontSetTypeInstances$ | async) | keyvalue">
+  Font Type-Instance: {{ fi1.key }} {{ fi1.value.family }}
 </div>
 
 <!-- <h3>Active Set Font Instances</h3>

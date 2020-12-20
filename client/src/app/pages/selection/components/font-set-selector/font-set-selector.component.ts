@@ -4,7 +4,7 @@ import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontType, FontTypeInstanceKvp, FontTypeInstanceMap } from 'src/app/models/font-type.model';
+import { FontType, FontTypeInstanceKvp, FontTypeInstanceMap, FontTypeInstancePair } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { FontSetManagerService } from 'src/app/services/font-set-manager/font-set-manager.service';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
@@ -45,12 +45,15 @@ export class FontSetSelectorComponent implements OnInit {
     this.store$.dispatch(setActiveFontInstance({fontInstance: fontTypeInstanceKvp.value}));
   }
 
-  public storeActiveFontInstanceToSet(fontTypeInstanceKvp: FontTypeInstanceKvp) {
-    const ftiKvp = {...fontTypeInstanceKvp};
-    this.store$.select(getActiveFontInstance).pipe(take(1)).subscribe(afi => {
-      ftiKvp.value = Object.assign({}, afi);
-      this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstanceKvp: ftiKvp}));
-    });
+  public storeActiveFontInstanceToSet(fontTypeInstanceMapPair: FontTypeInstancePair) {
+    debugger;
+    // TODO: should dispatch object w/only ids
+    this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstancePair: fontTypeInstanceMapPair}));
+
+    // this.store$.select(getActiveFontInstance).pipe(take(1)).subscribe(afi => {
+    //   debugger;
+    //   ftiKvp.value = Object.assign({}, afi);  
+    // });
   }
 
   public saveActiveFontSet() {

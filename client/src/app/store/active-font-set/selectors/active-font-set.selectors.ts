@@ -31,10 +31,10 @@ export const getActiveFontSetName = createSelector(
   (state: ActiveFontSetState) => state.name
 );
 
-export const getActiveFontSetLastUpdated = createSelector(
-  selectFeatureActiveFontSet,
-  (state: ActiveFontSetState) => state.lastUpdated
-);
+// export const getActiveFontSetLastUpdated = createSelector(
+//   selectFeatureActiveFontSet,
+//   (state: ActiveFontSetState) => state.lastUpdated
+// );
 
 export const getActiveFontSetTypeInstanceIds = createSelector(
   selectFeatureActiveFontSet,

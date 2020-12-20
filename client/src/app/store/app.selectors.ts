@@ -50,6 +50,7 @@ export const getUiActiveFontSet: MemoizedSelector<AppState, FontSet> = createSel
   
     let typeInstances: [FontTypes, FontInstance][] = [];
 
+    debugger;
     activeFontSetApisMapped.typeInstanceIdMap
     .forEach(activeFontSetTypeInstance => {
       const typeApi = fontTypeApis[activeFontSetTypeInstance.typeId];
@@ -84,7 +85,9 @@ export const getUiActiveFontSet: MemoizedSelector<AppState, FontSet> = createSel
 
 export const getUiActiveFontSetTypeInstances: MemoizedSelector<AppState, FontTypeInstanceMap> = createSelector(
   getUiActiveFontSet,
-  (fontSet: FontSet) => fontSet.typeInstanceMap
+  (fontSet: FontSet) => {
+    return fontSet.typeInstanceMap
+  }
 );
 
 // export const getUiActiveFontSet = createSelector(

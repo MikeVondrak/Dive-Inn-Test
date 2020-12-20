@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontTypeInstanceIdPair, FontTypeInstanceKvp } from 'src/app/models/font-type.model';
+import { FontTypeInstanceIdPair, FontTypeInstanceKvp, fontTypesMap } from 'src/app/models/font-type.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   ActiveFontSetActions, 
@@ -50,16 +50,20 @@ const _activeFontSetReducer = createReducer(
 
     return state;
   }),
-  on(setActiveFontSetFontInstance, (state, { fontTypeInstanceKvp }) => {
-    
+  on(setActiveFontSetFontInstance, (state, { fontTypeInstancePair }) => {
+    debugger; // 
+
+    // get the type id from type
+    const typeId = fontTypesMap.indexOf(fontTypeInstancePair.key) + 1;
+
     const ftipFromKvp: FontTypeInstanceIdPair = {
-      typeId: fontTypeInstanceKvp.key.id,
-      instanceId: fontTypeInstanceKvp.value.id
+      typeId: typeId,
+      instanceId: fontTypeInstancePair.value.id
     }
 
     const newTypeInstanceIds = state.fontTypeInstanceIds.map(fti => {
       // determine which type-instance needs to be updated by checking the type ID
-      if (fti.typeId === fontTypeInstanceKvp.key.id) {    
+      if (fti.typeId === typeId) {
         return ftipFromKvp;
       }
       return fti;

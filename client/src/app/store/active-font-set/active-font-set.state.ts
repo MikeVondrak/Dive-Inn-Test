@@ -5,7 +5,7 @@ import { FontSet } from '../../models/font-set.model';
 export interface ActiveFontSetState {
   readonly setId: number,
   readonly name: string,
-  readonly lastUpdated: Date,
+  // readonly lastUpdated: Date,
   
   readonly fontTypeInstanceIds: FontTypeInstanceIdPair[],
 
@@ -17,7 +17,7 @@ export interface ActiveFontSetState {
 export const activeFontSetInitialState: ActiveFontSetState = {
   setId: -1,
   name: '',
-  lastUpdated: undefined,
+  // lastUpdated: undefined,
   
   fontTypeInstanceIds: [],
 
