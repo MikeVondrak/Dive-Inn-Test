@@ -46,14 +46,7 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public storeActiveFontInstanceToSet(fontTypeInstanceMapPair: FontTypeInstancePair) {
-    debugger;
-    // TODO: should dispatch object w/only ids
     this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstancePair: fontTypeInstanceMapPair}));
-
-    // this.store$.select(getActiveFontInstance).pipe(take(1)).subscribe(afi => {
-    //   debugger;
-    //   ftiKvp.value = Object.assign({}, afi);  
-    // });
   }
 
   public saveActiveFontSet() {
@@ -69,6 +62,10 @@ export class FontSetSelectorComponent implements OnInit {
 
   public updateFontSetName() {
     // use value from Font Set Name control
+  }
+
+  public sortOriginalOrder(a, b): number {
+    return 0;
   }
 
 }
