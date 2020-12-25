@@ -1,5 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
-import { FontTypeInstanceKvp, FontTypeInstancePair } from 'src/app/models/font-type.model';
+import { FontType, FontTypeInstanceKvp, FontTypeInstancePair } from 'src/app/models/font-type.model';
+import { FontInstanceApi } from 'src/app/services/api/font-instance/font-instance.api.model';
 import { FontSetApiMapped } from 'src/app/services/api/font-set/font-set.api.model';
 import { FontSet } from '../../../models/font-set.model';
 
@@ -32,7 +33,12 @@ export const activeFontSetError = createAction('[Font Set] activeFontSetError');
 export const setActiveFontSetFontInstance = createAction(
   '[Font Set] setActiveFontSetFontInstance',
   // props<{ fontTypeInstanceKvp: FontTypeInstanceKvp }>()
-  props<{ fontTypeInstancePair: FontTypeInstancePair }>()
+  props<{ fontType: FontType }>()
+);
+
+export const activeFontSetFontInstanceLoaded = createAction(
+  '[Font Set] activeFontSetFontInstanceLoaded',
+  props<{ fontInstanceApi: FontInstanceApi }>()
 );
 
 const actions = union({
@@ -41,5 +47,6 @@ const actions = union({
   activeFontSetLoaded,
   activeFontSetError,
   setActiveFontSetFontInstance,
+  activeFontSetFontInstanceLoaded
 })
 export type ActiveFontSetActions = typeof actions;

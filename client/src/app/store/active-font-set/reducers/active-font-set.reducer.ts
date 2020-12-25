@@ -26,7 +26,6 @@ const _activeFontSetReducer = createReducer(
       activeFontSetLoaded: false, // reset loaded and error state each time new active font set is loaded
       activeFontSetError: false,
     };
-    debugger;
     return (newState);
   }),
   on(setActiveFontSetById, (state, { fontSetId }) => {
@@ -50,34 +49,47 @@ const _activeFontSetReducer = createReducer(
 
     return state;
   }),
-  on(setActiveFontSetFontInstance, (state, { fontTypeInstancePair }) => {
-    debugger; // 
+  on(setActiveFontSetFontInstance, (state, { fontType }) => {
 
-    // get the type id from type
-    const typeId = fontTypesMap.indexOf(fontTypeInstancePair.key) + 1;
-
-    const ftipFromKvp: FontTypeInstanceIdPair = {
-      typeId: typeId,
-      instanceId: fontTypeInstancePair.value.id
-    }
-
-    const newTypeInstanceIds = state.fontTypeInstanceIds.map(fti => {
-      // determine which type-instance needs to be updated by checking the type ID
-      if (fti.typeId === typeId) {
-        return ftipFromKvp;
-      }
-      return fti;
-    });
-
-    // when we're initially building the array the type won't exist until we push the first time
-    if (!newTypeInstanceIds.includes(ftipFromKvp)) {
-      newTypeInstanceIds.push(ftipFromKvp);
-    }
-    const r: ActiveFontSetState = {
+    const newState: ActiveFontSetState = {
       ...state,
-      fontTypeInstanceIds: newTypeInstanceIds
-    };
-    return (r);
+      activeFontSetInstanceLoading: true,
+      activeFontSetInstanceLoaded: false, // reset loaded and error state each time new active font set is loaded
+      activeFontSetInstanceError: false,
+    }
+    return newState;
+
+
+
+
+    // get the type id from type, + 1 so 0 based array index matches 1 based DB table index
+    // TODO - get this from DB instead of hardcoding
+
+    //const typeId = fontTypesMap.indexOf(fontType) + 1;
+    // const typeId = fontType.id;
+
+    // const ftipFromKvp: FontTypeInstanceIdPair = {
+    //   typeId: typeId,
+    //   instanceId: fontTypeInstancePair.value.id
+    // }
+
+    // const newTypeInstanceIds = state.fontTypeInstanceIds.map(fti => {
+    //   // determine which type-instance needs to be updated by checking the type ID
+    //   if (fti.typeId === typeId) {
+    //     return ftipFromKvp;
+    //   }
+    //   return fti;
+    // });
+
+    // // when we're initially building the array the type won't exist until we push the first time
+    // if (!newTypeInstanceIds.includes(ftipFromKvp)) {
+    //   newTypeInstanceIds.push(ftipFromKvp);
+    // }
+    // const r: ActiveFontSetState = {
+    //   ...state,
+    //   fontTypeInstanceIds: newTypeInstanceIds
+    // };
+    // return (r);
   }),
 
   on(activeFontSetLoaded, (state, action) => {

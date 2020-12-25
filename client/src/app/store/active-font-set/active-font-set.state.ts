@@ -12,6 +12,10 @@ export interface ActiveFontSetState {
   readonly activeFontSetLoading: boolean,
   readonly activeFontSetLoaded: boolean,
   readonly activeFontSetError: boolean,
+
+  readonly activeFontSetInstanceLoading: boolean,
+  readonly activeFontSetInstanceLoaded: boolean,
+  readonly activeFontSetInstanceError: boolean,
 }
 
 export const activeFontSetInitialState: ActiveFontSetState = {
@@ -24,4 +28,8 @@ export const activeFontSetInitialState: ActiveFontSetState = {
   activeFontSetLoading: false,
   activeFontSetLoaded: false,
   activeFontSetError: false,
+
+  activeFontSetInstanceLoading: false,
+  activeFontSetInstanceLoaded: false,
+  activeFontSetInstanceError: false,
 }

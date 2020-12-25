@@ -45,8 +45,8 @@ export class FontSetSelectorComponent implements OnInit {
     this.store$.dispatch(setActiveFontInstance({fontInstance: fontTypeInstanceKvp.value}));
   }
 
-  public storeActiveFontInstanceToSet(fontTypeInstanceMapPair: FontTypeInstancePair) {
-    this.store$.dispatch(setActiveFontSetFontInstance({fontTypeInstancePair: fontTypeInstanceMapPair}));
+  public storeActiveFontInstanceToSet(fontType: FontType) {
+    this.store$.dispatch(setActiveFontSetFontInstance({fontType: fontType}));
   }
 
   public saveActiveFontSet() {

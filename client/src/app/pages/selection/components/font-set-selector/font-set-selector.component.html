@@ -11,7 +11,7 @@
     [fontTypeInstanceKvp]="fontTypeInstance"
     [displayText]="fontTypeInstance.value?.family + ' ' + fontTypeInstance.value?.size + ' ' + fontTypeInstance.value?.weight"
     (upClicked)="setActiveFontInstance(fontTypeInstance)"
-    (downClicked)="storeActiveFontInstanceToSet(fontTypeInstance)"
+    (downClicked)="storeActiveFontInstanceToSet(fontType)"
   ></app-font-type-instance-loader>
   <!-- <div>
     Font Type-Instance: {{ fontTypeInstance?.key }} - {{ fontTypeInstance?.value?.family }}
