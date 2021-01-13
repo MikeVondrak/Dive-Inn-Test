@@ -23,4 +23,5 @@ export type FontTypeInstancePair = { key: FontTypes, value: FontInstance };
 
 export type FontTypeInstancePair2 = {[key: string]: FontInstance};
 
-export type FontTypeInstanceMap = Map<FontTypes, FontInstance>;
+//export type FontTypeInstanceMap = Map<FontTypes, FontInstance>;
+export type FontTypeInstanceMap = Map<FontType, FontInstance>;

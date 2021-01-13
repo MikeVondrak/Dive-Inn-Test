@@ -59,13 +59,12 @@ export class FontInstanceApiService {
 
   private mapFontInstanceUiToDb(fontInstance: FontInstance): FontInstanceApi {
     let fontInstanceApi: FontInstanceApi = {
-      id : fontInstance.id,
+      //id : fontInstance.id,
       family : fontInstance.family,
       fk_font_weight_id: fontWeightIds.get(fontInstance.weight),
       italic : fontInstance.italic,
       size : fontInstance.size
     }
-    debugger;
     return fontInstanceApi;
   }
 

@@ -24,6 +24,7 @@ export class FontTypeInstanceLoaderComponent implements OnInit {
   }
 
   public downClick() {
+    debugger;
     this.downClicked.emit(this.fontTypeInstanceKvp.key);
   }
 

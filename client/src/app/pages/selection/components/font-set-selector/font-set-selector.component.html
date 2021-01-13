@@ -6,12 +6,12 @@
 </div>
 
 <div *ngFor="let fontTypeInstance of (activeFontSetTypeInstances$ | async) | keyvalue: sortOriginalOrder">
-  <h4>{{fontTypeInstance.key}}</h4>
+  <h4>{{fontTypeInstance.key.type}}</h4>
   <app-font-type-instance-loader
     [fontTypeInstanceKvp]="fontTypeInstance"
     [displayText]="fontTypeInstance.value?.family + ' ' + fontTypeInstance.value?.size + ' ' + fontTypeInstance.value?.weight"
     (upClicked)="setActiveFontInstance(fontTypeInstance)"
-    (downClicked)="storeActiveFontInstanceToSet(fontType)"
+    (downClicked)="storeActiveFontInstanceToSet(fontTypeInstance.key)"
   ></app-font-type-instance-loader>
   <!-- <div>
     Font Type-Instance: {{ fontTypeInstance?.key }} - {{ fontTypeInstance?.value?.family }}

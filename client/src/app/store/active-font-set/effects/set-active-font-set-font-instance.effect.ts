@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { of } from "rxjs";
 import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontInstanceApi } from "src/app/services/api/font-instance/font-instance.api.model";
-import { FontTypes, FontTypeInstanceKvp, FontType } from '../../../models/font-type.model';
+import { FontTypes, FontTypeInstanceKvp, FontType, FontTypeInstanceIdPair } from '../../../models/font-type.model';
 import { FontInstanceManagerService } from '../../../services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { getActiveFontInstance } from "../../active-font-instance/selectors/active-font-instance.selectors";
@@ -42,7 +42,15 @@ import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.se
           return this.fontInstanceManagerService.addFontInstance$(activeFontInstance).pipe(
             switchMap(addedFontInstance => {
               const added = addedFontInstance as FontInstanceApi;
-              return of(activeFontSetFontInstanceLoaded({ fontInstanceApi: added }));
+              
+              const type = action.fontType;
+              const addedFontInstanceId = addedFontInstance[0].id;
+              const pair: FontTypeInstanceIdPair = {
+                typeId: type.id,
+                instanceId: addedFontInstanceId
+              };
+
+              return of(activeFontSetFontInstanceLoaded({ fontTypeInstancePair: pair }));
             })
           );
 

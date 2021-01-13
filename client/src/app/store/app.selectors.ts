@@ -48,7 +48,7 @@ export const getUiActiveFontSet: MemoizedSelector<AppState, FontSet> = createSel
   getFontWeights,
   (fontInstanceApis: FontInstanceApi[], fontTypeApis: FontTypeApi[], activeFontSetApisMapped: FontSetApiMapped, fontWeights: FontWeightApi[]) => {
     
-    let typeInstances: [FontTypes, FontInstance][] = [];
+    let typeInstances: [FontType, FontInstance][] = [];
 
     activeFontSetApisMapped.typeInstanceIdMap
     .forEach(activeFontSetTypeInstance => {
@@ -68,7 +68,7 @@ export const getUiActiveFontSet: MemoizedSelector<AppState, FontSet> = createSel
         size: instanceApi?.size,
         weight: weightApi?.weight as FontWeight
       }
-      const mapItem: [FontTypes, FontInstance] = [type.type as FontTypes, instance];
+      const mapItem: [FontType, FontInstance] = [type, instance];
       typeInstances.push(mapItem);
     });
 
