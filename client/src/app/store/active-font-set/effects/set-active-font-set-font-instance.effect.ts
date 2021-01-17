@@ -7,8 +7,9 @@ import { FontInstanceApi } from "src/app/services/api/font-instance/font-instanc
 import { FontTypes, FontTypeInstanceKvp, FontType, FontTypeInstanceIdPair } from '../../../models/font-type.model';
 import { FontInstanceManagerService } from '../../../services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from '../../../services/logger/logger.service';
-import { getActiveFontInstance } from "../../active-font-instance/selectors/active-font-instance.selectors";
+import { getActiveFontInstance, getActiveFontInstanceApi } from "../../active-font-instance/selectors/active-font-instance.selectors";
 import { getUiFontInstances } from '../../app.selectors';
+import { getFontInstances } from "../../font-instance-library/selectors/font-instance-library.selectors";
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { activeFontSetFontInstanceLoaded, setActiveFontSetFontInstance } from "../actions/active-font-set.actions";
@@ -34,42 +35,34 @@ import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.se
         }),
         switchMap(action => of(action).pipe(
           withLatestFrom(
-            this.store$.select(getActiveFontInstance),
+            this.store$.select(getActiveFontInstanceApi),
+            this.store$.select(getFontInstances)
           ),
         )),
-        switchMap(([action, activeFontInstance]) => {
-
+        switchMap(([action, activeFontInstance, fontInstances]) => {
+          const type = action.fontType;
+          const existingInstance = fontInstances.find(fi => 
+            fi.family === activeFontInstance.family && 
+            fi.fk_font_weight_id === activeFontInstance.fk_font_weight_id &&
+            fi.italic === activeFontInstance.italic &&
+            fi.size === activeFontInstance.size
+          );
+          if (!!existingInstance) {
+            return of(activeFontSetFontInstanceLoaded({ fontTypeId: type.id, fontInstanceApi: existingInstance }));
+          }
           return this.fontInstanceManagerService.addFontInstance$(activeFontInstance).pipe(
             switchMap(addedFontInstance => {
-              const added = addedFontInstance as FontInstanceApi;
-              
-              const type = action.fontType;
+              const added = addedFontInstance[0] as FontInstanceApi;
               const addedFontInstanceId = addedFontInstance[0].id;
               const pair: FontTypeInstanceIdPair = {
                 typeId: type.id,
                 instanceId: addedFontInstanceId
               };
-
-              return of(activeFontSetFontInstanceLoaded({ fontTypeInstancePair: pair }));
+              return of(activeFontSetFontInstanceLoaded({ fontTypeId: type.id, fontInstanceApi: added }));
             })
           );
 
         })
-
-        // check if the font instance has already been loaded / exists, and if not make the API call to load it
-        // update the DB with any new font instances and get the IDs back
-        // return an ActiveFontSetFontInstanceLoaded action and add case to reducer
-
-
-        // switchMap(action => of(action).pipe(
-        //   withLatestFrom(
-        //     this.store$.select(getUiFontInstances),
-        //   ),
-        // )),
-        // switchMap(([action, allFontInstances]) => {
-
-        //   return of(ActiveFontSetFontInstanceLoaded({ fontSet: { set_id: -1, set_name: '', typeInstanceIdMap: undefined } }));
-        // })
       ),
       // { dispatch: false }
     );

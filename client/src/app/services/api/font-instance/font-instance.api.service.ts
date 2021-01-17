@@ -36,14 +36,16 @@ export class FontInstanceApiService {
   /**
    * Add a font instance to font_instance table
    */
-  public addFontInstance$(fontInstance: FontInstance): Observable<object> {
-    this.loggerService.log('addFontInstance', JSON.stringify(fontInstance,null,4));
+  public addFontInstance$(fontInstanceApi: FontInstanceApi): Observable<{ id: number }> {
+    this.loggerService.log('addFontInstance', JSON.stringify(fontInstanceApi,null,4));
 
     const route = this.baseRoute + routes.api.font.instance.add;
     const headers = { 'content-type': 'application/json' };
-    const body = this.mapFontInstanceUiToDb(fontInstance);
+    // remove the ID so we don't try to use it server-side
+    const body = { ...fontInstanceApi, id: undefined };
+    //const body = this.mapFontInstanceUiToDb(fontInstanceApi);
 
-    const postResponse = this.http.post(
+    const postResponse = this.http.post<{ id: number }>(
       route, 
       body, 
       { 'headers': headers }

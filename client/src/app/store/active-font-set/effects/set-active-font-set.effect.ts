@@ -37,16 +37,7 @@ export class SetActiveFontSetEffect {
         ),
       )),
       switchMap(([action, allFontInstances]) => {//, fontInstances]) => {
-        //debugger;
-
-        // loop through type->instanceId map of new active font set and check if instance has been loaded
-        // action.fontSet.typeInstanceMap.forEach((value: number, key: string) => {
-          
-          // check to see if instances in the font set have already been loaded
-          // const fontInstance = fontInstances.find(fi => fi.id === value);
-
-
-
+        
           // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
           // match type and construct FontType
@@ -64,10 +55,7 @@ export class SetActiveFontSetEffect {
           //   key: ftiKvpKey,
           //   value: fontInstance
           // }
-          
-          
-          
-          
+                  
           
           // if (fontInstance) {
           //   // dispatch action to update active font set type instance for type "key"

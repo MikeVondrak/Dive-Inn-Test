@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontInstanceApiService } from '../api/font-instance/font-instance.api.service';
 import * as fromAppSelectors from 'src/app/store/app.selectors';
+import { FontInstanceApi } from '../api/font-instance/font-instance.api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ public apiFontInstances$: Observable<FontInstance[]> = this.store$.select(fromAp
     return this.fontInstanceApiService.getFontInstanceById$(id);
   }
   
-  public addFontInstance$(fontInstance: FontInstance): Observable<object> {
-    return this.fontInstanceApiService.addFontInstance$(fontInstance);
+  public addFontInstance$(fontInstanceApi: FontInstanceApi): Observable<object> {
+    return this.fontInstanceApiService.addFontInstance$(fontInstanceApi);
   }
 }

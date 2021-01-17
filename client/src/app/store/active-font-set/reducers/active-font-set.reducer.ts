@@ -9,7 +9,8 @@ import {
   setActiveFontSet,
   setActiveFontSetById,
   setActiveFontSetFontInstance,
-  setDefaultActiveFontSet
+  setDefaultActiveFontSet,
+  activeFontSetFontInstanceLoaded
 } from '../actions/active-font-set.actions';
 import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-set.state';
 
@@ -58,38 +59,6 @@ const _activeFontSetReducer = createReducer(
       activeFontSetInstanceError: false,
     }
     return newState;
-
-
-
-
-    // get the type id from type, + 1 so 0 based array index matches 1 based DB table index
-    // TODO - get this from DB instead of hardcoding
-
-    //const typeId = fontTypesMap.indexOf(fontType) + 1;
-    // const typeId = fontType.id;
-
-    // const ftipFromKvp: FontTypeInstanceIdPair = {
-    //   typeId: typeId,
-    //   instanceId: fontTypeInstancePair.value.id
-    // }
-
-    // const newTypeInstanceIds = state.fontTypeInstanceIds.map(fti => {
-    //   // determine which type-instance needs to be updated by checking the type ID
-    //   if (fti.typeId === typeId) {
-    //     return ftipFromKvp;
-    //   }
-    //   return fti;
-    // });
-
-    // // when we're initially building the array the type won't exist until we push the first time
-    // if (!newTypeInstanceIds.includes(ftipFromKvp)) {
-    //   newTypeInstanceIds.push(ftipFromKvp);
-    // }
-    // const r: ActiveFontSetState = {
-    //   ...state,
-    //   fontTypeInstanceIds: newTypeInstanceIds
-    // };
-    // return (r);
   }),
 
   on(activeFontSetLoaded, (state, action) => {
@@ -111,6 +80,20 @@ const _activeFontSetReducer = createReducer(
       activeFontSetError: true,
     });
   }),
+  on(activeFontSetFontInstanceLoaded, (state, action) => {
+    let newFontTypeInstanceIds = state.fontTypeInstanceIds.map(idPair => {
+      const newPair = { ...idPair };      
+      if (action.fontTypeId === idPair.typeId) {
+        newPair.instanceId = action.fontInstanceApi.id;
+      }
+      return newPair;
+    });
+    const newState: ActiveFontSetState = {
+      ...state,
+      fontTypeInstanceIds: newFontTypeInstanceIds
+    }
+    return newState
+  })
 );
  
 export function activeFontSetReducer(state: ActiveFontSetState, action: ActiveFontSetActions) {
