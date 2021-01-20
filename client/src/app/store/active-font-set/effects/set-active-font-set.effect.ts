@@ -2,15 +2,13 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
 import { of } from "rxjs";
-import { concatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontTypes, FontTypeInstanceKvp, FontType } from 'src/app/models/font-type.model';
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { getUiFontInstances } from '../../app.selectors';
-import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { activeFontSetLoaded, setActiveFontSet, setActiveFontSetFontInstance } from '../actions/active-font-set.actions';
-import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.selectors';
 
 @Injectable({
   providedIn: 'root'

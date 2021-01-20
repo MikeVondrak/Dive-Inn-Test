@@ -33,9 +33,7 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
   public selectedFont: UiFont;
   public italicable: boolean = false;
   
-  //public selectedFont$: Subject<SelectOption> = new Subject<SelectOption>();
-
-  public fontWeights$: Observable<FontVariants> = of(this.selectedFont?.properties?.variants);
+  public fontWeights$: Observable<FontVariants>;
   public fontWeightOptions$: Observable<FontWeight[]>;
   public selectedWeight$: Subject<SelectOption> = new Subject<SelectOption>();
   public compareFontWeights: DropdownCompare;
@@ -43,6 +41,7 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
 
   constructor(private fontManagerService: FontManagerService, private cdr: ChangeDetectorRef, private store$: Store<AppState>) {
     super();
+    this.fontWeights$ = of(this.selectedFont?.properties?.variants);
   }
 
   ngOnInit(): void {

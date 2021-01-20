@@ -1,10 +1,16 @@
 import { createAction, props, union } from '@ngrx/store';
+import { FontInstanceApi } from 'src/app/services/api/font-instance/font-instance.api.model';
 import { FontInstance } from '../../../models/font-instance.model';
 import { FontWeight } from '../../../models/font-weight.model';
 
 export const setActiveFontInstance = createAction(
   '[Font Instance] setActiveFontInstance', 
   props<{ fontInstance: FontInstance }>()
+);
+
+export const setActiveFontInstanceApi = createAction(
+  '[Font Instance] setActiveFontInstanceApi', 
+  props<{ fontInstanceApi: FontInstanceApi }>()
 );
 
 export const setActiveFontFamily = createAction(

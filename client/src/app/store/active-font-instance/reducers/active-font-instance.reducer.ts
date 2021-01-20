@@ -4,6 +4,7 @@ import {
   ActiveFontInstanceActions, 
   setActiveFontFamily,
   setActiveFontInstance,
+  setActiveFontInstanceApi,
   setActiveFontItalic,
   setActiveFontSize,
   setActiveFontWeight 
@@ -12,14 +13,15 @@ import { activeFontInstanceInitialState, ActiveFontInstanceState } from '../acti
 
 const _activeFontInstanceReducer = createReducer(
   activeFontInstanceInitialState,
-  on(setActiveFontInstance, (state, { fontInstance }) => 
+  on(setActiveFontInstanceApi, (state, { fontInstanceApi }) => 
   { 
     return ({
       ...state,
-      activeFontFamily: fontInstance.family,
-      activeFontWeight: fontInstance.weight,
-      activeFontItalic: fontInstance.italic,
-      activeFontSize: fontInstance.size.toString()
+      activeFontFamily: fontInstanceApi.family,
+      // activeFontWeight: fontInstanceApi.weight, TODO: REMOVE EVERYWHERE
+      activeFontWeightId: fontInstanceApi.fk_font_weight_id,
+      activeFontItalic: fontInstanceApi.italic,
+      activeFontSize: fontInstanceApi.size.toString()
     });
   }
   ),
@@ -34,9 +36,9 @@ const _activeFontInstanceReducer = createReducer(
   }
   ),
 
-  on(setActiveFontSize, (state, { size }) => ({ ...state, size: size }) ),
-  on(setActiveFontWeight, (state, { weight }) => ({ ...state, weight: weight })),
-  on(setActiveFontItalic, (state, { italic }) => ({ ...state, italic: italic })),
+  // on(setActiveFontSize, (state, { size }) => ({ ...state, size: size }) ),
+  // on(setActiveFontWeight, (state, { weight }) => ({ ...state, weight: weight })),
+  // on(setActiveFontItalic, (state, { italic }) => ({ ...state, italic: italic })),
 );
  
 export function activeFontInstanceReducer(state: ActiveFontInstanceState, action: ActiveFontInstanceActions) {

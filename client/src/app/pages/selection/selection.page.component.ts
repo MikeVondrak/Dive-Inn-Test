@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-
+import { Observable } from 'rxjs';
 import { PageLoadingService } from 'src/app/services/page-loading.service';
 import { ServerTestService } from 'src/app/services/server-test/server-test.service';
 import { FontManagerService } from '../../services/font-manager.service';
 import { FontSetManagerService } from '../../services/font-set-manager/font-set-manager.service';
-import { ServerTestData } from 'src/app/services/server-test/server-test.model';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { defaultFontInstance, FontInstance } from 'src/app/models/font-instance.model';
 import { Store } from '@ngrx/store';
@@ -52,6 +50,8 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   public fontInstanceChange(newFontInstance: FontInstance) {
     this.loggerService.log('fontInstanceChange', newFontInstance);
     this.fontInstance = {...newFontInstance};
+
+    // this currently has no effect, only a tap
     this.store$.dispatch(setActiveFontInstance({ fontInstance: {...this.fontInstance} }));
   }
 

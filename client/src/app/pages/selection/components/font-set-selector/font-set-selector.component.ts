@@ -28,7 +28,6 @@ export class FontSetSelectorComponent implements OnInit {
   public uiFontInstances$: Observable<FontInstance[]> = this.store$.select(getUiFontInstances);
   
   
-  //public activeFontSet$: Observable<FontSet> = this.store$.select(getActiveFontSet);
   public activeFontSetName$: Observable<string> = this.store$.select(getActiveFontSetName);
   public activeFontSetTypeInstances$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
 
