@@ -44,6 +44,6 @@ export class SetActiveFontInstanceEffect {
         return of(setActiveFontInstanceApi({ fontInstanceApi }));
       })
     ),
-    //{ dispatch: false }
+    //{ dispatch: false } 
   );
 }

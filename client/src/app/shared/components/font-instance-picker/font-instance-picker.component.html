@@ -25,15 +25,15 @@
     htmlId="FontWeightsDropdown"
     title="Weight"
     [options$]="fontWeightOptions$"
-    displayProperty=""
-    valueProperty=""
+    [displayProperty]=""
+    [valueProperty]=""
     (onOptionChange)="selectedWeightChange($event)"
   ></app-dropdown>
   
   <app-checkbox #italicCheckbox
     checkboxId="ItalicCheckbox"
     title="Italic"
-    [checkedValue]="this.fontInstance.italic"
+    [checkedValue]="fontInstance.italic"
     [disabled]="!italicable"
     (onOptionChange)="italicChange($event)"
   ></app-checkbox>

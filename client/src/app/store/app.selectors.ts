@@ -17,6 +17,7 @@ import { getActiveFontSet, getActiveFontSetTypeInstanceIds } from './active-font
 import { FontSet } from '../models/font-set.model';
 import { FontType, FontTypeInstanceIdPair, FontTypeInstanceMap, FontTypes } from '../models/font-type.model';
 import { FontSetApiMapped } from '../services/api/font-set/font-set.api.model';
+import { getActiveFontInstance, getActiveFontInstanceApi } from './active-font-instance/selectors/active-font-instance.selectors';
 
 export const getUiFontInstances = createSelector(
   getFontInstances,
@@ -38,6 +39,22 @@ export const getUiFontInstances = createSelector(
       }
     );
     return fontInstances;
+  }
+);
+
+export const getUiActiveFontInstance = createSelector(
+  getActiveFontInstanceApi,
+  getFontWeights,
+  (activeFontInstanceApi: FontInstanceApi, fontWeightApis: FontWeightApi[]) => {
+    const fontWeight: FontWeight = fontWeightApis.find(fwApi => fwApi.id === activeFontInstanceApi.fk_font_weight_id)?.weight as FontWeight;
+    const uiActiveFontInstance: FontInstance = {
+      family: activeFontInstanceApi.family,
+      id: activeFontInstanceApi.id,
+      italic: activeFontInstanceApi.italic,
+      size: activeFontInstanceApi.size,
+      weight: fontWeight,
+    }
+    return uiActiveFontInstance;
   }
 );
 
@@ -90,19 +107,3 @@ export const getUiActiveFontSetTypeInstances: MemoizedSelector<AppState, FontTyp
     return fontSet.typeInstanceMap
   }
 );
-
-// export const getUiActiveFontSet = createSelector(
-//   selectFeatureActiveFontSet,
-//   (state: ActiveFontSetState) => {
-//     const tiMap = state.fontTypeInstanceIds.map(ti => {
-//       return [ti[0], ti[1]];
-//     });
-//     const fontSet: FontSet = {
-//       setId: state.setId,
-//       name: state.name,
-//       lastUpdated: state.lastUpdated,
-//       typeInstanceMap : new Map(state.fontTypeInstanceIds) // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//     }
-//     return fontSet;
-//   }
-// );
