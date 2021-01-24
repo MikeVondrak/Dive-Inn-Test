@@ -12,6 +12,7 @@ import { setDefaultActiveFontSet } from './store/active-font-set/actions/active-
 import { loadFontTypes } from './store/font-type/actions/font-type.actions';
 import { loadFontSets } from './store/font-set-library/actions/font-set.actions';
 import { loadFontWeights } from './store/font-weight/actions/font-weight.actions';
+import { setDefaultActiveFontInstance } from './store/active-font-instance/actions/active-font-instance.actions';
 
 @Component({
   selector: 'app-root',
@@ -51,6 +52,9 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
 
     // dispatch action to initialize the activeFontSet to a blank state
     this.store$.dispatch(setDefaultActiveFontSet());
+
+    // dispatch action to initialize the activeFontInstance to a default instance
+    this.store$.dispatch(setDefaultActiveFontInstance());
 
     // dispatch action to load font instance list from DB
     this.store$.dispatch(loadFontInstances());

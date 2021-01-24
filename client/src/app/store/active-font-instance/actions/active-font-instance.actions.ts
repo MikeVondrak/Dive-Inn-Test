@@ -13,6 +13,10 @@ export const setActiveFontInstanceApi = createAction(
   props<{ fontInstanceApi: FontInstanceApi }>()
 );
 
+export const setDefaultActiveFontInstance = createAction(
+  '[Font Instance] setDefaultActiveFontInstance'
+);
+
 export const setActiveFontFamily = createAction(
   '[Font Instance] setActiveFontFamily',
   props<{ family: string }>()
@@ -32,7 +36,8 @@ export const setActiveFontItalic = createAction(
 
 const actions = union({
   setActiveFontInstance,
-
+  setActiveFontInstanceApi,
+  setDefaultActiveFontInstance,
   setActiveFontFamily,
   setActiveFontSize,
   setActiveFontWeight,

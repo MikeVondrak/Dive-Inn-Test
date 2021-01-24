@@ -5,6 +5,7 @@ import {
   setActiveFontFamily,
   setActiveFontInstance,
   setActiveFontInstanceApi,
+  setDefaultActiveFontInstance,
   setActiveFontItalic,
   setActiveFontSize,
   setActiveFontWeight 
@@ -22,6 +23,19 @@ const _activeFontInstanceReducer = createReducer(
       activeFontWeightId: fontInstanceApi.fk_font_weight_id,
       activeFontItalic: fontInstanceApi.italic,
       activeFontSize: fontInstanceApi.size.toString()
+    }
+    return (r);
+  }
+  ),
+
+  on(setDefaultActiveFontInstance, (state) => 
+  { 
+    const r = {
+      ...state,
+      activeFontFamily: 'Roboto',
+      activeFontWeightId: 4,
+      activeFontItalic: false,
+      activeFontSize: '18'
     }
     return (r);
   }
