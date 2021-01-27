@@ -39,15 +39,7 @@ const _activeFontSetReducer = createReducer(
     return newState;
   }),
   on(setDefaultActiveFontSet, (state) => {
-    // get FontType array from DB
-    // for each font type create a blank FontInstance
-
-
-    // TODO
-    // need to add id to API and FontInstance model
-    // add getFontInstance(props to match) to API
-    //  or reload all font instances from DB after each add
-
+    // nothing in here yet, see effect
     return state;
   }),
   on(setActiveFontSetFontInstance, (state, { fontType }) => {

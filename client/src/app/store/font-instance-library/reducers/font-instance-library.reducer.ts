@@ -69,7 +69,7 @@ const _fontInstanceLibraryReducer = createReducer(
 
   on(activeFontSetFontInstanceLoaded, (state, action) => {
     const fontInstanceApi = action.fontInstanceApi;
-    logger('activeFontSetFontInstanceLoaded', JSON.stringify(fontInstanceApi));
+    logger('activeFontSetFontInstanceLoaded type: ' + action.fontTypeId, JSON.stringify(fontInstanceApi));
     return fontInstanceAdapter.upsertOne(fontInstanceApi, state);
   })
 );
