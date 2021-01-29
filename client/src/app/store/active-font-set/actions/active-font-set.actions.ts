@@ -6,11 +6,13 @@ import { FontSetApiMapped } from 'src/app/services/api/font-set/font-set.api.mod
 import { FontSet } from '../../../models/font-set.model';
 
 /**
- * Populate active font set using passed data
+ * Save active font set to DB
  */
-export const setActiveFontSet = createAction(
-  '[Font Set] setActiveFontSet',
-  props<{ fontSet: FontSet }>()
+export const saveActiveFontSet = createAction('[Font Set] saveActiveFontSet');
+
+export const setActiveFontSetSavedFlag = createAction(
+  '[Font Set] setActiveFontSetSavedFlag',
+  props<{ savedFlag: boolean }>()
 );
 
 /**
@@ -42,7 +44,8 @@ export const activeFontSetFontInstanceLoaded = createAction(
 );
 
 const actions = union({
-  setActiveFontSet,
+  saveActiveFontSet,
+  setActiveFontSetSavedFlag,
   setDefaultActiveFontSet,
   activeFontSetLoaded,
   activeFontSetError,

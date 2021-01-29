@@ -11,11 +11,11 @@ export const selectFeatureActiveFontSet = createFeatureSelector<AppState, Active
 export const getActiveFontSet: MemoizedSelector<AppState, FontSetApiMapped> = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => {
-
+    debugger;
     const fontSet: FontSetApiMapped = {
       set_id: state.setId,
       set_name: state.name,
-      typeInstanceIdMap : [...state.fontTypeInstanceIds]
+      typeInstanceIdMap : state.fontTypeInstanceIds
     }
     return fontSet;
   }

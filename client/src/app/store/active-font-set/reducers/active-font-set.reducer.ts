@@ -6,28 +6,29 @@ import {
   ActiveFontSetActions, 
   activeFontSetError, 
   activeFontSetLoaded, 
-  setActiveFontSet,
+  saveActiveFontSet,
   setActiveFontSetById,
   setActiveFontSetFontInstance,
   setDefaultActiveFontSet,
-  activeFontSetFontInstanceLoaded
+  activeFontSetFontInstanceLoaded,
+  setActiveFontSetSavedFlag
 } from '../actions/active-font-set.actions';
 import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-set.state';
 
 const _activeFontSetReducer = createReducer(
   activeFontSetInitialState,
-  on(setActiveFontSet, (state, { fontSet }) => { 
-
-    // TODO: need this anymore?
-
+  on(saveActiveFontSet, (state) => {
+    debugger; 
+    // TODO: could add saving / error state for DB transaction here 
+    return (state);
+  }),  
+  on(setActiveFontSetSavedFlag, (state, { savedFlag }) => {
+    debugger;
     const newState: ActiveFontSetState = {
       ...state,
-      ...fontSet,
-      activeFontSetLoading: true,
-      activeFontSetLoaded: false, // reset loaded and error state each time new active font set is loaded
-      activeFontSetError: false,
-    };
-    return (newState);
+      saved: savedFlag
+    }
+    return newState
   }),
   on(setActiveFontSetById, (state, { fontSetId }) => {
     const newState: ActiveFontSetState = {
@@ -43,9 +44,10 @@ const _activeFontSetReducer = createReducer(
     return state;
   }),
   on(setActiveFontSetFontInstance, (state, { fontType }) => {
-
+    debugger;
     const newState: ActiveFontSetState = {
       ...state,
+      saved: false,
       activeFontSetInstanceLoading: true,
       activeFontSetInstanceLoaded: false, // reset loaded and error state each time new active font set is loaded
       activeFontSetInstanceError: false,
@@ -54,7 +56,8 @@ const _activeFontSetReducer = createReducer(
   }),
 
   on(activeFontSetLoaded, (state, action) => {
-    const fontSet = action.fontSet;
+    debugger;
+    const fontSet = action.fontSet;    
     const newState = {
       ...state,
       setId: fontSet.set_id,
@@ -85,7 +88,7 @@ const _activeFontSetReducer = createReducer(
       fontTypeInstanceIds: newFontTypeInstanceIds
     }
     return newState
-  })
+  }),
 );
  
 export function activeFontSetReducer(state: ActiveFontSetState, action: ActiveFontSetActions) {

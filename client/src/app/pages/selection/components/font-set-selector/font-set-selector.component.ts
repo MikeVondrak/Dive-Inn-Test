@@ -9,7 +9,7 @@ import { FontInstanceManagerService } from 'src/app/services/font-instance-manag
 import { FontSetManagerService } from 'src/app/services/font-set-manager/font-set-manager.service';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
-import { setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { saveActiveFontSet, setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { getUiActiveFontSetTypeInstances, getUiFontInstances } from 'src/app/store/app.selectors';
 import { AppState } from 'src/app/store/state';
@@ -49,10 +49,7 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public saveActiveFontSet() {
-    // dispatch action that updates (get active font set from store state) ?
-    //this.store$.dispatch();
-
-    //this.fontSetManagerService.updateFontSet$(afi);
+    this.store$.dispatch(saveActiveFontSet());
   }
 
   public createFontSet() {
