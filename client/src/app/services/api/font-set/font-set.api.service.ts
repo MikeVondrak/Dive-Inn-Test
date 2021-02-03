@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { groupBy, map, switchMap, take } from 'rxjs/operators';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontSetApi } from '../../../services/api/font-set/font-set.api.model';
+import { FontSetApi, FontSetApiMapped } from '../../../services/api/font-set/font-set.api.model';
 import { routes } from '../../../../../../server/src/app/routes';
 import { FontSetManagerService } from '../../font-set-manager/font-set-manager.service';
 
@@ -31,56 +31,22 @@ export class FontSetApiService {
 
   //public getMappedFontSetApis$(): Observable<FontSetApi[]>
 
-  // public getAllFontSets$(): Observable<FontSet[]> {
-  //   const allFontSets: Observable<FontSet[]>
-  //     = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        
-  //       map(fontSetApiArray => {
-  //         const groupedSet = fontSetApiArray.reduce(
-  //           (accum, item) => {
-  //             let newSet = true;
-  //             accum.forEach(fontSet => {
-  //               if (item.set_id === fontSet.setId) {
-  //                 fontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-  //                 newSet = false;
-  //               }
-  //             });
-  //             if (newSet) {
-  //               const newFontSet: FontSet = {
-  //                 id: item.id,
-  //                 setId: item.set_id,
-  //                 name: item.set_name,
-  //                 lastUpdated: new Date,
-  //                 typeInstanceMap: new Map<string, number>()
-  //               }
-  //               newFontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-  //               accum.push(newFontSet);
-  //             }
-  //             return accum;
-  //           },
-  //           new Array<FontSet>()
-  //         );          
-  //         return groupedSet;
-  //       })
-  //     );
-      
-  //     return allFontSets;
-  // }
-
-  // public updateFontSet$(): Observable<FontSet> {
-  //   const route = this.baseRoute + routes.api.font.fontSet.add;
-  //   const headers = { 'content-type': 'application/json' };
+  public updateFontSet$(fontSet: FontSetApiMapped): Observable<boolean> {
+    const route = this.baseRoute + routes.api.font.fontSet.add;
+    const headers = { 'content-type': 'application/json' }; 
     
+    // need to break down the FontSetApiMapped into an array of FontSetApi, without the id field
+    let fontSetApis: FontSetApi[] = [];
+    debugger;
+    return this.http.post<FontSetApi[]>(
+      route, 
+      fontSetApis,
+      { 'headers': headers }
+    ).pipe(
+      map(response => !!response)
+    );
     
-  //   // need to get the active font set
-  //   return this.fontSetManagerService.allFontSets$.pipe(
-  //     switchMap(allFontSets => {
-  //       return this.http.post<FontSet>(
-  //         route, 
-  //         allFontSets,
-  //         { 'headers': headers }
-  //       );
-  //     }));
-  // }
+  }
 
   // public addFontSet$(newFontSetName: string): Observable<FontSet> {
   //   const payload = this.fontSetToFontSetApiArray(newFontSet);

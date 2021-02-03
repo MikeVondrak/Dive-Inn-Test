@@ -18,12 +18,11 @@ import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-se
 const _activeFontSetReducer = createReducer(
   activeFontSetInitialState,
   on(saveActiveFontSet, (state) => {
-    debugger; 
     // TODO: could add saving / error state for DB transaction here 
     return (state);
   }),  
   on(setActiveFontSetSavedFlag, (state, { savedFlag }) => {
-    debugger;
+    console.log('setActiveFontSetSavedFlag reducer: ' + savedFlag);
     const newState: ActiveFontSetState = {
       ...state,
       saved: savedFlag
@@ -44,7 +43,6 @@ const _activeFontSetReducer = createReducer(
     return state;
   }),
   on(setActiveFontSetFontInstance, (state, { fontType }) => {
-    debugger;
     const newState: ActiveFontSetState = {
       ...state,
       saved: false,
@@ -56,7 +54,6 @@ const _activeFontSetReducer = createReducer(
   }),
 
   on(activeFontSetLoaded, (state, action) => {
-    debugger;
     const fontSet = action.fontSet;    
     const newState = {
       ...state,

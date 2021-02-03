@@ -1,6 +1,6 @@
 import { createAction, props, union } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontSetApi } from 'src/app/services/api/font-set/font-set.api.model';
+import { FontSetApi, FontSetApiMapped } from 'src/app/services/api/font-set/font-set.api.model';
 
 export const loadFontSets = createAction(
   '[Font Set] loadFontSets'
@@ -17,7 +17,12 @@ export const fontSetsError = createAction(
 
 export const updateFontSet = createAction(
   '[Font Set] updateFontSet',
-  props<{ updatedFontSetApi: FontSetApi }>()
+  props<{ updatedFontSetApi: FontSetApiMapped }>()
+);
+
+export const updateFontSetSuccess = createAction(
+  '[Font Set] updateFontSetSuccess',
+  props<{ updatedFontSetApi: FontSetApiMapped }>()
 );
 
 export const createFontSet = createAction(

@@ -11,7 +11,7 @@ import { loadFontSets, createFontSet, updateFontSet } from 'src/app/store/font-s
 import { getFontSetsListView } from 'src/app/store/font-set-library/selectors/font-set-library.selectors';
 //import { getActiveFontSet } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { FontSetState } from 'src/app/store/font-set-library/entity/font-set.entity';
-import { FontSetApi } from '../api/font-set/font-set.api.model';
+import { FontSetApi, FontSetApiMapped } from '../api/font-set/font-set.api.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -33,7 +33,8 @@ export class FontSetManagerService {
     this.store$.dispatch(loadFontSets());
   }
 
-  public updateFontSet$(updatedFontSetApi: FontSetApi): void {
+  public updateFontSet$(updatedFontSetApi: FontSetApiMapped): void {
+    debugger;
     this.store$.dispatch(updateFontSet({ updatedFontSetApi: updatedFontSetApi }));
   }
 

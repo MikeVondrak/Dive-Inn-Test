@@ -8,18 +8,19 @@ import { FontTypeInstanceIdPair, FontTypeInstanceMap } from '../../../models/fon
 
 export const selectFeatureActiveFontSet = createFeatureSelector<AppState, ActiveFontSetState>(featureKey);
 
-export const getActiveFontSet: MemoizedSelector<AppState, FontSetApiMapped> = createSelector(
+//export const getActiveFontSet: MemoizedSelector<AppState, FontSetApiMapped> = createSelector(
+export const getActiveFontSet = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => {
-    debugger;
     const fontSet: FontSetApiMapped = {
       set_id: state.setId,
       set_name: state.name,
-      typeInstanceIdMap : state.fontTypeInstanceIds
+      typeInstanceIdMap: [...state.fontTypeInstanceIds]
     }
+    console.log("getActiveFontSet selector: " + JSON.stringify(state));
     return fontSet;
   }
-)
+);
 
 export const getActiveFontSetId = createSelector(
   selectFeatureActiveFontSet,

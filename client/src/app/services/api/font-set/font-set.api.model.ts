@@ -6,7 +6,7 @@ import { FontTypeInstanceIdPair } from 'src/app/models/font-type.model';
  * sets are stored in multiple rows in the DB and matched by setId
  */
 export interface FontSetApi {
-    id: number;
+    id?: number;
     set_id: number;
     set_name: string;
     fk_font_type_id: number;
