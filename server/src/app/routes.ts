@@ -30,7 +30,8 @@ export const routes = {
       fontSet: {
         _root: '/font-set',
         add: '/add',
-        remove: '/remove'
+        remove: '/remove',
+        update: '/update'
       }
     },
     test: '/test-data',

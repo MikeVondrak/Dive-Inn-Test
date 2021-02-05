@@ -14,13 +14,12 @@ export interface DbFontInstance {
 }
 
 export interface DbFontSet {
-  id: number,
+  id?: number,
   set_id: number,
   set_name: string,
   fk_font_type_id: number,
-  font_type_name: string,
   fk_font_instance_id: number,
-  last_updated: Date
+  //last_updated: Date
 }
 
 export interface DbFontSetReturn {

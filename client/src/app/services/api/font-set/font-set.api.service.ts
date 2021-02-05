@@ -32,11 +32,11 @@ export class FontSetApiService {
   //public getMappedFontSetApis$(): Observable<FontSetApi[]>
 
   public updateFontSet$(fontSet: FontSetApiMapped): Observable<boolean> {
-    const route = this.baseRoute + routes.api.font.fontSet.add;
+    const route = this.baseRoute + routes.api.font.fontSet.update;
     const headers = { 'content-type': 'application/json' }; 
     
     // need to break down the FontSetApiMapped into an array of FontSetApi, without the id field
-    let fontSetApis: FontSetApi[] = [];
+    const fontSetApis: FontSetApi[] = this.fontSetApiMappedToFontSetApiArray(fontSet);
     debugger;
     return this.http.post<FontSetApi[]>(
       route, 
@@ -52,23 +52,21 @@ export class FontSetApiService {
   //   const payload = this.fontSetToFontSetApiArray(newFontSet);
   // }
 
-  private fontSetToFontSetApiArray(fontSet: FontSet): FontSetApi[] {
+  private fontSetApiMappedToFontSetApiArray(fontSet: FontSetApiMapped): FontSetApi[] {
+    let fontSetApis: FontSetApi[] = [];
+    let fontSetApi: FontSetApi;
+    
     // break FontSet up into an array of FontSetApi for table rows
-
-    // getActiveFontSetId
-    // getActiveFontSetName
-    // getActiveFontSetLastUpdated
-    // getActiveFontSetTypeInstances
-    // getActiveFontSetFontInstances
-
-    // id: number;
-    // set_id: number;
-    // set_name: string;
-    // fk_font_type_id: number;
-    // fk_font_instance_id: number;
-    // type: string;
-
-    return [];
+    fontSet.typeInstanceIdMap.map(ti => {
+      fontSetApi = {
+        set_id: fontSet.set_id,
+        set_name: fontSet.set_name,
+        fk_font_type_id: ti.typeId,
+        fk_font_instance_id: ti.instanceId,
+      }
+      fontSetApis.push(fontSetApi);
+    });
+    return fontSetApis;
   }
 
 }

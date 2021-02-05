@@ -32,9 +32,9 @@ export class FontInstanceRouter extends BaseRouter {
     // handle adding a new font instance
     route = baseRoute + routes.api.font.instance.add;
     this.router.post(route, (req: Request, res: Response) => {
-      const newFont = [req.body as DbFontInstance];
-      const fontInstanceColumnSet = new pgp.helpers.ColumnSet(newFont[0], { table: 'font_instance' });
-      const query = pgp.helpers.insert(newFont[0], fontInstanceColumnSet) + " " + sqlQueries.addFontInstanceReturning;
+      const newFont = req.body as DbFontInstance;
+      const fontInstanceColumnSet = new pgp.helpers.ColumnSet(newFont, { table: 'font_instance' });
+      const query = pgp.helpers.insert(newFont, fontInstanceColumnSet) + " " + sqlQueries.addFontInstanceReturning;
       
       console.log('fontInstanceRouter ADD: ' + JSON.stringify(newFont, null, 4));
       console.log('query: ' + query.toString() + '\n\n');
