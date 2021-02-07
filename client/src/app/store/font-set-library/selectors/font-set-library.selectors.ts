@@ -25,7 +25,8 @@ export const getFontSetApisMapped: MemoizedSelector<AppState, FontSetApiMapped[]
         const existingSet = accum.find(accumItem => accumItem.set_id === item.set_id);
         const typeInstanceKvp: FontTypeInstanceIdPair = {
           typeId: item.fk_font_type_id,
-          instanceId:  item.fk_font_instance_id
+          instanceId:  item.fk_font_instance_id,
+          entityId: item.id,
         };
         if (!existingSet) {
           // create new FontSetApiMapped and push to accum

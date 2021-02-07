@@ -1,10 +1,13 @@
+import { Update } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
+import { FontSetApi, fontSetApiMappedToFontSetApiArray } from 'src/app/services/api/font-set/font-set.api.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   loadFontSets,
   fontSetsLoaded,
   fontSetsError,
-  FontSetActions
+  FontSetActions,
+  updateFontSetSuccess
 } from '../actions/font-set.actions';
 import { fontSetAdapter, FontSetState, initialFontSetState } from '../entity/font-set.entity';
  
@@ -31,6 +34,32 @@ export const reducer = createReducer(
     logger('fontSetsLoaded', 'count=' + fontSetApis.length);
 
     return fontSetAdapter.setAll(action.fontSetApis, newState);
+  }),
+
+  on(updateFontSetSuccess, (state, action) => {
+    debugger;
+    const fontSetApiMapped = action.updatedFontSetApi;
+    let newState = {
+      ...state,
+    };
+    logger('updateFontSetSuccess', 'updated set=' + JSON.stringify(fontSetApiMapped));
+
+    // fontSetAdapter.setMany takes an array of FontSetApi
+    // need to turn fontSetApiMapped into an array of FontSetApi
+    const fontSetApis = fontSetApiMappedToFontSetApiArray(fontSetApiMapped);
+    const updates: Update<FontSetApi>[] = fontSetApis.map((fsa) => {
+      console.log('************************ FSA ID: ' + fsa.id);
+      return {
+        id: fsa.id,
+        changes: {
+          set_id: fsa.set_id,
+          set_name: fsa.set_name,
+          fk_font_type_id: fsa.fk_font_type_id,
+          fk_font_instance_id: fsa.fk_font_instance_id,
+        }
+      }
+    });
+    return fontSetAdapter.updateMany(updates, newState);
   }),
 
   on(fontSetsError, (state) => {

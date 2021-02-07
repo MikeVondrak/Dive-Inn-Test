@@ -33,23 +33,8 @@ export class SaveActiveFontSetEffect {
       }),
       switchMap(action => this.store$.select(getActiveFontSet).pipe(take(1))),
       tap((activeFontSet) => {
-
-        debugger;
-        console.log("saveActiveFontSet effect\n" + JSON.stringify(activeFontSet) + "\n\n");
-        
+        console.log("saveActiveFontSet effect\n" + JSON.stringify(activeFontSet) + "\n\n");        
         this.fontSetManagerService.updateFontSet$(activeFontSet);
-        
-        
-        // font-set-api-service
-        // turn it into an object that matches the table w/rows for each type
-        // or just send the activeFontSet object as-is and let the backend turn it into rows
-
-        // POST from API
-        // success => return saved / fail => ??
-        // update the FontSetLibrary via entity
-        //
-        
-        
       })
     ),
     { dispatch: false }

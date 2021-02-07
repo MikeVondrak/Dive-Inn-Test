@@ -27,7 +27,7 @@ export class FontSetRouter extends BaseRouter {
         { table: 'font_set' }
       );
       const onefont = newFontSet[0];
-      let query = pgp.helpers.update([onefont], fontSetColumnSet);
+      let query = pgp.helpers.update(newFontSet, fontSetColumnSet);
       query += ' WHERE v.set_id = t.set_id AND v.fk_font_type_id = t.fk_font_type_id';
 
       // TODO: loop through newFontSet array and construct a compound update query

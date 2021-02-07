@@ -19,10 +19,7 @@ import { map } from 'rxjs/operators';
 })
 export class FontSetManagerService {
 
-  //private fontSetApis$: Observable<FontSetApi[]> = this.store$.select(getFontSets);
-
-  //public allFontSets$: Observable<FontSet[]> = this.store$.select(getUiFontSets);
-   public fontSetsListView$ = this.store$.select(getFontSetsListView);
+  public fontSetsListView$ = this.store$.select(getFontSetsListView);
 
   constructor(
     // TODO: how to use a slice of the store instead of entire AppState?
@@ -34,7 +31,6 @@ export class FontSetManagerService {
   }
 
   public updateFontSet$(updatedFontSetApi: FontSetApiMapped): void {
-    debugger;
     this.store$.dispatch(updateFontSet({ updatedFontSetApi: updatedFontSetApi }));
   }
 

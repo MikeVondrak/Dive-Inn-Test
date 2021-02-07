@@ -26,19 +26,27 @@
 </button>
 
 <br><br>
-<h3>Font Type-Instance Array</h3>
+<!-- <h3>Font Type-Instance Array</h3>
 <div *ngFor="let fi1 of (activeFontSetTypeInstances$ | async) | keyvalue">
   Font Type-Instance: {{ fi1.key }} {{ fi1.value.family }}
-</div>
+</div> -->
 
 <!-- <h3>Active Set Font Instances</h3>
 <div *ngFor="let fi2 of (activeFontSetFontInstances$ | async)">
   Font Type-Instance: {{ fi2.key }} {{ fi2.value }}
 </div> -->
 
+<h3>All Font Sets</h3>
+<div *ngFor="let fs of (allFontSets$ | async)">
+  {{ fs.set_id }} {{ fs.set_name }} -
+  <span *ngFor="let ti of fs.typeInstanceIdMap">
+    {{ ti.typeId }}:{{ ti.instanceId }},
+  </span>
+</div>
+
 <h3>All Font Instances</h3>
 <div *ngFor="let fi3 of (uiFontInstances$ | async)">
-  {{ fi3.family }} {{ fi3.id }} weight: {{ fi3.weight }}
+  {{ fi3.id }} {{ fi3.family }} {{ fi3.size }} {{ fi3.italic }} {{ fi3.weight }}
 </div>
 
 
