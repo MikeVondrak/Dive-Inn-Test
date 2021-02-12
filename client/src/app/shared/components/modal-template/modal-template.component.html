@@ -1,0 +1,13 @@
+<div (click)="modalBgClick()" class="modal-overlay">
+  <div (click)="modalWindowClick($event)" class="modal-window">
+    <button (click)="modalCloseButtonClick()" class="close-btn">x</button>
+    <h1>Modal Title</h1>
+    <div>
+        body
+    </div>
+    <div class="ok-cancel-btns">
+      <button>ok</button>
+      <button>cancel</button>
+    </div>
+  </div>
+</div>

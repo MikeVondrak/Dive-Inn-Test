@@ -14,6 +14,7 @@ import { PageLoadingComponent } from './page-loading/page-loading.component';
 import { HeaderComponent } from './header/header.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { ModalTemplateComponent } from './modal-template/modal-template.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     FontListDisplayComponent,
     FontPreviewPaneComponent,
     LoadingIndicatorComponent,
+    ModalTemplateComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
     FontInstancePickerComponent,
     FontListDisplayComponent,
     FontPreviewPaneComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    ModalTemplateComponent,
   ],
   entryComponents: [LoadingIndicatorComponent]
 })

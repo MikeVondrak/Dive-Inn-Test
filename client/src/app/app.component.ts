@@ -49,24 +49,24 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
     // called after the constructor and called once after the first ngOnChanges() (debug mode)
     this.headUriLoader.loadDefaultFonts();
     this.fontManager.init();
-
-    // dispatch action to initialize the activeFontSet to a blank state
-    this.store$.dispatch(setDefaultActiveFontSet());
-
+    
     // dispatch action to initialize the activeFontInstance to a default instance
     this.store$.dispatch(setDefaultActiveFontInstance());
-
+    
     // dispatch action to load font instance list from DB
     this.store$.dispatch(loadFontInstances());
-
+    
     // dispatch action to load font types entity from DB
     this.store$.dispatch(loadFontTypes());
-
+        
+    // dispatch action to load font sets entity from DB
+    this.store$.dispatch(loadFontWeights());
+    
     // dispatch action to load font sets entity from DB
     this.store$.dispatch(loadFontSets());
 
-    // dispatch action to load font sets entity from DB
-    this.store$.dispatch(loadFontWeights());
+    // dispatch action to initialize the activeFontSet to a blank state
+    this.store$.dispatch(setDefaultActiveFontSet());
   }
 
   ngAfterViewInit(): void {

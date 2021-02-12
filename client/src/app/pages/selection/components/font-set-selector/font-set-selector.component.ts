@@ -23,7 +23,7 @@ import { FontTypeManagerService } from '../../../../services/font-type-manager/f
   styleUrls: ['./font-set-selector.component.scss']
 })
 export class FontSetSelectorComponent implements OnInit {
-
+  public modalToggle: boolean = false;
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
@@ -56,7 +56,7 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public createFontSet() {
-    // MODALS
+    this.modalToggle = !this.modalToggle;
   }
 
   public updateFontSetName() {

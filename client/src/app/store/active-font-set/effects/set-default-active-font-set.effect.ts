@@ -32,9 +32,14 @@ export class SetDefaultActiveFontSetEffect {
       switchMap(loaded => this.store$.select(getAllFontTypes)),
       tap((types) => {
         types.forEach(type => {
+
+          // TODO: need to check if loadedFonts is empty and/or ?? is true
+          // only check if loadedFonts contains family after ?? is true
+          // or always call loadFont$ and change service to not call if font is already loaded
+
           // TODO: this doesn't work to generate blank type-instance boxes for the default font set because an active font set is not initally loaded on app init
           // move this to the NEW SET button logic to create type-instance boxes populated with a default font when a new font set is being created
-          this.store$.dispatch(setActiveFontSetFontInstance({fontType: type}))
+          //this.store$.dispatch(setActiveFontSetFontInstance({fontType: type}))
         });
       })      
     ),

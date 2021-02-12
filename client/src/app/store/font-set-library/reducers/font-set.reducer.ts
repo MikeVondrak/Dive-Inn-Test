@@ -37,7 +37,6 @@ export const reducer = createReducer(
   }),
 
   on(updateFontSetSuccess, (state, action) => {
-    debugger;
     const fontSetApiMapped = action.updatedFontSetApi;
     let newState = {
       ...state,

@@ -28,14 +28,13 @@ export class UpdateFontSetEffect {
     this.actions$.pipe(
       ofType(updateFontSet),
       mergeMap(action => {
-        return combineLatest(
+        return combineLatest([
           of(action),
           this.fontSetApiService.updateFontSet$(action.updatedFontSetApi)
-        );
+        ]);
       }),
       map(([action, success]) => {
         if(success) {
-          debugger;
           return updateFontSetSuccess({ updatedFontSetApi: action.updatedFontSetApi});
         } else {
           return fontSetsError();
