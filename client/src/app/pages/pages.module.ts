@@ -15,6 +15,7 @@ import { fontInstanceLibraryReducer } from '../store/font-instance-library/reduc
 import { LoadingDirectiveModule } from '../directives/loading-directive.module';
 import { FontSetListComponent } from './selection/components/font-set-list/font-set-list.component';
 import { FontTypeInstanceLoaderComponent } from './selection/components/font-type-instance-loader/font-type-instance-loader.component';
+import { NewSetNameModalContentComponent } from './selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FontTypeInstanceLoaderComponent } from './selection/components/font-typ
     FontSetSelectorComponent,
     FontSetListComponent,
     FontTypeInstanceLoaderComponent,
+    NewSetNameModalContentComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,9 @@ import { FontTypeInstanceLoaderComponent } from './selection/components/font-typ
     SelectionPageComponent,
     NotFoundComponent,
     FontSetSelectorComponent,
+  ],
+  entryComponents: [
+    NewSetNameModalContentComponent
   ]
 })
 export class PagesModule { }
