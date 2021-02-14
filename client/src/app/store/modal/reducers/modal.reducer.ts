@@ -5,10 +5,12 @@ import { modalInitialState, ModalState } from '../modal.state';
 const _modalReducer = createReducer(
   modalInitialState,
 
-  on(ModalActions.openModal, (state) => {
+  on(ModalActions.openModal, (state, action) => {
     const newState: ModalState = {
       ...state,
       isModalOpen: true,
+      title: action.title,
+      contentType: action.contentType
     }
     return newState;
   }),

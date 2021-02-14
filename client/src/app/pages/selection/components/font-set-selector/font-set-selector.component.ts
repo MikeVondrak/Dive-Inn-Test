@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable, of, Subscription } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
@@ -17,6 +17,7 @@ import { getUiActiveFontSetTypeInstances, getUiFontInstances } from 'src/app/sto
 import { getFontSetApisMapped } from 'src/app/store/font-set-library/selectors/font-set-library.selectors';
 import { AppState } from 'src/app/store/state';
 import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
+import { NewSetNameModalContentComponent } from '../new-set-name-modal-content/new-set-name-modal-content.component';
 
 @Component({
   selector: 'app-font-set-selector',
@@ -57,7 +58,8 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public openModal() {
-    this.store$.dispatch(openModal());
+    
+    this.store$.dispatch(openModal({ title: 'Create a new set', contentType: NewSetNameModalContentComponent as Type<Component> }));
   }
 
   public updateFontSetName() {

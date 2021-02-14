@@ -1,4 +1,9 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { modalContent, modalTitle } from 'src/app/store/modal/selectors/modal.selectors';
+import { AppState } from 'src/app/store/state';
 
 @Component({
   selector: 'app-modal-template',
@@ -12,9 +17,18 @@ export class ModalTemplateComponent implements OnInit {
   //   debugger;
   // }
 
+  // @Input() modalTitle: string = 'Modal Title';
+
+
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() { }
+  modalTitle$: Observable<string> = this.store$.select(modalTitle);
+  modalContent$: Observable<Component> = this.store$.select(modalContent);
+
+  public modalContentOutlet: TemplateRef<HTMLElement>;
+
+
+  constructor(private store$: Store<AppState>) { }
 
   ngOnInit(): void {
   }

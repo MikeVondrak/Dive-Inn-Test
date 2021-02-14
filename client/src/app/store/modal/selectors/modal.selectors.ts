@@ -9,3 +9,13 @@ export const isModalOpen = createSelector(
   selectModalState,
   (state: ModalState) => state.isModalOpen
 );
+
+export const modalTitle = createSelector(
+  selectModalState,
+  (state: ModalState) => state.title
+);
+
+export const modalContent = createSelector(
+  selectModalState,
+  (state: ModalState) => state.content
+);
