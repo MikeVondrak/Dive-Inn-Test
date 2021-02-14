@@ -13,6 +13,9 @@ import { loadFontTypes } from './store/font-type/actions/font-type.actions';
 import { loadFontSets } from './store/font-set-library/actions/font-set.actions';
 import { loadFontWeights } from './store/font-weight/actions/font-weight.actions';
 import { setDefaultActiveFontInstance } from './store/active-font-instance/actions/active-font-instance.actions';
+import { isModalOpen } from './store/modal/selectors/modal.selectors';
+import { Observable } from 'rxjs';
+import { closeModal } from './store/modal/actions/modal.actions';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +29,7 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
   private appReadyEvent: AppReadyEvent;
   private title = 'The Dive Inn';
   private viewCheckedOnce = false;
+  public modalToggle$: Observable<boolean> = this.store$.select(isModalOpen);
 
   delayAppReadyEvent = false;
   appReadyEventDelay = 5000;
@@ -85,6 +89,10 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
         this.loggerService.log('ngAfterViewInit done');
       }, this.appReadyEventDelay);
     }
+  }
+
+  public closeModal() {
+    this.store$.dispatch(closeModal());
   }
 
 }

@@ -10,6 +10,7 @@ import { FontSetEffectsModule } from './font-set-library/effects/font-set-effect
 import { FontTypeStoreModule } from './font-type/font-type-store.module';
 import { FontTypeEffectsModule } from './font-type/effects/font-type-effects.module';
 import { FontWeightStoreModule } from './font-weight/font-weight-store.module';
+import { ModalStoreModule } from './modal/modal-store.module';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { FontWeightStoreModule } from './font-weight/font-weight-store.module';
     FontTypeStoreModule,
     FontTypeEffectsModule,
     FontWeightStoreModule,
+    ModalStoreModule,
   ]
 })
 export class AppStoreModule { }

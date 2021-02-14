@@ -11,6 +11,7 @@ import { FontSetManagerService } from 'src/app/services/font-set-manager/font-se
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { saveActiveFontSet, setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { openModal } from 'src/app/store/modal/actions/modal.actions';
 import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { getUiActiveFontSetTypeInstances, getUiFontInstances } from 'src/app/store/app.selectors';
 import { getFontSetApisMapped } from 'src/app/store/font-set-library/selectors/font-set-library.selectors';
@@ -23,7 +24,7 @@ import { FontTypeManagerService } from '../../../../services/font-type-manager/f
   styleUrls: ['./font-set-selector.component.scss']
 })
 export class FontSetSelectorComponent implements OnInit {
-  public modalToggle: boolean = false;
+  // public modalToggle: boolean = false;
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
@@ -55,8 +56,8 @@ export class FontSetSelectorComponent implements OnInit {
     this.store$.dispatch(saveActiveFontSet());
   }
 
-  public createFontSet() {
-    this.modalToggle = !this.modalToggle;
+  public openModal() {
+    this.store$.dispatch(openModal());
   }
 
   public updateFontSetName() {
