@@ -43,6 +43,11 @@ export const activeFontSetFontInstanceLoaded = createAction(
   props<{ fontTypeId: number,  fontInstanceApi: FontInstanceApi }>()
 );
 
+export const createNewFontSet = createAction(
+  '[Font Set] createNewFontSet',
+  //props<{ fontSetName: string }>()
+);
+
 const actions = union({
   saveActiveFontSet,
   setActiveFontSetSavedFlag,

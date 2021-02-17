@@ -1,17 +1,18 @@
 <div (click)="modalBgClick()" class="modal-overlay">
   <div (click)="modalWindowClick($event)" class="modal-window">
+    
     <button (click)="modalCloseButtonClick($event)" class="close-btn">x</button>
-    <h1>{{ modalTitle$ | async }}</h1>
-    <div>
-        {{ modalContent$ | async }}
+    
+    <h1>{{ modalTitle }}</h1>
+    
+    <div class="modal-content">
+      <ng-content></ng-content>
     </div>
-
-    <ng-container *ngTemplateOutlet="modalContentOutlet"></ng-container>
-
-
+    
     <div class="ok-cancel-btns">
-      <button>ok</button>
-      <button>cancel</button>
+      <button (click)="okButtonClick($event)">ok</button>
+      <button (click)="modalCloseButtonClick($event)">cancel</button>
     </div>
+  
   </div>
 </div>

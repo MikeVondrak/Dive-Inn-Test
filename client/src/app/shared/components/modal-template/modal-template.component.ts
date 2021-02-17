@@ -2,6 +2,8 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { ModalConfig } from 'src/app/models/modal.model';
+import { ModalService } from 'src/app/services/modal/modal.service';
 import { modalContent, modalTitle } from 'src/app/store/modal/selectors/modal.selectors';
 import { AppState } from 'src/app/store/state';
 
@@ -18,23 +20,31 @@ export class ModalTemplateComponent implements OnInit {
   // }
 
   // @Input() modalTitle: string = 'Modal Title';
+  public config: ModalConfig;
 
 
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
 
-  modalTitle$: Observable<string> = this.store$.select(modalTitle);
-  modalContent$: Observable<Component> = this.store$.select(modalContent);
+  public modalTitle: string = '';
+
+  //modalTitle$: Observable<string> = this.store$.select(modalTitle);
+  //modalContent$: Observable<Component> = this.store$.select(modalContent);
 
   public modalContentOutlet: TemplateRef<HTMLElement>;
 
 
-  constructor(private store$: Store<AppState>) { }
+  constructor(
+    private store$: Store<AppState>, 
+    //private modalService: ModalService
+  ) { }
 
   ngOnInit(): void {
+    this.modalTitle = this.config?.title;
   }
 
   public modalBgClick() {
-    this.closeModal.emit();
+    //this.modalService.closeModal();
+    this.config.closeCallback();
   }
 
   public modalWindowClick($event) {
@@ -43,7 +53,13 @@ export class ModalTemplateComponent implements OnInit {
 
   public modalCloseButtonClick($event) {
     event.stopPropagation();
-    this.closeModal.emit();
+    //this.modalService.closeModal();
+    this.config.closeCallback();
+  }
+
+  public okButtonClick($event) {
+    event.stopPropagation();
+    this.store$.dispatch(this.config.primaryAction);
   }
 
 }
