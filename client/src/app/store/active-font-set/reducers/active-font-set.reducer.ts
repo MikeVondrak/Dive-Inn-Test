@@ -11,7 +11,9 @@ import {
   setActiveFontSetFontInstance,
   setDefaultActiveFontSet,
   activeFontSetFontInstanceLoaded,
-  setActiveFontSetSavedFlag
+  setActiveFontSetSavedFlag,
+  setNewFontSetName,
+  changeActiveFontSetName
 } from '../actions/active-font-set.actions';
 import { activeFontSetInitialState, ActiveFontSetState } from '../active-font-set.state';
 
@@ -51,6 +53,22 @@ const _activeFontSetReducer = createReducer(
       activeFontSetInstanceError: false,
     }
     return newState;
+  }),
+
+  on(setNewFontSetName, (state, { setName }) => {
+    const newState: ActiveFontSetState = {
+      ...state,
+      newFontSetName: setName
+    }
+    return newState
+  }),
+
+  on(changeActiveFontSetName, (state, { setName }) => {
+    const newState: ActiveFontSetState = {
+      ...state,
+      name: setName
+    }
+    return newState
   }),
 
   on(activeFontSetLoaded, (state, action) => {

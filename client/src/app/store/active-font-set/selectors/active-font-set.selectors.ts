@@ -41,3 +41,13 @@ export const getActiveFontSetTypeInstanceIds = createSelector(
   selectFeatureActiveFontSet,
   (state: ActiveFontSetState) => state.fontTypeInstanceIds
 );
+
+export const getNewFontSetName = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => state.newFontSetName
+);
+
+export const getActiveFontSetLoaded = createSelector(
+  selectFeatureActiveFontSet,
+  (state: ActiveFontSetState) => state.activeFontSetInstanceLoaded
+);

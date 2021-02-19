@@ -1,2 +1,4 @@
 <label for="NewFontSetName">Name:</label>
-<input type="textbox" name="NewFontSetName" />
+
+<!-- get the value of this textbox into the component and sent to the store -->
+<input type="textbox" name="NewFontSetName" (change)="nameChange($event)"/>

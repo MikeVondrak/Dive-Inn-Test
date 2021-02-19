@@ -45,7 +45,16 @@ export const activeFontSetFontInstanceLoaded = createAction(
 
 export const createNewFontSet = createAction(
   '[Font Set] createNewFontSet',
-  //props<{ fontSetName: string }>()
+);
+
+export const setNewFontSetName = createAction(
+  '[Font Set] setNewFontSetName',
+  props<{ setName: string }>()
+);
+
+export const changeActiveFontSetName = createAction(
+  '[Font Set] changeActiveFontSetName',
+  props<{ setName: string }>()
 );
 
 const actions = union({
@@ -55,6 +64,9 @@ const actions = union({
   activeFontSetLoaded,
   activeFontSetError,
   setActiveFontSetFontInstance,
-  activeFontSetFontInstanceLoaded
+  activeFontSetFontInstanceLoaded,
+  createNewFontSet,
+  setNewFontSetName,
+  changeActiveFontSetName,
 })
 export type ActiveFontSetActions = typeof actions;

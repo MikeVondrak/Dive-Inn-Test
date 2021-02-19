@@ -61,7 +61,6 @@ export class FontSetSelectorComponent implements OnInit {
 
   public openModal() {
     this.modalService.openModal({ title: 'Create a new set', contentType: NewSetNameModalContentComponent as Type<Component>, primaryAction: createNewFontSet() });
-    //this.store$.dispatch(openModal({ title: 'Create a new set', contentType: NewSetNameModalContentComponent as Type<Component> }));
   }
 
   public updateFontSetName() {

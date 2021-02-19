@@ -7,6 +7,8 @@ export interface ActiveFontSetState {
   readonly name: string,
   readonly saved: boolean,
   // readonly lastUpdated: Date,
+
+  readonly newFontSetName: string,
   
   readonly fontTypeInstanceIds: FontTypeInstanceIdPair[],
 
@@ -24,6 +26,8 @@ export const activeFontSetInitialState: ActiveFontSetState = {
   name: '',
   saved: false,
   // lastUpdated: undefined,
+
+  newFontSetName: '',
   
   fontTypeInstanceIds: [],
 

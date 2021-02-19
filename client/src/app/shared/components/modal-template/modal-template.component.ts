@@ -35,7 +35,6 @@ export class ModalTemplateComponent implements OnInit {
 
   constructor(
     private store$: Store<AppState>, 
-    //private modalService: ModalService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +42,6 @@ export class ModalTemplateComponent implements OnInit {
   }
 
   public modalBgClick() {
-    //this.modalService.closeModal();
     this.config.closeCallback();
   }
 
@@ -53,13 +51,15 @@ export class ModalTemplateComponent implements OnInit {
 
   public modalCloseButtonClick($event) {
     event.stopPropagation();
-    //this.modalService.closeModal();
     this.config.closeCallback();
   }
 
   public okButtonClick($event) {
     event.stopPropagation();
+    
     this.store$.dispatch(this.config.primaryAction);
+    
+    this.config.closeCallback();
   }
 
 }
