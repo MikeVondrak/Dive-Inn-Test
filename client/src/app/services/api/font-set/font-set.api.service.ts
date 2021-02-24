@@ -29,6 +29,24 @@ export class FontSetApiService {
     return fontSetApis;
   }
 
+  public createFontSet$(fontSetName: string, fontSetId: string) {
+    const route = this.baseRoute + routes.api.font.fontSet.add;
+    const headers = { 'content-type': 'application/json' }; 
+
+    return this.http.post<{ fontSetName, fontSetId }>(
+      route,
+      { fontSetName, fontSetId },
+      { 'headers': headers }
+    ).pipe(
+
+      // on the server side we use RETURNING to make the response be the newly created font set
+      // should return a FontSet type from here, figure out how to map it
+      // how do you return a different type than the type specified for the post<>???
+
+      map(response => response as FontSet)
+    );
+  }
+
   public updateFontSet$(fontSet: FontSetApiMapped): Observable<boolean> {
     const route = this.baseRoute + routes.api.font.fontSet.update;
     const headers = { 'content-type': 'application/json' }; 

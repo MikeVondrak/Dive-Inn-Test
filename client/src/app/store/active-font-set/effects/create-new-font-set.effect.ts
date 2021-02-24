@@ -11,6 +11,8 @@ import { getAllFontTypes, getFontTypesLoaded } from "../../font-type/selectors/f
 import { AppState } from "../../state";
 import { changeActiveFontSetName, createNewFontSet } from '../actions/active-font-set.actions';
 import { getActiveFontSetLoaded, getNewFontSetName } from "../selectors/active-font-set.selectors";
+import { UuidService } from 'src/app/services/uuid/uuid.service';
+import { FontSetManagerService } from "src/app/services/font-set-manager/font-set-manager.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,8 @@ export class CreateNewFontSetEffect {
   constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
+    private uuidService: UuidService,
+    private fontSetManagerService: FontSetManagerService,
   ) {}
 
   createNewFontSet$ = createEffect(() =>
@@ -35,13 +39,16 @@ export class CreateNewFontSetEffect {
       ),
       map(([action, setName, activeFontSetLoaded]) => {
         debugger;
+        const newSetId = this.uuidService.getUuid();
+        // update the db (or update after the save button is clicked?)
+        this.fontSetManagerService.createFontSet$(setName, newSetId)
         
         // update the font set name and id
-        // update the db (or update after the save button is clicked?)
+        
         // if activeFontSetLoaded is false
         //    setDefaultActiveFontSet
         // return nothing?
-
+        // else
         return changeActiveFontSetName({ setName: setName })
       })      
     ),

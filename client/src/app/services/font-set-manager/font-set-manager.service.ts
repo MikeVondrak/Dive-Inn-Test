@@ -13,6 +13,7 @@ import { getFontSetsListView } from 'src/app/store/font-set-library/selectors/fo
 import { FontSetState } from 'src/app/store/font-set-library/entity/font-set.entity';
 import { FontSetApi, FontSetApiMapped } from '../api/font-set/font-set.api.model';
 import { map } from 'rxjs/operators';
+import { FontSetApiService } from '../api/font-set/font-set.api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class FontSetManagerService {
   constructor(
     // TODO: how to use a slice of the store instead of entire AppState?
     private store$: Store<AppState>,
+    private fontSetApiService: FontSetApiService
   ) { }
 
   public loadFontSets$(): void {
@@ -34,8 +36,15 @@ export class FontSetManagerService {
     this.store$.dispatch(updateFontSet({ updatedFontSetApi: updatedFontSetApi }));
   }
 
-  public createFontSet$(newFontSetName: string): void {
-    this.store$.dispatch(createFontSet({ newFontSetName: newFontSetName }));
+  public createFontSet$(fontSetName: string, fontSetId: string): Observable<FontSet> {
+    return this.fontSetApiService.createFontSet$(fontSetName, fontSetId).pipe(
+      map(fontSetReturn => {
+        return fontSetReturn as any;
+      }));
+
+
+
+    //this.store$.dispatch(createFontSet({ newFontSetName: newFontSetName }));
   }
 
 
@@ -58,13 +67,13 @@ export class FontSetManagerService {
   //         },
   //         new Array<FontSet>()
   //       );
-        
+
   //     }));
   //   }
-    
+
   // }
 }
-  
+
   // public getAllFontSets$(): Observable<FontSet[]> {
 //   const allFontSets: Observable<FontSet[]>
 //     = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        

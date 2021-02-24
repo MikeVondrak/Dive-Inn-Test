@@ -50,6 +50,7 @@
     "@types/node": "^14.0.27",
     "@types/pg": "^7.14.4",
     "@types/snapsvg": "^0.5.0",
+    "@types/uuid": "^8.3.0",
     "codelyzer": "^6.0.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
@@ -73,6 +74,7 @@
     "tslib": "^2.0.0",
     "tslint": "~6.1.0",
     "typescript": "^3.9.7",
+    "uuid": "^8.3.2",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

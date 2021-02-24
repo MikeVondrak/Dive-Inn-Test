@@ -1,5 +1,7 @@
 -- PostgreSQL v12
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Type of objects the font will be applied to, e.g. main_nav for setting the main navigation sign posts font
 DROP TABLE IF EXISTS font_type CASCADE;
 CREATE TABLE font_type (
@@ -85,7 +87,7 @@ VALUES
 DROP TABLE IF EXISTS font_set;
 CREATE TABLE font_set (
     id                  SERIAL          PRIMARY KEY,
-    set_id              SMALLINT,
+    set_id              uuid,
     set_name            VARCHAR(20)     NOT NULL,
     fk_font_type_id     INT,
     CONSTRAINT font_set_font_type_id
@@ -100,5 +102,13 @@ CREATE TABLE font_set (
 );
 INSERT INTO font_set (set_id, set_name, fk_font_type_id, fk_font_instance_id)
 VALUES
-    (1, 'Font Set 1', 1, 1), (1, 'Font Set 1', 2, 1), (1, 'Font Set 1', 3, 2), (1, 'Font Set 1', 4, 2), (1, 'Font Set 1', 5, 6),
-    (2, 'Font Set 2', 1, 2), (2, 'Font Set 2', 2, 3), (2, 'Font Set 2', 3, 3), (2, 'Font Set 2', 4, 2), (2, 'Font Set 2', 5, 7);
+    ('999af3b1-7d4e-4e5d-b4c9-9a798189c0f1', 'Font Set 1', 1, 1), 
+    ('999af3b1-7d4e-4e5d-b4c9-9a798189c0f1', 'Font Set 1', 2, 1), 
+    ('999af3b1-7d4e-4e5d-b4c9-9a798189c0f1', 'Font Set 1', 3, 2), 
+    ('999af3b1-7d4e-4e5d-b4c9-9a798189c0f1', 'Font Set 1', 4, 2), 
+    ('999af3b1-7d4e-4e5d-b4c9-9a798189c0f1', 'Font Set 1', 5, 6),
+    ('984f6f9c-af3c-47bd-9e4b-77199dcdd9a3', 'Font Set 2', 1, 2), 
+    ('984f6f9c-af3c-47bd-9e4b-77199dcdd9a3', 'Font Set 2', 2, 3), 
+    ('984f6f9c-af3c-47bd-9e4b-77199dcdd9a3', 'Font Set 2', 3, 3), 
+    ('984f6f9c-af3c-47bd-9e4b-77199dcdd9a3', 'Font Set 2', 4, 2), 
+    ('984f6f9c-af3c-47bd-9e4b-77199dcdd9a3', 'Font Set 2', 5, 7);

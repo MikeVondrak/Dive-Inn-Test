@@ -15,7 +15,9 @@ export class FontSetRouter extends BaseRouter {
     const baseQuery = sqlQueries.getFontSetsApis;
     super(baseRoute, baseQuery, routerCallback);
 
-    // handle updating a fontSet
+    /**
+     * Update a font set
+     */
     let route = baseRoute + routes.api.font.fontSet.update;
     this.router.post(route, (req: Request, res: Response) => {
       const newFontSet = req.body as DbFontSet[];
@@ -39,6 +41,9 @@ export class FontSetRouter extends BaseRouter {
       routerCallback(route, query, res);
     });
 
+    /**
+     * Add a new font set
+     */
     route = baseRoute + routes.api.font.fontSet.add;
     this.router.post(route, (req: Request, res: Response) => {
       const newFontSet = req.body as DbFontSet[];
@@ -57,7 +62,9 @@ export class FontSetRouter extends BaseRouter {
       routerCallback(route, query, res);
     });
 
-    // handle removing a fontSet
+    /**
+     * Delete a font set
+     */
     route = baseRoute + routes.api.font.fontSet.remove;
     this.router.post(route, (req: Request, res: Response) => {
       const removeFontSetId = [req.body.id];
