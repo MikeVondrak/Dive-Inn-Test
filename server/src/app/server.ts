@@ -73,7 +73,7 @@ const default200Response: RequestHandler = (req: Request, res: Response) => {
  * @param res Response object from Express Router
  */
 function makePoolQuery<ReturnType>(route: string, query: string, res: Response, values?: any[]) {
-  console.log('***** makePoolQuery: route= ' + route + ', query= ' + query + '\nthese were passed values= ' + JSON.stringify(values,null,4) || 'none');
+  console.log('***** makePoolQuery: route= ' + route + ', query= ' + query + '\n\tthese were passed values= ' + JSON.stringify(values,null,4) || 'none');
   serverApp.poolQuery<ReturnType>(query, values)
     .pipe(take(1))
     .subscribe(
