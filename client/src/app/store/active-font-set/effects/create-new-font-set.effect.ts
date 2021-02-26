@@ -57,11 +57,12 @@ export class CreateNewFontSetEffect {
         // update the db (or update after the save button is clicked?)
         return this.fontSetManagerService.createFontSet$(newFontSet).pipe(
           map(response => {
-            debugger;
             
+            debugger;
             // need to add new font set to font set library
             // then set the active font set to the new set
             // return setActiveFontSetById(...)
+
             return changeActiveFontSetName({ setName: setName })
           })
         )

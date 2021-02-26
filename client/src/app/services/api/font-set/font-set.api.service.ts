@@ -36,7 +36,14 @@ export class FontSetApiService {
       route,
       body,
       { 'headers': headers }
-    );
+    ).pipe(
+      map(response => {
+        debugger;
+
+        // TODO: convert array into FontSetApiMapped to return??
+
+        return response;
+      }));
     return postResponse;
     // .pipe(
 
