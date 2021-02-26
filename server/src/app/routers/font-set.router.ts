@@ -31,6 +31,7 @@ export class FontSetRouter extends BaseRouter {
       const onefont = newFontSet[0];
       let query = pgp.helpers.update(newFontSet, fontSetColumnSet);
       query += ' WHERE v.set_id = t.set_id AND v.fk_font_type_id = t.fk_font_type_id';
+      query += ' ' + sqlQueries.addFontSetReturning;
 
       // TODO: loop through newFontSet array and construct a compound update query
       // - start with 5 separate queries? use BEGIN ... COMMIT ?
@@ -54,7 +55,7 @@ export class FontSetRouter extends BaseRouter {
         ], 
         { table: 'font_set' }
       );
-      const query = pgp.helpers.insert(newFontSet, fontSetColumnSet);
+      const query = pgp.helpers.insert(newFontSet, fontSetColumnSet) + " " + sqlQueries.addFontSetReturning;
 
       console.log('fontSetRouter ADD: ' + JSON.stringify(newFontSet, null, 4));
       console.log('Modified query: ' + query.toString() + '\n\n');

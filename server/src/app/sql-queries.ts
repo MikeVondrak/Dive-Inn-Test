@@ -18,7 +18,7 @@ export const sqlQueries = {
     `SELECT font_instance.id, font_instance.family, font_instance.italic, font_instance.size, font_weight.weight FROM font_instance 
       INNER JOIN font_weight ON fk_font_weight_id = font_weight.id`,
   getFontInstanceById: 'SELECT * FROM font_instance WHERE id = $1',
-  addFontInstance: 'INSERT INTO font_instance(family, italic, size, weight) VALUES($1, $2, $3, $4) RETURNING "id"',
+  addFontInstance: 'INSERT INTO font_instance(family, italic, size, weight) VALUES($1, $2, $3, $4) RETURNING "id"', // not used currently
   addFontInstanceReturning: 'RETURNING id, family, italic, size, fk_font_weight_id',
 
   getFontInstanceApis:
@@ -30,6 +30,7 @@ export const sqlQueries = {
       INNER JOIN font_type ON fk_font_type_id = font_type.id`,
   getFontSetsApis: `SELECT * FROM font_set`,
   addFontSet: 'INSERT INTO font_set(set_id, set_name, fk_font_type_id, fk_font_instance_id) VALUES($1, $2, $3, $4)',
+  addFontSetReturning: 'RETURNING id, set_id, set_name, fk_font_type_id, fk_font_instance_id',
   removeFontSet: 'DELETE FROM font_set WHERE set_id = $1'
 }
 

@@ -5,7 +5,6 @@ import { groupBy, map, switchMap, take } from 'rxjs/operators';
 import { FontSet } from 'src/app/models/font-set.model';
 import { FontSetApi, FontSetApiMapped, fontSetApiMappedToFontSetApiArray } from '../../../services/api/font-set/font-set.api.model';
 import { routes } from '../../../../../../server/src/app/routes';
-import { FontSetManagerService } from '../../font-set-manager/font-set-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,6 @@ export class FontSetApiService {
 
   constructor(
     private http: HttpClient,
-    private fontSetManagerService: FontSetManagerService
   ) { }
 
   /**
@@ -29,22 +27,28 @@ export class FontSetApiService {
     return fontSetApis;
   }
 
-  public createFontSet$(fontSetName: string, fontSetId: string) {
+  public createFontSet$(newFontSet: FontSetApiMapped): Observable<any[]> {
     const route = this.baseRoute + routes.api.font.fontSet.add;
-    const headers = { 'content-type': 'application/json' }; 
-
-    return this.http.post<{ fontSetName, fontSetId }>(
+    const headers = { 'content-type': 'application/json' };
+    const body = fontSetApiMappedToFontSetApiArray(newFontSet);
+    debugger;
+    const postResponse = this.http.post<any[]>(
       route,
-      { fontSetName, fontSetId },
+      body,
       { 'headers': headers }
-    ).pipe(
-
-      // on the server side we use RETURNING to make the response be the newly created font set
-      // should return a FontSet type from here, figure out how to map it
-      // how do you return a different type than the type specified for the post<>???
-
-      map(response => response as FontSet)
     );
+    return postResponse;
+    // .pipe(
+
+    //   // on the server side we use RETURNING to make the response be the newly created font set
+    //   // should return a FontSet type from here, figure out how to map it
+    //   // how do you return a different type than the type specified for the post<>???
+
+    //   map(response => {
+    //     debugger;
+    //     return response as any
+    //   })
+    // );
   }
 
   public updateFontSet$(fontSet: FontSetApiMapped): Observable<boolean> {

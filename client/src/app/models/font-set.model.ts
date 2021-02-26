@@ -1,7 +1,7 @@
 import { FontTypeInstanceMap } from './font-type.model';
 
 export interface FontSet {
-  setId: number,
+  setId: string,
   name: string,
   // lastUpdated: Date, // future enhancement?
   typeInstanceMap: FontTypeInstanceMap;
@@ -9,7 +9,7 @@ export interface FontSet {
 
 
 export interface FontSetListView {
-  setId: number,
+  setId: string,
   name: string,
   
   // future enhancement options

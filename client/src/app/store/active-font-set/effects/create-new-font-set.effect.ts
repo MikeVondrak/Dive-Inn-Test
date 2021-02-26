@@ -9,10 +9,12 @@ import { setActiveFontInstance } from '../../active-font-instance/actions/active
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { getAllFontTypes, getFontTypesLoaded } from "../../font-type/selectors/font-type.selectors";
 import { AppState } from "../../state";
-import { changeActiveFontSetName, createNewFontSet } from '../actions/active-font-set.actions';
+import { changeActiveFontSetName, createNewFontSet, setActiveFontSetById } from '../actions/active-font-set.actions';
 import { getActiveFontSetLoaded, getNewFontSetName } from "../selectors/active-font-set.selectors";
 import { UuidService } from 'src/app/services/uuid/uuid.service';
 import { FontSetManagerService } from "src/app/services/font-set-manager/font-set-manager.service";
+import { FontSetApiMapped } from "src/app/services/api/font-set/font-set.api.model";
+import { FontTypeInstanceIdPair, FontTypeInstancePair } from "src/app/models/font-type.model";
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +37,34 @@ export class CreateNewFontSetEffect {
       }),
       withLatestFrom(
         this.store$.select(getNewFontSetName),
-        this.store$.select(getActiveFontSetLoaded)
+        this.store$.select(getActiveFontSetLoaded),
+        this.store$.select(getAllFontTypes)
       ),
-      map(([action, setName, activeFontSetLoaded]) => {
+      switchMap(([action, setName, activeFontSetLoaded, fontTypes]) => {
         debugger;
         const newSetId = this.uuidService.getUuid();
+        // construct a new FontSetApiMapped to send to DB
+        const typeInstanceIdMap: FontTypeInstanceIdPair[] = fontTypes.map(fontType => {
+          // NOTE: hardcoded to the first font-instance for lazy
+          return { typeId: fontType.id, instanceId: 1 }
+        });
+        const newFontSet: FontSetApiMapped = {
+          set_id: newSetId,
+          set_name: setName,
+          typeInstanceIdMap: typeInstanceIdMap
+        }
+
         // update the db (or update after the save button is clicked?)
-        this.fontSetManagerService.createFontSet$(setName, newSetId)
+        return this.fontSetManagerService.createFontSet$(newFontSet).pipe(
+          map(response => {
+            debugger;
+            
+            // need to add new font set to font set library
+            // then set the active font set to the new set
+            // return setActiveFontSetById(...)
+            return changeActiveFontSetName({ setName: setName })
+          })
+        )
         
         // update the font set name and id
         
@@ -49,7 +72,7 @@ export class CreateNewFontSetEffect {
         //    setDefaultActiveFontSet
         // return nothing?
         // else
-        return changeActiveFontSetName({ setName: setName })
+        
       })      
     ),
     // { dispatch: false }

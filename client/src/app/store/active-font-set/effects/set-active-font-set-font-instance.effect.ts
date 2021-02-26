@@ -53,12 +53,6 @@ import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.se
           return this.fontInstanceManagerService.addFontInstance$(activeFontInstance).pipe(
             switchMap(addedFontInstance => {
               const added = addedFontInstance[0] as FontInstanceApi;
-              const addedFontInstanceId = addedFontInstance[0].id;
-              const pair: FontTypeInstanceIdPair = {
-                typeId: type.id,
-                instanceId: addedFontInstanceId,
-                entityId: added.id,
-              };
               return of(activeFontSetFontInstanceLoaded({ fontTypeId: type.id, fontInstanceApi: added }));
             })
           );

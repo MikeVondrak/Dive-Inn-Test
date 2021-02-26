@@ -7,14 +7,14 @@ import { FontTypeInstanceIdPair } from 'src/app/models/font-type.model';
  */
 export interface FontSetApi {
   id?: number;
-  set_id: number;
+  set_id: string;
   set_name: string;
   fk_font_type_id: number;
   fk_font_instance_id: number;
 }
 
 export interface FontSetApiMapped {
-  set_id: number;
+  set_id: string;
   set_name: string;
   typeInstanceIdMap: FontTypeInstanceIdPair[];
 }

@@ -36,8 +36,8 @@ export class FontSetManagerService {
     this.store$.dispatch(updateFontSet({ updatedFontSetApi: updatedFontSetApi }));
   }
 
-  public createFontSet$(fontSetName: string, fontSetId: string): Observable<FontSet> {
-    return this.fontSetApiService.createFontSet$(fontSetName, fontSetId).pipe(
+  public createFontSet$(newFontSet: FontSetApiMapped): Observable<FontSet[]> {
+    return this.fontSetApiService.createFontSet$(newFontSet).pipe(
       map(fontSetReturn => {
         return fontSetReturn as any;
       }));

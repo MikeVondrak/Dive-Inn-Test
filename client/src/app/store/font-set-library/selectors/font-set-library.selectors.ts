@@ -53,7 +53,7 @@ export const getFontSetApisMapped: MemoizedSelector<AppState, FontSetApiMapped[]
  */
 export const getFontSetById = createSelector(
   getFontSetApisMapped,
-  (state: FontSetApiMapped[], props: { setId: number }) => {
+  (state: FontSetApiMapped[], props: { setId: string }) => {
     const fontSet: FontSetApiMapped = state?.find(fsApiMapped => fsApiMapped.set_id === props.setId);
     return fontSet;
   }

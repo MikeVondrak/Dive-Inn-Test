@@ -21,7 +21,7 @@ export const setActiveFontSetSavedFlag = createAction(
  */
 export const setActiveFontSetById = createAction(
   '[Font Set] setActiveFontSetById',
-  props<{ fontSetId: number }>()
+  props<{ fontSetId: string }>()
 );
 
 export const setDefaultActiveFontSet = createAction('[Font Set] setDefaultActiveFontSet');

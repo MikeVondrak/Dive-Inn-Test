@@ -15,7 +15,7 @@ export interface DbFontInstance {
 
 export interface DbFontSet {
   id?: number,
-  set_id: number,
+  set_id: string,
   set_name: string,
   fk_font_type_id: number,
   fk_font_instance_id: number,
@@ -23,7 +23,7 @@ export interface DbFontSet {
 }
 
 export interface DbFontSetReturn {
-  set_id: number,
+  set_id: string,
   set_name: string,
   last_updated: Date,
   type_instance_map: Map<string, number>

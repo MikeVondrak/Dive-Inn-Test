@@ -3,7 +3,7 @@ import { FontTypeInstanceIdPair } from 'src/app/models/font-type.model';
 import { FontSet } from '../../models/font-set.model';
 
 export interface ActiveFontSetState {
-  readonly setId: number,
+  readonly setId: string,
   readonly name: string,
   readonly saved: boolean,
   // readonly lastUpdated: Date,
@@ -22,7 +22,7 @@ export interface ActiveFontSetState {
 }
 
 export const activeFontSetInitialState: ActiveFontSetState = {
-  setId: -1,
+  setId: '',
   name: '',
   saved: false,
   // lastUpdated: undefined,
