@@ -36,74 +36,11 @@ export class FontSetManagerService {
     this.store$.dispatch(updateFontSet({ updatedFontSetApi: updatedFontSetApi }));
   }
 
-  public createFontSet$(newFontSet: FontSetApiMapped): Observable<FontSet[]> {
+  public createFontSet$(newFontSet: FontSetApiMapped): Observable<FontSetApiMapped> {
     return this.fontSetApiService.createFontSet$(newFontSet).pipe(
       map(fontSetReturn => {
         return fontSetReturn as any;
       }));
 
-
-
-    //this.store$.dispatch(createFontSet({ newFontSetName: newFontSetName }));
   }
-
-
-
-  // private getUiFontSets$() {
-  //   const uiFontSets = this.fontSetApis$.pipe(
-  //     map((fontSetApis: FontSetApi[]) => {
-  //       // convert the multiple entries (rows) for a font set to a ui object with a type-name -> font-instance map
-
-  //       const uiFontSets: Observable<FontSet[]> = fontSetApis
-  //         .reduce((accum, item) => {
-  //           let newSet = true;
-  //           accum.forEach(fontSet => {
-  //             if (item.set_id === fontSet.setId) {
-  //               fontSet.typeIdInstanceIdMap
-  //             }
-  //           })
-
-  //           return accum;
-  //         },
-  //         new Array<FontSet>()
-  //       );
-
-  //     }));
-  //   }
-
-  // }
 }
-
-  // public getAllFontSets$(): Observable<FontSet[]> {
-//   const allFontSets: Observable<FontSet[]>
-//     = this.http.get<FontSetApi[]>(this.baseRoute).pipe(        
-//       map(fontSetApiArray => {
-//         const groupedSet = fontSetApiArray.reduce(
-//           (accum, item) => {
-//             let newSet = true;
-//             accum.forEach(fontSet => {
-//               if (item.set_id === fontSet.setId) {
-//                 fontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-//                 newSet = false;
-//               }
-//             });
-//             if (newSet) {
-//               const newFontSet: FontSet = {
-//                 id: item.id,
-//                 setId: item.set_id,
-//                 name: item.set_name,
-//                 lastUpdated: new Date,
-//                 typeInstanceMap: new Map<string, number>()
-//               }
-//               newFontSet.typeInstanceMap.set(item.type, item.fk_font_instance_id);
-//               accum.push(newFontSet);
-//             }
-//             return accum;
-//           },
-//           new Array<FontSet>()
-//         );          
-//         return groupedSet;
-//       })
-//     );
-
-//     return allFontSets;

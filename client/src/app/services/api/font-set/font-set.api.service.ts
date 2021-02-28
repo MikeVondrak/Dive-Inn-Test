@@ -5,6 +5,7 @@ import { groupBy, map, switchMap, take } from 'rxjs/operators';
 import { FontSet } from 'src/app/models/font-set.model';
 import { FontSetApi, FontSetApiMapped, fontSetApiMappedToFontSetApiArray } from '../../../services/api/font-set/font-set.api.model';
 import { routes } from '../../../../../../server/src/app/routes';
+import { FontTypeInstanceIdPair } from 'src/app/models/font-type.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,35 +28,34 @@ export class FontSetApiService {
     return fontSetApis;
   }
 
-  public createFontSet$(newFontSet: FontSetApiMapped): Observable<any[]> {
+  public createFontSet$(newFontSet: FontSetApiMapped): Observable<FontSetApiMapped> {
     const route = this.baseRoute + routes.api.font.fontSet.add;
     const headers = { 'content-type': 'application/json' };
     const body = fontSetApiMappedToFontSetApiArray(newFontSet);
-    debugger;
-    const postResponse = this.http.post<any[]>(
+    
+    const postResponse = this.http.post<FontSetApi[]>(
       route,
       body,
       { 'headers': headers }
     ).pipe(
-      map(response => {
-        debugger;
-
-        // TODO: convert array into FontSetApiMapped to return??
-
-        return response;
+      map((response: FontSetApi[]) => {
+        // convert array of FontSetApi to a FontSetApiMapped object
+        let fsApiMappedResult: FontSetApiMapped = {
+          set_id: response[0].set_id,
+          set_name: response[0].set_name,
+          typeInstanceIdMap: []
+        };
+        fsApiMappedResult.typeInstanceIdMap = response.map(fsApi => {
+          const ti: FontTypeInstanceIdPair = {
+            typeId: fsApi.fk_font_type_id,
+            instanceId: fsApi.fk_font_instance_id,
+            entityId: fsApi.id
+          }
+          return ti;
+        });
+        return fsApiMappedResult;
       }));
     return postResponse;
-    // .pipe(
-
-    //   // on the server side we use RETURNING to make the response be the newly created font set
-    //   // should return a FontSet type from here, figure out how to map it
-    //   // how do you return a different type than the type specified for the post<>???
-
-    //   map(response => {
-    //     debugger;
-    //     return response as any
-    //   })
-    // );
   }
 
   public updateFontSet$(fontSet: FontSetApiMapped): Observable<boolean> {

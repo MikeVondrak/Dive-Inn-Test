@@ -9,12 +9,13 @@ import { setActiveFontInstance } from '../../active-font-instance/actions/active
 import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { getAllFontTypes, getFontTypesLoaded } from "../../font-type/selectors/font-type.selectors";
 import { AppState } from "../../state";
-import { changeActiveFontSetName, createNewFontSet, setActiveFontSetById } from '../actions/active-font-set.actions';
+import { activeFontSetLoaded, changeActiveFontSetName, createNewFontSet, setActiveFontSetById } from '../actions/active-font-set.actions';
 import { getActiveFontSetLoaded, getNewFontSetName } from "../selectors/active-font-set.selectors";
 import { UuidService } from 'src/app/services/uuid/uuid.service';
 import { FontSetManagerService } from "src/app/services/font-set-manager/font-set-manager.service";
 import { FontSetApiMapped } from "src/app/services/api/font-set/font-set.api.model";
 import { FontTypeInstanceIdPair, FontTypeInstancePair } from "src/app/models/font-type.model";
+import { addFontSetToLibrary } from "../../font-set-library/actions/font-set.actions";
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,7 @@ export class CreateNewFontSetEffect {
         this.store$.select(getActiveFontSetLoaded),
         this.store$.select(getAllFontTypes)
       ),
-      switchMap(([action, setName, activeFontSetLoaded, fontTypes]) => {
-        debugger;
+      switchMap(([action, setName, isActiveFontSetLoaded, fontTypes]) => {
         const newSetId = this.uuidService.getUuid();
         // construct a new FontSetApiMapped to send to DB
         const typeInstanceIdMap: FontTypeInstanceIdPair[] = fontTypes.map(fontType => {
@@ -56,24 +56,16 @@ export class CreateNewFontSetEffect {
 
         // update the db (or update after the save button is clicked?)
         return this.fontSetManagerService.createFontSet$(newFontSet).pipe(
-          map(response => {
-            
-            debugger;
-            // need to add new font set to font set library
-            // then set the active font set to the new set
-            // return setActiveFontSetById(...)
+          // original way
+          // map((response: FontSetApiMapped) => {
+            // this.store$.dispatch(addFontSetToLibrary({ fontSetApi: response }));
+            // return activeFontSetLoaded({ fontSet: response });
 
-            return changeActiveFontSetName({ setName: setName })
+          // TODO: why does switchMap work here??
+          switchMap((response: FontSetApiMapped) => {            
+            return([addFontSetToLibrary({ fontSetApi: response }), activeFontSetLoaded({ fontSet: response })]);
           })
-        )
-        
-        // update the font set name and id
-        
-        // if activeFontSetLoaded is false
-        //    setDefaultActiveFontSet
-        // return nothing?
-        // else
-        
+        )        
       })      
     ),
     // { dispatch: false }

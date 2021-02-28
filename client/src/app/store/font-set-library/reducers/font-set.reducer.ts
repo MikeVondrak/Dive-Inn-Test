@@ -7,7 +7,8 @@ import {
   fontSetsLoaded,
   fontSetsError,
   FontSetActions,
-  updateFontSetSuccess
+  updateFontSetSuccess,
+  addFontSetToLibrary
 } from '../actions/font-set.actions';
 import { fontSetAdapter, FontSetState, initialFontSetState } from '../entity/font-set.entity';
  
@@ -69,6 +70,16 @@ export const reducer = createReducer(
       fontSetsLoaded: false,
       fontSetsError: true
     });
+  }),
+
+  on(addFontSetToLibrary, (state, action) => {
+    const fontSetApi = fontSetApiMappedToFontSetApiArray(action.fontSetApi);
+    let newState = {
+      ...state,
+    };
+    logger('addFontSetToLibrary' + action.fontSetApi.set_name);
+
+    return fontSetAdapter.addMany(fontSetApi, newState);
   }),
 
 );

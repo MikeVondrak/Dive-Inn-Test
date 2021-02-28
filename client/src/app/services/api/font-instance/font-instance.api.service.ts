@@ -41,10 +41,10 @@ export class FontInstanceApiService {
 
     const route = this.baseRoute + routes.api.font.instance.add;
     const headers = { 'content-type': 'application/json' };
+    
     // remove the ID so we don't try to use it server-side
     const body = { ...fontInstanceApi, id: undefined };
-    //const body = this.mapFontInstanceUiToDb(fontInstanceApi);
-    debugger;
+
     const postResponse = this.http.post<{ id: number }>(
       route, 
       body, 

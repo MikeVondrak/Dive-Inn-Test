@@ -17,12 +17,8 @@ export class ModalEffects {
       ofType(openModal),
       tap((action) => {
         console.log('openModal');
-        debugger;
-
         const contentComponentFactory = this.componentFactoryResolver.resolveComponentFactory(action.contentType);
         const contentComponentRef = contentComponentFactory.create(this.injector);
-        //const contentNativeEl = contentComponentRef.location.nativeElement;
-
       })
     );
   },

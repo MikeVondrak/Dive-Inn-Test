@@ -40,6 +40,11 @@ export const updateFontSetName = createAction(
   props<{ updatedFontSetName: string }>()
 );
 
+export const addFontSetToLibrary = createAction(
+  '[Font Set] addFontSetToLibrary',
+  props<{ fontSetApi: FontSetApiMapped }>()
+);
+
 const actions = union({
   loadFontSets,
   fontSetsLoaded,
@@ -48,5 +53,6 @@ const actions = union({
   createFontSet,
   deleteFontSet,
   updateFontSetName,
+  addFontSetToLibrary,
 })
 export type FontSetActions = typeof actions;
