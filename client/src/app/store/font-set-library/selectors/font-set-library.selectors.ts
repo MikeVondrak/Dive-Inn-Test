@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, MemoizedSelector, MemoizedSelectorWithProps } from '@ngrx/store';
 import { AppState } from '../../state';
 import { FontSetState } from '../entity/font-set.entity';
 import * as fontSetEntitySelectors from '../entity/font-set.entity';
@@ -12,6 +12,11 @@ export const selectFeatureFontSets = createFeatureSelector<AppState, FontSetStat
 export const getFontSetApis = createSelector(
   selectFeatureFontSets,
   fontSetEntitySelectors.selectAll
+);
+
+export const getFontSetApisById = createSelector(
+  getFontSetApis,
+  (state: FontSetApi[], props: { fontSetId: string }) => state.filter(fontSet => fontSet.set_id === props.fontSetId)
 );
 
 /**

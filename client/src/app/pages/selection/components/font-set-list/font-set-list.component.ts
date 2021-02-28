@@ -4,6 +4,7 @@ import { LoggerService } from 'src/app/services/logger/logger.service';
 import { AppState } from 'src/app/store/state';
 import { FontSet, FontSetListView } from '../../../../models/font-set.model';
 import { setActiveFontSetById } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { deleteFontSet } from 'src/app/store/font-set-library/actions/font-set.actions';
 
 @Component({
   selector: 'app-font-set-list',
@@ -36,6 +37,6 @@ export class FontSetListComponent implements OnInit {
   }
 
   public removeFontSet(fontSet: FontSet) {
-    this.loggerService.log('removeFontSet: ' + fontSet.name);
+    this.store$.dispatch(deleteFontSet({ fontSetId: fontSet.setId }));
   }
 }

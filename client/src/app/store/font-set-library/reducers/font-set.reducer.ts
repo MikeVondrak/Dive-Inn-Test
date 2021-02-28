@@ -8,7 +8,8 @@ import {
   fontSetsError,
   FontSetActions,
   updateFontSetSuccess,
-  addFontSetToLibrary
+  addFontSetToLibrary,
+  deleteFontSetSuccess
 } from '../actions/font-set.actions';
 import { fontSetAdapter, FontSetState, initialFontSetState } from '../entity/font-set.entity';
  
@@ -60,6 +61,11 @@ export const reducer = createReducer(
       }
     });
     return fontSetAdapter.updateMany(updates, newState);
+  }),
+
+  on(deleteFontSetSuccess, (state, action) => {
+
+    return fontSetAdapter.removeMany(action.fontSetRowIds, state);
   }),
 
   on(fontSetsError, (state) => {

@@ -68,7 +68,7 @@ export class FontSetRouter extends BaseRouter {
      */
     route = baseRoute + routes.api.font.fontSet.remove;
     this.router.post(route, (req: Request, res: Response) => {
-      const removeFontSetId = [req.body.id];
+      const removeFontSetId = [req.body.fontSetId];
       console.log('fontSetRouter REMOVE: ' + removeFontSetId);
       routerCallback(route, sqlQueries.removeFontSet, res, removeFontSetId);
     });

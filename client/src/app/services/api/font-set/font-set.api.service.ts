@@ -70,8 +70,23 @@ export class FontSetApiService {
       { 'headers': headers }
     ).pipe(
       map(response => !!response)
+    ); 
+  }
+
+  public deleteFontSet$(fontSetId: string): Observable<boolean> {
+    const route = this.baseRoute + routes.api.font.fontSet.remove;
+    const headers = { 'content-type': 'application/json' }; 
+    const body = { fontSetId };
+
+    return this.http.post<{ fontSetId }>(
+      route,
+      body,
+      { 'headers': headers }
+    ).pipe(
+      map(response => !!response)
     );
-    
+
+    return of(false);
   }
 
 }

@@ -37,10 +37,10 @@ export class FontSetManagerService {
   }
 
   public createFontSet$(newFontSet: FontSetApiMapped): Observable<FontSetApiMapped> {
-    return this.fontSetApiService.createFontSet$(newFontSet).pipe(
-      map(fontSetReturn => {
-        return fontSetReturn as any;
-      }));
+    return this.fontSetApiService.createFontSet$(newFontSet);
+  }
 
+  public deleteFontSet$(fontSetId: string): Observable<boolean> {
+    return this.fontSetApiService.deleteFontSet$(fontSetId);
   }
 }

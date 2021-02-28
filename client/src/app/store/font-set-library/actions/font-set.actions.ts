@@ -32,7 +32,11 @@ export const createFontSet = createAction(
 
 export const deleteFontSet = createAction(
   '[Font Set] deleteFontSet',
-  props<{ fontSetId: number }>()
+  props<{ fontSetId: string }>()
+);
+export const deleteFontSetSuccess = createAction(
+  '[Font Set] deleteFontSetSuccess',
+  props<{ fontSetRowIds: number[] }>()
 );
 
 export const updateFontSetName = createAction(
