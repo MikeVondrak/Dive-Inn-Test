@@ -16,6 +16,7 @@ import { LoadingDirectiveModule } from '../directives/loading-directive.module';
 import { FontSetListComponent } from './selection/components/font-set-list/font-set-list.component';
 import { FontTypeInstanceLoaderComponent } from './selection/components/font-type-instance-loader/font-type-instance-loader.component';
 import { NewSetNameModalContentComponent } from './selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
+import { ChangeNameModalContentComponent } from './selection/components/change-name-modal-content/change-name-modal-content.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NewSetNameModalContentComponent } from './selection/components/new-set-
     FontSetListComponent,
     FontTypeInstanceLoaderComponent,
     NewSetNameModalContentComponent,
+    ChangeNameModalContentComponent,
   ],
   imports: [
     CommonModule,

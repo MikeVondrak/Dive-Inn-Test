@@ -43,6 +43,10 @@ export class CreateNewFontSetEffect {
       ),
       switchMap(([action, setName, isActiveFontSetLoaded, fontTypes]) => {
         const newSetId = this.uuidService.getUuid();
+
+        // NOTE: if we want to preserve the current font-instance selections we could pull in the active font set
+        // here and populate the new font set with the active font set type-instance values
+
         // construct a new FontSetApiMapped to send to DB
         const typeInstanceIdMap: FontTypeInstanceIdPair[] = fontTypes.map(fontType => {
           // NOTE: hardcoded to the first font-instance for lazy

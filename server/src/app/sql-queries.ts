@@ -31,6 +31,7 @@ export const sqlQueries = {
   getFontSetsApis: `SELECT * FROM font_set`,
   addFontSet: 'INSERT INTO font_set(set_id, set_name, fk_font_type_id, fk_font_instance_id) VALUES($1, $2, $3, $4)',
   addFontSetReturning: 'RETURNING id, set_id, set_name, fk_font_type_id, fk_font_instance_id',
+  updateFontSetReturning: 'RETURNING id, v.set_id, v.set_name, v.fk_font_type_id, v.fk_font_instance_id',
   removeFontSet: 'DELETE FROM font_set WHERE set_id = $1'
 }
 

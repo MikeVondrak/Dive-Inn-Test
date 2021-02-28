@@ -63,10 +63,10 @@ const _activeFontSetReducer = createReducer(
     return newState
   }),
 
-  on(changeActiveFontSetName, (state, { setName }) => {
+  on(changeActiveFontSetName, (state) => {
     const newState: ActiveFontSetState = {
       ...state,
-      name: setName
+      name: state.newFontSetName
     }
     return newState
   }),

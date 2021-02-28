@@ -18,8 +18,8 @@ export class FontSetRouter extends BaseRouter {
     /**
      * Update a font set
      */
-    let route = baseRoute + routes.api.font.fontSet.update;
-    this.router.post(route, (req: Request, res: Response) => {
+    const updateRoute = baseRoute + routes.api.font.fontSet.update;
+    this.router.post(updateRoute, (req: Request, res: Response) => {
       const newFontSet = req.body as DbFontSet[];
 
       const fontSetColumnSet = new pgp.helpers.ColumnSet(
@@ -29,24 +29,35 @@ export class FontSetRouter extends BaseRouter {
         { table: 'font_set' }
       );
       const onefont = newFontSet[0];
-      let query = pgp.helpers.update(newFontSet, fontSetColumnSet);
-      query += ' WHERE v.set_id = t.set_id AND v.fk_font_type_id = t.fk_font_type_id';
-      query += ' ' + sqlQueries.addFontSetReturning;
+      let query: string = pgp.helpers.update(newFontSet, fontSetColumnSet);
+
+      let index = query.indexOf('v."set_id"');
+      query = query.substring(0, index) + 
+        '(' + query.substring(index, index + 10) + 
+        ')::uuid' + query.substring(index + 10);
+      // console.log(query.substring(0, index));
+      // console.log(query.substring(index, index + 10));
+      // console.log(query.substring(index + 10));
+      // console.log('\n\n\n$%$%$%$%$$%\n', nquery, '\n\n');
+
+
+      query += ' WHERE (v.set_id)::uuid = t.set_id AND v.fk_font_type_id = t.fk_font_type_id';
+      query += ' ' + sqlQueries.updateFontSetReturning;
 
       // TODO: loop through newFontSet array and construct a compound update query
       // - start with 5 separate queries? use BEGIN ... COMMIT ?
 
       console.log('fontSetRouter UPDATE: ' + JSON.stringify(newFontSet, null, 4));
-      console.log('Modified query: ' + query.toString() + '\n\n');
+      console.log('Modified query: ' + query.toString() + '\nroute: ' + updateRoute + '\n\n');
 
-      routerCallback(route, query, res);
+      routerCallback(updateRoute, query, res);
     });
 
     /**
      * Add a new font set
      */
-    route = baseRoute + routes.api.font.fontSet.add;
-    this.router.post(route, (req: Request, res: Response) => {
+    const addRoute = baseRoute + routes.api.font.fontSet.add;
+    this.router.post(addRoute, (req: Request, res: Response) => {
       const newFontSet = req.body as DbFontSet[];
 
       const fontSetColumnSet = new pgp.helpers.ColumnSet(
@@ -60,17 +71,17 @@ export class FontSetRouter extends BaseRouter {
       console.log('fontSetRouter ADD: ' + JSON.stringify(newFontSet, null, 4));
       console.log('Modified query: ' + query.toString() + '\n\n');
 
-      routerCallback(route, query, res);
+      routerCallback(addRoute, query, res);
     });
 
     /**
      * Delete a font set
      */
-    route = baseRoute + routes.api.font.fontSet.remove;
-    this.router.post(route, (req: Request, res: Response) => {
+    const deleteRoute = baseRoute + routes.api.font.fontSet.remove;
+    this.router.post(deleteRoute, (req: Request, res: Response) => {
       const removeFontSetId = [req.body.fontSetId];
       console.log('fontSetRouter REMOVE: ' + removeFontSetId);
-      routerCallback(route, sqlQueries.removeFontSet, res, removeFontSetId);
+      routerCallback(deleteRoute, sqlQueries.removeFontSet, res, removeFontSetId);
     });
 
   }

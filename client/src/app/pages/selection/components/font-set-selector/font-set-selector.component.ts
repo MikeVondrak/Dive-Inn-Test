@@ -10,7 +10,7 @@ import { FontInstanceManagerService } from 'src/app/services/font-instance-manag
 import { FontSetManagerService } from 'src/app/services/font-set-manager/font-set-manager.service';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
-import { createNewFontSet, saveActiveFontSet, setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { changeActiveFontSetName, createNewFontSet, saveActiveFontSet, setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { openModal } from 'src/app/store/modal/actions/modal.actions';
 import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 import { getUiActiveFontSetTypeInstances, getUiFontInstances } from 'src/app/store/app.selectors';
@@ -19,6 +19,7 @@ import { AppState } from 'src/app/store/state';
 import { FontTypeManagerService } from '../../../../services/font-type-manager/font-type-manager.service';
 import { NewSetNameModalContentComponent } from '../new-set-name-modal-content/new-set-name-modal-content.component';
 import { ModalService } from '../../../../services/modal/modal.service';
+import { ChangeNameModalContentComponent } from '../change-name-modal-content/change-name-modal-content.component';
 
 @Component({
   selector: 'app-font-set-selector',
@@ -64,7 +65,7 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public updateFontSetName() {
-    // use value from Font Set Name control
+    this.modalService.openModal({ title: 'Change set name', contentType: ChangeNameModalContentComponent as Type<Component>, primaryAction: changeActiveFontSetName() });
   }
 
   public sortOriginalOrder(a, b): number {

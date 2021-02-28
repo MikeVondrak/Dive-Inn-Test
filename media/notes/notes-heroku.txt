@@ -1,3 +1,8 @@
+1. heroku login
+2. git push heroku HEAD:master 
+  DON'T NEED -a polar-citadel-96360 anymore?
+
+
 _____
 Heroku
 

@@ -2,7 +2,7 @@
 <button (click)="openModal()">NEW SET</button>
 <div class="font-set-name-row">
   Name: <span class="font-set-name">{{ (activeFontSetName$ | async) }}</span>
-  <button (click)="updateFontSetName()">CHANGE</button>
+  <button (click)="updateFontSetName()">CHANGE NAME</button>
 </div>
 
 <div *ngFor="let fontTypeInstance of (activeFontSetTypeInstances$ | async) | keyvalue: sortOriginalOrder">

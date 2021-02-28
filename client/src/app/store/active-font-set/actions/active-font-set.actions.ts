@@ -54,7 +54,7 @@ export const setNewFontSetName = createAction(
 
 export const changeActiveFontSetName = createAction(
   '[Font Set] changeActiveFontSetName',
-  props<{ setName: string }>()
+  // props<{ setName: string }>()
 );
 
 const actions = union({
