@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { setNewFontSetName } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
 
 @Component({
   selector: 'app-change-name-modal-content',
@@ -9,7 +11,12 @@ import { setNewFontSetName } from 'src/app/store/active-font-set/actions/active-
 })
 export class ChangeNameModalContentComponent implements OnInit {
 
-  constructor(private store$: Store) { }
+  public previousName$: Observable<string>;
+
+  constructor(private store$: Store) {
+    this.previousName$ = this.store$.select(getActiveFontSetName);
+    debugger;
+  }
 
   ngOnInit(): void {
   }

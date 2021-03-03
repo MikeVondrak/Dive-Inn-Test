@@ -133,3 +133,18 @@ button {
 select {
   @extend %focusOutline;
 }
+
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 450px;
+
+  label {
+    margin-right: 0.5rem;
+  }
+  input {
+    min-width: 13rem;
+  }
+}

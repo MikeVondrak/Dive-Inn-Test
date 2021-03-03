@@ -70,7 +70,7 @@ export class AppComponent extends BaseComponent implements OnInit, AfterViewInit
     this.store$.dispatch(loadFontSets());
 
     // dispatch action to initialize the activeFontSet to a blank state
-    this.store$.dispatch(setDefaultActiveFontSet());
+    // this.store$.dispatch(setDefaultActiveFontSet());
   }
 
   ngAfterViewInit(): void {

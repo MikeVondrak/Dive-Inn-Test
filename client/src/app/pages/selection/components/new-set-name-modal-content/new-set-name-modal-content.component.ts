@@ -9,9 +9,11 @@ import { setNewFontSetName } from 'src/app/store/active-font-set/actions/active-
 })
 export class NewSetNameModalContentComponent implements OnInit {
 
-  constructor(private store$: Store) { }
+  constructor(private store$: Store) { 
+  }
 
   ngOnInit(): void {
+    debugger;
   }
 
   // create an effect for createNewFontSet

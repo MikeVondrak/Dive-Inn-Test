@@ -26,11 +26,12 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // debugger;
     // check if the fontInstance input changed
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
       if (!!this.fontInstance.family) {
+        //debugger;
+        console.log('!!!!!!!! NG ON CHANGES: ', changes);
         // make sure the font to be displayed has been downloaded
         setTimeout(() => {
           this.loadFontData(this.fontInstance.family);

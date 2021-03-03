@@ -3,6 +3,7 @@ import { ApplicationRef, Component, ComponentFactory, ComponentFactoryResolver, 
 import { ModalTemplateComponent } from 'src/app/shared/components/modal-template/modal-template.component';
 import { ModalConfig } from '../../models/modal.model';
 
+import { AppInjector } from 'src/app/services/app-injector/app-injector.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,14 +29,16 @@ export class ModalService {
   }
 
   public openModal(config: ModalConfig) {
+    //const inj = AppInjector.getInjector();
+    const inj = this.injector;
     
     // create the modal content component
     const contentComponentFactory = this.componentFactoryResolver.resolveComponentFactory(config.contentType);
-    const contentComponentRef = contentComponentFactory.create(this.injector);
+    const contentComponentRef = contentComponentFactory.create(inj);
     const contentNativeEl = contentComponentRef.location.nativeElement;
 
     // create the modal dialog template with the content component projected into the modal dialog <ng-content>
-    this.modalDialogRef = this.modalDialogComponentFactory.create(this.injector, [[contentNativeEl]]);
+    this.modalDialogRef = this.modalDialogComponentFactory.create(inj, [[contentNativeEl]]);
     const modalDialogNativeEl = this.modalDialogRef.location.nativeElement;
 
     // create a refrence to the close function to pass into the modal template to avoid circular reference (from template using modal service)
