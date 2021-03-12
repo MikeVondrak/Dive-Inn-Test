@@ -9,14 +9,16 @@
     Loading...
   </div>
   <ng-template #pageContent> -->
-    <router-outlet></router-outlet>
-    <!-- </ng-template> -->
-  </main>
-  
-  <div>Need Footer</div>
-  <!-- <app-footer class="footer"></app-footer> -->
-  <div class="modalContainer" *ngIf="(modalToggle$ | async)">
-    <app-modal-template
-      (closeModal)="closeModal()"
-    ></app-modal-template>
-  </div>
+  <router-outlet></router-outlet>
+  <!-- </ng-template> -->
+</main>
+
+<div>Need Footer</div>
+<!-- <app-footer class="footer"></app-footer> -->
+<!-- <div class="modalContainer" *ngIf="(modalToggle$ | async)">
+  <app-modal-template
+    (closeModal)="closeModal()"
+  ></app-modal-template>
+</div> -->
+
+<app-modal-container></app-modal-container>

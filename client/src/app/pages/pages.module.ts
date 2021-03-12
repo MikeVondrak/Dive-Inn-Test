@@ -17,6 +17,7 @@ import { FontSetListComponent } from './selection/components/font-set-list/font-
 import { FontTypeInstanceLoaderComponent } from './selection/components/font-type-instance-loader/font-type-instance-loader.component';
 import { NewSetNameModalContentComponent } from './selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
 import { ChangeNameModalContentComponent } from './selection/components/change-name-modal-content/change-name-modal-content.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { ChangeNameModalContentComponent } from './selection/components/change-n
     StoreModule.forFeature('fontLibrary', fontLibraryReducer),
     StoreModule.forFeature('fontInstanceLibrary', fontInstanceLibraryReducer),
     LoadingDirectiveModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   exports: [

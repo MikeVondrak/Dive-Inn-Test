@@ -13,7 +13,7 @@ export class NewSetNameModalContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
+    console.log('+++++++ NEW SET NAME MODAL CONTENT ONINIT');
   }
 
   // create an effect for createNewFontSet

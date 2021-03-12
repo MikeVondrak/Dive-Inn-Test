@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Injector, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -15,6 +15,11 @@ import { AppEffects } from './store/app.effects';
 import { AppStoreModule } from './store/store.module';
 import { LoadingDirectiveModule } from './directives/loading-directive.module';
 import { AppInjector } from './services/app-injector/app-injector.service';
+
+import { ChangeNameModalContentComponent } from './pages/selection/components/change-name-modal-content/change-name-modal-content.component';
+import { NewSetNameModalContentComponent } from './pages/selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalTemplateComponent } from './shared/components/modal-template/modal-template.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +36,12 @@ import { AppInjector } from './services/app-injector/app-injector.service';
     StoreDevtoolsModule.instrument(),
     AppStoreModule,
     LoadingDirectiveModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
+  entryComponents: [ModalTemplateComponent, ChangeNameModalContentComponent, NewSetNameModalContentComponent]
 })
 export class AppModule {
 

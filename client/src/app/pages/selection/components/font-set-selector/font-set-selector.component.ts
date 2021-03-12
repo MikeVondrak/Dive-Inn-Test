@@ -20,6 +20,8 @@ import { FontTypeManagerService } from '../../../../services/font-type-manager/f
 import { NewSetNameModalContentComponent } from '../new-set-name-modal-content/new-set-name-modal-content.component';
 import { ModalService } from '../../../../services/modal/modal.service';
 import { ChangeNameModalContentComponent } from '../change-name-modal-content/change-name-modal-content.component';
+import { ModalConfig } from 'src/app/models/modal.model';
+
 
 @Component({
   selector: 'app-font-set-selector',
@@ -27,7 +29,7 @@ import { ChangeNameModalContentComponent } from '../change-name-modal-content/ch
   styleUrls: ['./font-set-selector.component.scss']
 })
 export class FontSetSelectorComponent implements OnInit {
-  // public modalToggle: boolean = false;
+
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
   public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
@@ -35,7 +37,7 @@ export class FontSetSelectorComponent implements OnInit {
   public allFontSets$: Observable<FontSetApiMapped[]> = this.store$.select(getFontSetApisMapped);
   
   
-  public activeFontSetName$: Observable<string> = this.store$.select(getActiveFontSetName);
+  public activeFontSetName$: Observable<string>;// = this.store$.select(getActiveFontSetName);
   public activeFontSetTypeInstances$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
 
   constructor(
@@ -44,7 +46,9 @@ export class FontSetSelectorComponent implements OnInit {
     private fontInstanceManagerService: FontInstanceManagerService,
     private fontSetManagerService: FontSetManagerService,
     private modalService: ModalService
-  ) {}
+  ) {
+    this.activeFontSetName$ = this.store$.select(getActiveFontSetName);
+  }
 
   ngOnInit(): void {}
 
@@ -61,11 +65,21 @@ export class FontSetSelectorComponent implements OnInit {
   }
 
   public openModal() {
-    this.modalService.openModal({ title: 'Create a new set', contentType: NewSetNameModalContentComponent as Type<Component>, primaryAction: createNewFontSet() });
+    const config: ModalConfig = {
+      title: 'Create a new set',
+      contentType: NewSetNameModalContentComponent as Type<Component>,
+      primaryAction: createNewFontSet(),
+    }
+    this.modalService.open(config);
   }
 
   public updateFontSetName() {
-    this.modalService.openModal({ title: 'Change set name', contentType: ChangeNameModalContentComponent as Type<Component>, primaryAction: changeActiveFontSetName() });
+    const config: ModalConfig = {
+      title: 'Change font set name',
+      contentType: ChangeNameModalContentComponent as Type<Component>,
+      primaryAction: changeActiveFontSetName(),
+    }
+    this.modalService.open(config);
   }
 
   public sortOriginalOrder(a, b): number {

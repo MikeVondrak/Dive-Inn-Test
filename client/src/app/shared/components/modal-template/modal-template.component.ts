@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ModalConfig } from 'src/app/models/modal.model';
@@ -18,27 +18,21 @@ export class ModalTemplateComponent implements OnInit {
   //   console.log("Modal BG Click");
   //   debugger;
   // }
-
-  // @Input() modalTitle: string = 'Modal Title';
+  
+  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>(); 
+  
   public config: ModalConfig;
-
-
-  @Output() closeModal: EventEmitter<void> = new EventEmitter<void>();
-
+  // template access
   public modalTitle: string = '';
-
-  //modalTitle$: Observable<string> = this.store$.select(modalTitle);
-  //modalContent$: Observable<Component> = this.store$.select(modalContent);
-
-  public modalContentOutlet: TemplateRef<HTMLElement>;
-
+  
+  // public modalContentOutlet: TemplateRef<HTMLElement>;
 
   constructor(
-    private store$: Store<AppState>, 
+    private store$: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
-    this.modalTitle = this.config?.title;
+    this.modalTitle = this.config?.title;    
   }
 
   public modalBgClick() {
