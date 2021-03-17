@@ -5,7 +5,7 @@ Uses:
 - Angular 10 + CLI
 - RxJs, NgRx Store + Entity
 - Express 4
-- Node 12.18
+- Node 12
 - Pg-Promise
 - Postgres 12
 - Typescript 3.9, ts-node
