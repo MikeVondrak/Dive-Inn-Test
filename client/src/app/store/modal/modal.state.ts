@@ -4,14 +4,10 @@ export const modalFeatureKey = 'modal';
 
 export interface ModalState {
   readonly isModalOpen: boolean,
-  readonly title: string,
-  readonly content: Component,
-  readonly contentType: Type<Component>,
+  readonly isModalContentValid: boolean, // set by modal content component to indicate OK button press can proceed
 }
 
 export const modalInitialState: ModalState = {
   isModalOpen: false,
-  title: '',
-  content: null,
-  contentType: null
+  isModalContentValid: false,
 }

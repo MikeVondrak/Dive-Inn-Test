@@ -1,10 +1,12 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ModalConfig } from 'src/app/models/modal.model';
 import { ModalService } from 'src/app/services/modal/modal.service';
-import { modalContent, modalTitle } from 'src/app/store/modal/selectors/modal.selectors';
+import { setContentValid } from 'src/app/store/modal/actions/modal.actions';
+import { isModalContentValid } from 'src/app/store/modal/selectors/modal.selectors';
 import { AppState } from 'src/app/store/state';
 
 @Component({
@@ -12,7 +14,14 @@ import { AppState } from 'src/app/store/state';
   templateUrl: './modal-template.component.html',
   styleUrls: ['./modal-template.component.scss']
 })
-export class ModalTemplateComponent implements OnInit {
+export class ModalTemplateComponent implements OnInit, OnDestroy {
+
+  private isContentValid: Observable<boolean> = this.store$.select(isModalContentValid);
+
+  private destroy$: Subject<void> = new Subject<void>();
+
+  //private sub: Subscription;
+  
 
   // @HostListener('click', ['$event']) handleModalBgClick(event: Event) {
   //   console.log("Modal BG Click");
@@ -21,18 +30,23 @@ export class ModalTemplateComponent implements OnInit {
   
   @Output() closeModal: EventEmitter<void> = new EventEmitter<void>(); 
   
+  // "input" set programatically by modal service
   public config: ModalConfig;
   // template access
   public modalTitle: string = '';
   
-  // public modalContentOutlet: TemplateRef<HTMLElement>;
-
   constructor(
     private store$: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
     this.modalTitle = this.config?.title;    
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.store$.dispatch(setContentValid({ valid: false }));
+    //this.sub.unsubscribe();
   }
 
   public modalBgClick() {
@@ -51,9 +65,14 @@ export class ModalTemplateComponent implements OnInit {
   public okButtonClick($event) {
     event.stopPropagation();
     
-    this.store$.dispatch(this.config.primaryAction);
-    
-    this.config.closeCallback();
+    // ok button does nothing if store returns false
+    this.isContentValid.pipe(takeUntil(this.destroy$)).subscribe(validFlag => {
+      if (validFlag === false) {
+        return;
+      } else {
+        this.store$.dispatch(this.config.primaryAction);
+        this.config.closeCallback();
+      }
+    })
   }
-
 }

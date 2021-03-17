@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { setNewFontSetName } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';
+import { setContentValid } from 'src/app/store/modal/actions/modal.actions';
 import { AppState } from 'src/app/store/state';
 
 @Component({
@@ -28,13 +29,18 @@ export class ChangeNameModalContentComponent implements OnInit {
         // ChangeFontSetName: ['', Validators.required]
         //ChangeFontSetName: new FormControl('', [Validators.required])
         changeFontSetNameInput: [previousName, Validators.required]
+
       });
+      if (previousName !== '') {
+        this.store$.dispatch(setContentValid({valid: true}));
+        this.store$.dispatch(setNewFontSetName({ setName: previousName }));
+      }
     });
-    
   }
 
   public nameChange($event) {
     this.store$.dispatch(setNewFontSetName({ setName: $event.target.value }));
+    this.store$.dispatch(setContentValid({ valid: $event.target.value !== '' }));
   }
 
 }

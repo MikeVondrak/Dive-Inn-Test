@@ -32,13 +32,16 @@ export class FontSetSelectorComponent implements OnInit {
 
   
   public allFontTypes$: Observable<FontType[]> = this.fontTypeManagerService.allFontTypes$;
-  public activeFontSetTypeInstanceIds$: Observable<[string, number][]> = of([]); // this.store$.select(getActiveFontSetTypeInstances);
+  
   public uiFontInstances$: Observable<FontInstance[]> = this.store$.select(getUiFontInstances);
   public allFontSets$: Observable<FontSetApiMapped[]> = this.store$.select(getFontSetApisMapped);
   
   
   public activeFontSetName$: Observable<string>;// = this.store$.select(getActiveFontSetName);
   public activeFontSetTypeInstances$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
+
+  public readyToChangeName: boolean = false;
+  public readyToSave: boolean = true; // SAVE button is not shown until a font let has been loaded into the Font Set Selector, safe to just leave it enabled
 
   constructor(
     private store$: Store<AppState>,

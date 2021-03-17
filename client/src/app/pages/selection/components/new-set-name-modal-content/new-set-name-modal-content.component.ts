@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { setNewFontSetName } from 'src/app/store/active-font-set/actions/active-font-set.actions';
+import { setContentValid } from 'src/app/store/modal/actions/modal.actions';
 
 @Component({
   selector: 'app-new-set-name-modal-content',
@@ -23,5 +24,6 @@ export class NewSetNameModalContentComponent implements OnInit {
 
   public nameChange($event) {
     this.store$.dispatch(setNewFontSetName({ setName: $event.target.value }));
+    this.store$.dispatch(setContentValid({ valid: $event.target.value !== '' }));
   }
 }

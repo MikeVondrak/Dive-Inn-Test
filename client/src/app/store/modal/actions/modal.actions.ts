@@ -10,9 +10,15 @@ export const closeModal = createAction(
   '[Modal] Close Modal'
 );
 
+export const setContentValid = createAction(
+  '[Modal] Set Content Valid',
+  props<{ valid: boolean }>()
+)
+
 const actions = union({
   openModal,
   closeModal,
+  setContentValid,
 })
 export type ModalActions = typeof actions;
 

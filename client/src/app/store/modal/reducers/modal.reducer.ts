@@ -9,9 +9,7 @@ const _modalReducer = createReducer(
     const newState: ModalState = {
       ...state,
       isModalOpen: true,
-      title: action.title,
-      contentType: action.contentType
-    }
+    };
     return newState;
   }),
 
@@ -19,9 +17,17 @@ const _modalReducer = createReducer(
     const newState: ModalState = {
       ...state,
       isModalOpen: false,
-    }
+    };
     return newState;
   }),
+
+  on(ModalActions.setContentValid, (state, action) => {
+    const newState: ModalState = {
+      ...state,
+      isModalContentValid: action.valid
+    };
+    return newState;
+  })
 );
 
 export function modalReducer(state: ModalState, action: ModalActions.ModalActions) {

@@ -10,12 +10,7 @@ export const isModalOpen = createSelector(
   (state: ModalState) => state.isModalOpen
 );
 
-export const modalTitle = createSelector(
+export const isModalContentValid = createSelector(
   selectModalState,
-  (state: ModalState) => state.title
-);
-
-export const modalContent = createSelector(
-  selectModalState,
-  (state: ModalState) => state.content
+  (state: ModalState) => state.isModalContentValid
 );
