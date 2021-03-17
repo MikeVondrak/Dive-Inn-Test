@@ -3,7 +3,7 @@ This is a practice site used for learning full-stack development. The code conta
 
 Uses:
 - Angular 10 + CLI
-- RxJs, NgRx Store
+- RxJs, NgRx Store + Entity
 - Express 4
 - Node 12.18
 - Pg-Promise
