@@ -1,0 +1,9 @@
+<button (click)="pagination.first()">First</button>
+<button (click)="pagination.first()">Previous</button>
+<input appPagination 
+  #pagination="appPagination"
+  [totalPages]="5" 
+  (pageChange)="onPageChange($event)" 
+/>
+<button (click)="pagination.first()">Next</button>
+<button (click)="pagination.first()">Last</button>

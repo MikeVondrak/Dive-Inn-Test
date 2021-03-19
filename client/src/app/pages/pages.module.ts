@@ -12,12 +12,13 @@ import { SharedComponentsModule } from '../shared/components/shared-components.m
 import { activeFontInstanceReducer } from '../store/active-font-instance/reducers/active-font-instance.reducer';
 import { fontLibraryReducer } from '../store/font-library/reducers/font-library.reducer';
 import { fontInstanceLibraryReducer } from '../store/font-instance-library/reducers/font-instance-library.reducer';
-import { LoadingDirectiveModule } from '../directives/loading-directive.module';
+import { LoadingDirectiveModule } from '../directives/loading/loading-directive.module';
 import { FontSetListComponent } from './selection/components/font-set-list/font-set-list.component';
 import { FontTypeInstanceLoaderComponent } from './selection/components/font-type-instance-loader/font-type-instance-loader.component';
 import { NewSetNameModalContentComponent } from './selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
 import { ChangeNameModalContentComponent } from './selection/components/change-name-modal-content/change-name-modal-content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationDirectiveModule } from '../directives/pagination/pagination.directive.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     StoreModule.forFeature('fontLibrary', fontLibraryReducer),
     StoreModule.forFeature('fontInstanceLibrary', fontInstanceLibraryReducer),
     LoadingDirectiveModule,
+    PaginationDirectiveModule,
     FormsModule,
     ReactiveFormsModule
   ],

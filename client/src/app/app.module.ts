@@ -13,13 +13,15 @@ import { SharedComponentsModule } from './shared/components/shared-components.mo
 import { PagesModule } from './pages/pages.module';
 import { AppEffects } from './store/app.effects';
 import { AppStoreModule } from './store/store.module';
-import { LoadingDirectiveModule } from './directives/loading-directive.module';
 import { AppInjector } from './services/app-injector/app-injector.service';
 
 import { ChangeNameModalContentComponent } from './pages/selection/components/change-name-modal-content/change-name-modal-content.component';
 import { NewSetNameModalContentComponent } from './pages/selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTemplateComponent } from './shared/components/modal-template/modal-template.component';
+
+import { LoadingDirectiveModule } from './directives/loading/loading-directive.module';
+import { PaginationDirectiveModule } from './directives/pagination/pagination.directive.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { ModalTemplateComponent } from './shared/components/modal-template/modal
     AppStoreModule,
     LoadingDirectiveModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginationDirectiveModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

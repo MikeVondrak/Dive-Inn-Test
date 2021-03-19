@@ -16,7 +16,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import { ModalTemplateComponent } from './modal-template/modal-template.component';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
-
+import { PaginationDirectiveModule } from 'src/app/directives/pagination/pagination.directive.module';
+import { PaginatorComponent } from './paginator/paginator.component';
 @NgModule({
   declarations: [
     PageLoadingComponent,
@@ -31,11 +32,13 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
     LoadingIndicatorComponent,
     ModalTemplateComponent,
     ModalContainerComponent,
+    PaginatorComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormControlsModule,
+    PaginationDirectiveModule
   ],
   providers: [],
   exports: [
@@ -52,6 +55,7 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
     LoadingIndicatorComponent,
     ModalTemplateComponent,
     ModalContainerComponent,
+    PaginatorComponent
   ],
   entryComponents: [LoadingIndicatorComponent]
 })

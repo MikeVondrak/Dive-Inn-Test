@@ -235,7 +235,7 @@ export class FontManagerService {
   private getAllGoogleFonts(): Observable<UiFont[]> {
 
     // !!! REMOVE THIS !!! - test with small data set
-    let fontLimit = 10;
+    let fontLimit = 100;
     let fontCount = 0;
 
     if (!this.allFonts$) {      

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FontInstance } from 'src/app/models/font-instance.model';
-import { LoadingDirective } from 'src/app/directives/loading.directive';
+import { LoadingDirective } from 'src/app/directives/loading/loading.directive';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { loadFontFamilyData } from 'src/app/store/font-library/actions/font-library.actions';
