@@ -17,7 +17,6 @@ import { AppInjector } from './services/app-injector/app-injector.service';
 
 import { ChangeNameModalContentComponent } from './pages/selection/components/change-name-modal-content/change-name-modal-content.component';
 import { NewSetNameModalContentComponent } from './pages/selection/components/new-set-name-modal-content/new-set-name-modal-content.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalTemplateComponent } from './shared/components/modal-template/modal-template.component';
 
 import { LoadingDirectiveModule } from './directives/loading/loading-directive.module';
