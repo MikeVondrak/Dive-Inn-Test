@@ -56,6 +56,12 @@ export class FontManagerService {
   private googleFontDataLoaded: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private googleFontDataError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
+  private fontsPerPage: number = 0;
+  private selectableFontsCurrentPage: number = 1;
+  private availableFontsCurrentPage: number = 1;
+  private blacklistedFontsCurrentPage: number = 1;
+  
+
   constructor(
     private googleFontsApiService: GoogleFontsApiService,
     private fontsApiService: FontApiService,
@@ -412,5 +418,42 @@ export class FontManagerService {
     this._selectableFonts$.next(this.selectableFonts);
     this._blacklistedFonts$.next(this.blacklistedFonts);
   }
+
+  public setFontsPerPage(perPage: number) {
+    this.fontsPerPage = perPage;
+  }
+
+  public setAvailableFontsPageNumber(pageNumber: number) {
+
+    this.availableFontsCurrentPage = pageNumber;
+  }
+
+  public getAvailableFontsByPage$(): Observable<UiFont[]> {
+    debugger;
+    const pageNumber = this.availableFontsCurrentPage;
+    const perPage = this.fontsPerPage;
+
+    if (pageNumber < 1) {
+      throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + pageNumber);
+    }
+    return this.availableFonts$.pipe(map(fonts => {
+      debugger;
+      const lastPageNum = Math.ceil(fonts.length / perPage);
+      if (pageNumber > lastPageNum) {
+        throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + pageNumber);
+      }
+      const firstFontIdx = (pageNumber - 1) * perPage;
+
+      const page = fonts.slice(firstFontIdx, firstFontIdx + perPage);
+      debugger;
+      return page;
+    }));
+  }
+
+  // public getBlacklistedFontsByPage$(): Observable<UiFont[]> {
+  // }
+
+  // public getSelectableFontsByPage$(): Observable<UiFont[]> {
+  // }
   
 }

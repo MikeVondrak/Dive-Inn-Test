@@ -35,6 +35,7 @@ export class FontListDisplayComponent implements OnInit {
   @Input() numberOfPages: number; // to pass to paginator
 
   @Output() fontClicked = new EventEmitter<FontClickedPayload>();
+  @Output() pageChanged = new EventEmitter<number>();
 
   constructor(private cdr: ChangeDetectorRef, private loggerService: LoggerService) {
     this.loggerService.enableLogger(true);
@@ -51,5 +52,10 @@ export class FontListDisplayComponent implements OnInit {
   public getFontInstance(font: UiFont): FontInstance {
     const fontInstance: FontInstance = { ...this.defaultFontInstance, family: font.family } as FontInstance;
     return fontInstance;
+  }
+
+  public pageChange(pageNumber: number) {
+    debugger;
+    this.pageChanged.emit(pageNumber);
   }
 }

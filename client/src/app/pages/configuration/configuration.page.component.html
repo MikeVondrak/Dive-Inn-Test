@@ -12,10 +12,12 @@
 
     <app-font-list-display 
       listName="Available Fonts"
-      [fontList$]="top100Fonts$"
+      [fontList$]="availableFontsByPage$"
       [listType]="fontListsEnum.AVAILABLE"
       (fontClicked)="fontClick($event)"
-      [numberOfPages]="availableNumberOfPages$ | async">
+      [numberOfPages]="availableNumberOfPages$ | async"
+      (pageChanged)="availablePageChanged($event)"
+    >
     </app-font-list-display>
 
     <app-font-list-display 

@@ -26,6 +26,7 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public availableNumberOfPages$: Observable<number>;
 
   public top100Fonts$: Observable<UiFont[]> = this.availableFonts$.pipe(map(f => f.slice(0, 100)));
+  public availableFontsByPage$ = this.fontManagerService.getAvailableFontsByPage$();
   
   private readonly fontsPerPage: number = 10; // TODO: readonly until we want to change how many fonts per page are shown
 
@@ -52,5 +53,10 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public fontClick($event: FontClickedPayload) {
     this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
     this.fontManagerService.updateFontsState($event);
+  }
+
+  public availablePageChanged(pageNumber: number) {
+    debugger;
+    this.fontManagerService.setAvailableFontsPageNumber(pageNumber);
   }
 }
