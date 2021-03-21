@@ -39,7 +39,8 @@ export class HeadUriLoaderService {
   }
 
   public loadFont(family: string): Observable<string> {
-    let fontLinkUrl = this.fontBaseUrl + family.replace(' ', '+') + this.fontBaseUrlParam;
+    //let fontLinkUrl = this.fontBaseUrl + family.replace(' ', '+') + this.fontBaseUrlParam; // TODO: would need to make this regex to replace ALL occurences
+    let fontLinkUrl = this.fontBaseUrl + family.split(' ').join('+');
     this.loadFontsLink(fontLinkUrl, family);
     return this.scriptLoaded$;
   }
@@ -70,6 +71,7 @@ export class HeadUriLoaderService {
   }
 
   public onloadError(args: string[]) {
-    debugger;
+    console.log('!!!!!!!!!!! ERROR LOADING GOOGLE FONT: ', args);
+    //debugger;
   }
 }

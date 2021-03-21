@@ -9,7 +9,7 @@ $debug: false;
   h2 {
     @if $debug { background: #888;}
     margin: 0;
-    padding: 1rem;
+    padding: 1rem 0;
   }
   ul {
     list-style-type: none;

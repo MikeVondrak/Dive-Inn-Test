@@ -1,6 +1,8 @@
 <div>
-    <h2>{{ listName }}</h2>
-    <app-paginator></app-paginator>
+    <h2>{{ listName }}: {{ numberOfPages }}</h2>
+    <app-paginator
+      [numberOfPages]="numberOfPages"
+    ></app-paginator>
     <ul>
       <li *ngFor="let font of fontList$ | async">
         

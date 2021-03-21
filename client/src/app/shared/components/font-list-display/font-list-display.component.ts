@@ -32,14 +32,16 @@ export class FontListDisplayComponent implements OnInit {
   @Input() listType: FontListsEnum;
   @Input() actionList: FontListsEnum;
   @Input() listName: string;
+  @Input() numberOfPages: number; // to pass to paginator
 
   @Output() fontClicked = new EventEmitter<FontClickedPayload>();
 
-  constructor(private cdr: ChangeDetectorRef, private fontMgr: FontManagerService, private loggerService: LoggerService) {
+  constructor(private cdr: ChangeDetectorRef, private loggerService: LoggerService) {
     this.loggerService.enableLogger(true);
    }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   public fontClick($event: FontClickedPayload) {
     this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);

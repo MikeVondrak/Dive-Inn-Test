@@ -1,26 +1,29 @@
 <app-page-loading>
   <h1>Configuration</h1>
-
+  <!-- {{ fontsPerPage }} : {{ (blacklistedFonts$ | async)?.length }} -->
   <div class="page wide">
     <app-font-list-display 
       listName="Blacklisted Fonts"
       [fontList$]="blacklistedFonts$" 
       [listType]="fontListsEnum.BLACKLISTED" 
-      (fontClicked)="fontClick($event)" >
+      (fontClicked)="fontClick($event)"
+      [numberOfPages]="blacklistedNumberOfPages$ | async">
     </app-font-list-display>
 
     <app-font-list-display 
       listName="Available Fonts"
       [fontList$]="top100Fonts$"
       [listType]="fontListsEnum.AVAILABLE"
-      (fontClicked)="fontClick($event)">
+      (fontClicked)="fontClick($event)"
+      [numberOfPages]="availableNumberOfPages$ | async">
     </app-font-list-display>
 
     <app-font-list-display 
       listName="Selectable Fonts"
       [fontList$]="selectableFonts$" 
       [listType]="fontListsEnum.SELECTABLE"
-      (fontClicked)="fontClick($event)">
+      (fontClicked)="fontClick($event)"
+      [numberOfPages]="selectableNumberOfPages$ | async">
     </app-font-list-display>
   </div>
 </app-page-loading>
