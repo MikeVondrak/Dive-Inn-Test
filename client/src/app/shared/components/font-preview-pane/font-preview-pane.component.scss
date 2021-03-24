@@ -2,6 +2,18 @@
 
 :host {
   display: block;
-  border: 1px solid $dive-white;
-  padding: 1rem;
+  
+  > div { 
+    border: 1px solid $dive-white;
+    padding: 1rem;
+
+    &.condensed {
+      border: none;
+      padding: 0.25rem 0.5rem;
+    }
+  
+    &.detailed {
+      border: red;
+    }
+  }
 }

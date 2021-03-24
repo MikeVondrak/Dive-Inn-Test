@@ -1,10 +1,5 @@
-<div [ngStyle]="style">
-  {{ previewText }}
+<div [ngClass]="{ 'condensed': displayStyle === DisplayStylesEnum.CONDENSED, 'detailed': displayStyle === DisplayStylesEnum.DETAILED }"
+  [ngStyle]="style"
+>
+  {{ previewText }} : {{ displayStyle }}
 </div>
-<!-- 
-<p>Style: {{ styleStr }}</p>
-
-<p>Family: {{ fontInstance?.family }}</p>
-<p>Weight: {{ fontInstance?.weight }}</p>
-<p>Italic: {{ fontInstance?.italic }}</p>
-<p>Size: {{ fontInstance?.size }}</p> -->

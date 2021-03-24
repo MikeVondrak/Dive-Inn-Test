@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { FontInstance } from 'src/app/models/font-instance.model';
+import { FontPreviewDisplayStylesEnum } from 'src/app/models/font-preview-pane.model';
 
 export type DisplayType = 'family-only' | 'variant-details';
 
@@ -36,6 +37,9 @@ export class FontListDisplayComponent implements OnInit {
 
   @Output() fontClicked = new EventEmitter<FontClickedPayload>();
   @Output() pageChanged = new EventEmitter<number>();
+
+  // enum template access
+  public FontPreviewPaneDisplayStylesEnum = FontPreviewDisplayStylesEnum;
 
   constructor(private cdr: ChangeDetectorRef, private loggerService: LoggerService) {
     this.loggerService.enableLogger(true);

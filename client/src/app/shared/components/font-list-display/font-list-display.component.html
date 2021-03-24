@@ -15,12 +15,16 @@
         
         <div>
           <!-- <p class="font-name">{{ font.family }}</p> -->
-          <app-font-preview-pane [fontInstance]="getFontInstance(font)" [previewText]="font.family"></app-font-preview-pane>
+          <app-font-preview-pane 
+            [fontInstance]="getFontInstance(font)" 
+            [previewText]="font.family"
+            [displayStyle]="FontPreviewPaneDisplayStylesEnum.CONDENSED">
+          </app-font-preview-pane>
   
-          <div class="font-details">
+          <!-- <div class="font-details">
             <span>id: {{ font.properties.id }}, </span>
             <span>category: {{ font.properties.category }}</span>
-          </div>
+          </div> -->
   
         </div>
         

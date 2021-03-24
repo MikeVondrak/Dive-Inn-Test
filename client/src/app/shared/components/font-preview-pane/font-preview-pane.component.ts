@@ -5,6 +5,7 @@ import { LoadingDirective } from 'src/app/directives/loading/loading.directive';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { loadFontFamilyData } from 'src/app/store/font-library/actions/font-library.actions';
+import { FontPreviewDisplayStylesEnum } from 'src/app/models/font-preview-pane.model';
 
 @Component({
   selector: 'app-font-preview-pane',
@@ -14,10 +15,15 @@ import { loadFontFamilyData } from 'src/app/store/font-library/actions/font-libr
 export class FontPreviewPaneComponent implements OnInit, OnChanges {
 
   @Input() fontInstance: FontInstance;
-  @Input() previewText: string = 'The quick brown fox jumped over the lazy dog.!?#@()&%+='
+  @Input() previewText: string = 'The quick brown fox jumped over the lazy dog.!?#@()&%+=';
+  
+  @Input() displayStyle: FontPreviewDisplayStylesEnum = FontPreviewDisplayStylesEnum.DEFAULT;
 
   public style: object = {};
   public styleStr = '';
+
+  // enum template accessor
+  public DisplayStylesEnum = FontPreviewDisplayStylesEnum;
   
   constructor(private store$: Store<AppState>) { }
 
@@ -30,7 +36,6 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
       if (!!this.fontInstance.family) {
-        //debugger;
         console.log('!!!!!!!! NG ON CHANGES: ', changes);
         // make sure the font to be displayed has been downloaded
         setTimeout(() => {
