@@ -1,10 +1,10 @@
-<button (click)="pagination.first()">First</button>
-<button (click)="pagination.prev()">Previous</button>
+<button (click)="pagination.first()" [disabled]="pagination.isFirst">&laquo;</button>
+<button (click)="pagination.prev()" [disabled]="pagination.isFirst">&lsaquo;</button>
 <input appPagination 
   #pagination="appPagination"
   [totalPages]="numberOfPages" 
   (pageChange)="onPageChange($event)" 
 />
 <span> {{ pagination.pageNo }} / {{ pagination.totalPages }}</span>
-<button (click)="pagination.next()">Next</button>
-<button (click)="pagination.last()">Last</button>
+<button (click)="pagination.next()" [disabled]="pagination.isLast">&rsaquo;</button>
+<button (click)="pagination.last()" [disabled]="pagination.isLast">&raquo;</button>

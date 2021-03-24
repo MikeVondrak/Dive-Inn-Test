@@ -59,7 +59,6 @@ export class FontListDisplayComponent implements OnInit {
   }
 
   public pageChange(pageNumber: number) {
-    debugger;
     this.pageChanged.emit(pageNumber);
   }
 }

@@ -3,7 +3,7 @@ import { GoogleFontsApiService } from '../services/external/google/google-fonts-
 import { GoogleFontsApi } from '../services/external/google/google-fonts-api.model';
 import { FontApiService } from '../services/api/font/font.api.service';
 import { HeadUriLoaderService } from '../services/head-uri-loader/head-uri-loader.service';
-import { take, map, tap, filter, reduce, every, switchMap, catchError, delay } from 'rxjs/operators';
+import { take, map, tap, filter, reduce, every, switchMap, catchError, delay, withLatestFrom } from 'rxjs/operators';
 import { LoggerService } from './logger/logger.service';
 import { UiFont, IUiFont, FontListsEnum } from '../models/ui-font.model';
 import { FontVariants } from '../services/api/font/font.api.model';
@@ -57,9 +57,9 @@ export class FontManagerService {
   private googleFontDataError: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   private fontsPerPage: number = 10;
-  private selectableFontsCurrentPage: number = 1;
-  private availableFontsCurrentPage: number = 1;
-  private blacklistedFontsCurrentPage: number = 1;
+  private selectableFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  private availableFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  private blacklistedFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   
 
   constructor(
@@ -421,33 +421,39 @@ export class FontManagerService {
 
   public setFontsPerPage(perPage: number) {
     this.fontsPerPage = perPage;
+    // TODO: emit on fontsPerPage subject here when configurable
   }
 
   public setAvailableFontsPageNumber(pageNumber: number) {
-
-    this.availableFontsCurrentPage = pageNumber;
+    // emit on availableListPageNumber$ subject here
+    this.availableFontsCurrentPage$.next(pageNumber);
+    //this.availableFontsCurrentPage = pageNumber;
   }
 
   public getAvailableFontsByPage$(): Observable<UiFont[]> {
-    const pageNumber = this.availableFontsCurrentPage;
+    // const pageNumber = this.availableFontsCurrentPage;
     const perPage = this.fontsPerPage;
 
-    if (pageNumber < 1) {
-      throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + pageNumber);
-    }
-    return this.availableFonts$.pipe(
-      filter(fonts => fonts.length > 0),
-      map(fonts => {
-        const lastPageNum = Math.ceil(fonts.length / perPage);
-        if (pageNumber > lastPageNum) {
-          throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + pageNumber);
+    // need a combination of availableFonts$ and availableListPageNumber$
+    return combineLatest([
+      this.availableFonts$.pipe(filter(fonts => fonts.length > 0)),
+      this.availableFontsCurrentPage$
+    ]).pipe(
+      map(([fonts, currentPage]) => {
+        if (currentPage < 1) {
+          throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
         }
-        const firstFontIdx = (pageNumber - 1) * perPage;
-
+        const lastPageNum = Math.ceil(fonts.length / perPage);
+        if (currentPage > lastPageNum) {
+          throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
+        }
+        
+        const firstFontIdx = (currentPage - 1) * perPage;
         const page = fonts.slice(firstFontIdx, firstFontIdx + perPage);
         return page;
       })
     );
+
   }
 
   // public getBlacklistedFontsByPage$(): Observable<UiFont[]> {

@@ -56,7 +56,6 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   }
 
   public availablePageChanged(pageNumber: number) {
-    debugger;
     this.fontManagerService.setAvailableFontsPageNumber(pageNumber);
   }
 }
