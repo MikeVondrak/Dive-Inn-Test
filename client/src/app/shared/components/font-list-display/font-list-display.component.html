@@ -1,9 +1,15 @@
 <div>
-    <h2>{{ listName }}: {{ numberOfPages }}</h2>
-    <app-paginator
-      [numberOfPages]="numberOfPages"
-      (pageChange)="pageChange($event)"
-    ></app-paginator>
+    <h2>{{ listName }}</h2>
+    <div class="controls">
+      <app-paginator
+        [numberOfPages]="numberOfPages"
+        (pageChange)="pageChange($event)"
+      ></app-paginator>
+      <app-search-filter 
+      *ngIf="showSearchControls"
+      (searchString)="searchChange($event)"
+      ></app-search-filter>
+    </div>
     <ul>
       <li *ngFor="let font of fontList$ | async">
         

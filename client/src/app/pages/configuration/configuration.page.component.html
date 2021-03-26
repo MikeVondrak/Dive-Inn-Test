@@ -17,6 +17,8 @@
       (fontClicked)="fontClick($event)"
       [numberOfPages]="availableNumberOfPages$ | async"
       (pageChanged)="availablePageChanged($event)"
+      [showSearchControls]="true"
+      (searchString)="searchChange($event)"
     >
     </app-font-list-display>
 

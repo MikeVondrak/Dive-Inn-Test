@@ -3,6 +3,14 @@
 $debug: false;
 
 :host {
+  // super lazy, try to avoid
+  ::ng-deep {
+    input {
+      height: 1.75rem;
+      padding: 0 0.5rem;
+    }
+  }
+
   display: block;
   //border: 1px solid cyan;
   @if $debug { background: #733; }
@@ -10,6 +18,11 @@ $debug: false;
     @if $debug { background: #888;}
     margin: 0;
     padding: 1rem 0;
+  }
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   ul {
     list-style-type: none;

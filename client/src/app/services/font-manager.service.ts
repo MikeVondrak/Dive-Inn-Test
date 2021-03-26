@@ -60,6 +60,9 @@ export class FontManagerService {
   private selectableFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   private availableFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   private blacklistedFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
+  private availableFontsSearchString$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  private availableFontsFiltered
   
 
   constructor(
@@ -255,10 +258,10 @@ export class FontManagerService {
               })
 
               // !!! REMOVE THIS !!! - test with small data set
-              .filter(googleFont => {
-                fontCount++;
-                return fontCount <= fontLimit;
-              })
+              // .filter(googleFont => {
+              //   fontCount++;
+              //   return fontCount <= fontLimit;
+              // })
             
 
           }),
@@ -431,15 +434,15 @@ export class FontManagerService {
   }
 
   public getAvailableFontsByPage$(): Observable<UiFont[]> {
-    // const pageNumber = this.availableFontsCurrentPage;
-    const perPage = this.fontsPerPage;
+    const perPage = this.fontsPerPage; // NOTE: perPage currently does not change so OK to set here
 
     // need a combination of availableFonts$ and availableListPageNumber$
     return combineLatest([
       this.availableFonts$.pipe(filter(fonts => fonts.length > 0)),
-      this.availableFontsCurrentPage$
+      this.availableFontsCurrentPage$,
+      this.availableFontsSearchString$
     ]).pipe(
-      map(([fonts, currentPage]) => {
+      map(([fonts, currentPage, searchText]) => {
         if (currentPage < 1) {
           throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
         }
@@ -447,9 +450,14 @@ export class FontManagerService {
         if (currentPage > lastPageNum) {
           throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
         }
+
+        let filteredResults = fonts;
+        if (searchText && searchText !== '') {
+           filteredResults = fonts.filter(font => font.family.toLowerCase().includes(searchText.toLowerCase()));
+        }
         
         const firstFontIdx = (currentPage - 1) * perPage;
-        const page = fonts.slice(firstFontIdx, firstFontIdx + perPage);
+        const page = filteredResults.slice(firstFontIdx, firstFontIdx + perPage);
         return page;
       })
     );
@@ -461,5 +469,9 @@ export class FontManagerService {
 
   // public getSelectableFontsByPage$(): Observable<UiFont[]> {
   // }
+
+  public availableFontsSearch(searchText: string) {
+    this.availableFontsSearchString$.next(searchText); 
+  }
   
 }

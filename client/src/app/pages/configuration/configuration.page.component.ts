@@ -58,4 +58,8 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public availablePageChanged(pageNumber: number) {
     this.fontManagerService.setAvailableFontsPageNumber(pageNumber);
   }
+
+  public searchChange(searchText: string) {
+    this.fontManagerService.availableFontsSearch(searchText);
+  }
 }
