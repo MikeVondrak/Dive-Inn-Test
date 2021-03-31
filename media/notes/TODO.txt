@@ -1,3 +1,14 @@
+3/30/2021
+- No results breaks list display - DONE
+  - No matches found state - DONE
+- Reset the list to the first page on a search - DONE
+- Add / fix pagination on Blacklisted and Selectable font lists - DONE
+- Moving a font to/from a list updates pagination - DONE
+
+Nice to Have:
+- Configurable fonts per page
+
+
 Next
 
 font-set-selector-component

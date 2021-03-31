@@ -32,13 +32,14 @@ export class PaginationDirective implements OnChanges, OnInit {
     this.setValue(this.pageNo);
   }
 
-  ngOnChanges({ pageNo, totalPages }: SimpleChanges) {
+  ngOnChanges(simpleChanges: SimpleChanges) {
+    console.log(simpleChanges);
     // Needs to be checked before pageNo
-    if (totalPages) {
+    if (simpleChanges.totalPages) {
       this.onTotalPagesInput();
     }
 
-    if (pageNo) {
+    if (simpleChanges.pageNo) {
       this.onPageNoInput();
     }
   }
@@ -104,6 +105,10 @@ export class PaginationDirective implements OnChanges, OnInit {
 
   private onTotalPagesInput() {
     if (typeof this.totalPages !== "number") {
+      this.totalPages = 1;
+    }
+    // don't allow totalPages to go to 0 so UI controls are in disabled state and page shows "1/1" when there are no results
+    if (this.totalPages === 0) {
       this.totalPages = 1;
     }
   }

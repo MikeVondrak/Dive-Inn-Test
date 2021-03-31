@@ -20,6 +20,7 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public selectableFonts$: Observable<UiFont[]> = this.fontManagerService.selectableFonts$;
   public blacklistedFonts$: Observable<UiFont[]> = this.fontManagerService.blacklistedFonts$;
   public availableFonts$: Observable<UiFont[]> = this.fontManagerService.availableFonts$;
+  public availableFontsFiltered$: Observable<UiFont[]> = this.fontManagerService.getAvailableFontsFiltered$();
 
   public selectableNumberOfPages$: Observable<number>;
   public blacklistedNumberOfPages$: Observable<number>;
@@ -27,6 +28,8 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
 
   public top100Fonts$: Observable<UiFont[]> = this.availableFonts$.pipe(map(f => f.slice(0, 100)));
   public availableFontsByPage$ = this.fontManagerService.getAvailableFontsByPage$();
+  public blacklistedFontsByPage$ = this.fontManagerService.getBlacklistedFontsByPage$();
+  public selectableFontsByPage$ = this.fontManagerService.getSelectableFontsByPage$();
   
   private readonly fontsPerPage: number = 10; // TODO: readonly until we want to change how many fonts per page are shown
 
@@ -37,7 +40,7 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
     this.selectableNumberOfPages$ = this.selectableFonts$.pipe(map(fonts => {
       return Math.ceil(fonts.length / this.fontsPerPage);
     }));
-    this.availableNumberOfPages$ = this.availableFonts$.pipe(map(fonts => {
+    this.availableNumberOfPages$ = this.availableFontsFiltered$.pipe(map(fonts => {
       return Math.ceil(fonts.length / this.fontsPerPage);
     }));
     this.blacklistedNumberOfPages$ = this.blacklistedFonts$.pipe(map(fonts => {
@@ -58,6 +61,13 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public availablePageChanged(pageNumber: number) {
     this.fontManagerService.setAvailableFontsPageNumber(pageNumber);
   }
+  public selectablePageChanged(pageNumber: number) {
+    this.fontManagerService.setSelectableFontsPageNumber(pageNumber);
+  }
+  public blacklistedPageChanged(pageNumber: number) {
+    this.fontManagerService.setBlacklistedFontsPageNumber(pageNumber);
+  }
+  
 
   public searchChange(searchText: string) {
     this.fontManagerService.availableFontsSearch(searchText);

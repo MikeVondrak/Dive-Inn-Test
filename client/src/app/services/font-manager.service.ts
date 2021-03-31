@@ -61,9 +61,7 @@ export class FontManagerService {
   private availableFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
   private blacklistedFontsCurrentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
 
-  private availableFontsSearchString$: BehaviorSubject<string> = new BehaviorSubject<string>("");
-  private availableFontsFiltered
-  
+  private availableFontsSearchString$: BehaviorSubject<string> = new BehaviorSubject<string>(""); 
 
   constructor(
     private googleFontsApiService: GoogleFontsApiService,
@@ -428,50 +426,75 @@ export class FontManagerService {
   }
 
   public setAvailableFontsPageNumber(pageNumber: number) {
-    // emit on availableListPageNumber$ subject here
     this.availableFontsCurrentPage$.next(pageNumber);
-    //this.availableFontsCurrentPage = pageNumber;
+  }
+  public setSelectableFontsPageNumber(pageNumber: number) {
+    this.selectableFontsCurrentPage$.next(pageNumber);
+  }
+  public setBlacklistedFontsPageNumber(pageNumber: number) {
+    this.blacklistedFontsCurrentPage$.next(pageNumber);
   }
 
-  public getAvailableFontsByPage$(): Observable<UiFont[]> {
-    const perPage = this.fontsPerPage; // NOTE: perPage currently does not change so OK to set here
-
-    // need a combination of availableFonts$ and availableListPageNumber$
+  public getAvailableFontsFiltered$(): Observable<UiFont[]> {
     return combineLatest([
       this.availableFonts$.pipe(filter(fonts => fonts.length > 0)),
-      this.availableFontsCurrentPage$,
       this.availableFontsSearchString$
     ]).pipe(
-      map(([fonts, currentPage, searchText]) => {
-        if (currentPage < 1) {
-          throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
-        }
-        const lastPageNum = Math.ceil(fonts.length / perPage);
-        if (currentPage > lastPageNum) {
-          throw new Error('Font Manager Service getSelectableFontsByPage$ invalid page number requested: ' + currentPage);
-        }
-
+      map(([fonts, searchText]) => {
+        
         let filteredResults = fonts;
         if (searchText && searchText !== '') {
            filteredResults = fonts.filter(font => font.family.toLowerCase().includes(searchText.toLowerCase()));
         }
-        
-        const firstFontIdx = (currentPage - 1) * perPage;
-        const page = filteredResults.slice(firstFontIdx, firstFontIdx + perPage);
-        return page;
+        return filteredResults;
       })
     );
 
   }
 
-  // public getBlacklistedFontsByPage$(): Observable<UiFont[]> {
-  // }
+  public getAvailableFontsByPage$(): Observable<UiFont[]> {
+    return this.getFontsByPage$(this.getAvailableFontsFiltered$(), this.availableFontsCurrentPage$);
+  }
 
-  // public getSelectableFontsByPage$(): Observable<UiFont[]> {
-  // }
+  public getBlacklistedFontsByPage$(): Observable<UiFont[]> {
+    return this.getFontsByPage$(this.blacklistedFonts$, this.blacklistedFontsCurrentPage$);
+  }
+
+  public getSelectableFontsByPage$(): Observable<UiFont[]> {
+    return this.getFontsByPage$(this.selectableFonts$, this.selectableFontsCurrentPage$);
+  }
+
+  private getFontsByPage$(list$: Observable<UiFont[]>, currentPage$: Observable<number>): Observable<UiFont[]> {
+    return combineLatest([
+      list$,
+      currentPage$
+    ]).pipe(
+      map(([fonts, currentPage]) => {
+        let lastPageNum = Math.ceil(fonts.length / this.fontsPerPage);
+        
+        if (lastPageNum === 0) {
+          lastPageNum = 1;
+        } else {
+          if (currentPage < 1) {
+            throw new Error('Font Manager Service getFontsByPage$ invalid page number requested: ' + currentPage);
+          }
+
+          // if there are no results lastPageNum will be 0 and font list display will show empty results
+          if (currentPage > lastPageNum) {
+            throw new Error('Font Manager Service getFontsByPage$ invalid page number requested: ' + currentPage);
+          }
+        }
+
+        const firstFontIdx = (currentPage - 1) * this.fontsPerPage;
+        const page = fonts.slice(firstFontIdx, firstFontIdx + this.fontsPerPage);
+        return page;
+      })
+    )
+  }
 
   public availableFontsSearch(searchText: string) {
-    this.availableFontsSearchString$.next(searchText); 
+    this.setAvailableFontsPageNumber(1);
+    this.availableFontsSearchString$.next(searchText);
   }
   
 }

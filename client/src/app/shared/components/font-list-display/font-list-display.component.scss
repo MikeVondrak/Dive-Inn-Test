@@ -12,7 +12,6 @@ $debug: false;
   }
 
   display: block;
-  //border: 1px solid cyan;
   @if $debug { background: #733; }
   h2 {
     @if $debug { background: #888;}
@@ -34,19 +33,14 @@ $debug: false;
       flex-direction: row;
       justify-content: space-between;
       background: $dive-red-dk;
-      //border: 1px solid $dive-red;
       @if $debug { background: #373;}
       margin: 1rem 0;
-      // &:first-child {
-      //   margin-top: 0;
-      // }
       
       .font-name {
         font-size: 1.5rem;
         margin: 0;
       }
       .font-details {
-        //display: none;
         margin-top: 0.5rem;
         font-size: 0.8rem;
       }
@@ -61,24 +55,12 @@ $debug: false;
     }
   }
   
+  .no-results {
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    text-align: center;
+  }
   
-  
-  
-  
-  
-  // span {
-  //   display: inline-block;
-  //   min-width: 250px;
-  //   &:nth-child(2) {
-  //     min-width: 80px;
-  //   }
-  //   &:nth-child(3) {
-  //     min-width: 160px;
-  //   }
-  //   &.col {
-  //     min-width: 120px;
-  //   }
-  // }
   button {
     padding: 0.125rem 0.25rem;
     font-size: 0.75rem;

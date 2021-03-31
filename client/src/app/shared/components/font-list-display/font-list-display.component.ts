@@ -33,8 +33,9 @@ export class FontListDisplayComponent implements OnInit {
   @Input() listType: FontListsEnum;
   @Input() actionList: FontListsEnum;
   @Input() listName: string;
-  @Input() numberOfPages: number; // to pass to paginator
   @Input() showSearchControls: boolean = false;
+
+  @Input() numberOfPages: number; // to pass to paginator
 
   @Output() fontClicked = new EventEmitter<FontClickedPayload>();
   @Output() pageChanged = new EventEmitter<number>();
@@ -42,6 +43,8 @@ export class FontListDisplayComponent implements OnInit {
 
   // enum template access
   public FontPreviewPaneDisplayStylesEnum = FontPreviewDisplayStylesEnum; 
+
+  public currentPage: number = 1;
 
   constructor(private cdr: ChangeDetectorRef, private loggerService: LoggerService) {
     this.loggerService.enableLogger(true);
@@ -62,10 +65,12 @@ export class FontListDisplayComponent implements OnInit {
 
   public pageChange(pageNumber: number) {
     this.pageChanged.emit(pageNumber);
+    this.currentPage = pageNumber;
   }
 
   public searchChange(searchString: string) {
     this.searchString.emit(searchString);
     this.pageChanged.emit(1); //TODO page change to 1 needs to filter down to pagination component
+    this.currentPage = 1;
   }
 }

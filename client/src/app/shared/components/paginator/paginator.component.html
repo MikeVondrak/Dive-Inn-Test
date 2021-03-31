@@ -2,7 +2,8 @@
 <button (click)="pagination.prev()" [disabled]="pagination.isFirst">&lsaquo;</button>
 <input appPagination 
   #pagination="appPagination"
-  [totalPages]="numberOfPages" 
+  [totalPages]="numberOfPages"
+  [pageNo]="currentPage"
   (pageChange)="onPageChange($event)" 
 />
 <span> {{ pagination.pageNo }} / {{ pagination.totalPages }}</span>

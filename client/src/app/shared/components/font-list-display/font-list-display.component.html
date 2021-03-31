@@ -3,6 +3,7 @@
     <div class="controls">
       <app-paginator
         [numberOfPages]="numberOfPages"
+        [currentPage]="currentPage"
         (pageChange)="pageChange($event)"
       ></app-paginator>
       <app-search-filter 
@@ -10,37 +11,46 @@
       (searchString)="searchChange($event)"
       ></app-search-filter>
     </div>
-    <ul>
-      <li *ngFor="let font of fontList$ | async">
-        
-        <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
-          class="remove-button" 
-          (click)="fontClick({fontObj: font, buttonId: 'left'})">
-            &lt;
-        </button>
-        
-        <div>
-          <!-- <p class="font-name">{{ font.family }}</p> -->
-          <app-font-preview-pane 
-            [fontInstance]="getFontInstance(font)" 
-            [previewText]="font.family"
-            [displayStyle]="FontPreviewPaneDisplayStylesEnum.CONDENSED">
-          </app-font-preview-pane>
-  
-          <!-- <div class="font-details">
-            <span>id: {{ font.properties.id }}, </span>
-            <span>category: {{ font.properties.category }}</span>
-          </div> -->
-  
+
+    <ng-container *ngIf="(fontList$ | async) as fontList">      
+      <ul *ngIf="fontList.length > 0; else noResults">
+        <li *ngFor="let font of fontList">
+          
+          <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
+            class="remove-button" 
+            (click)="fontClick({fontObj: font, buttonId: 'left'})">
+              &lt;
+          </button>
+          
+          <div>
+            <!-- <p class="font-name">{{ font.family }}</p> -->
+            <app-font-preview-pane 
+              [fontInstance]="getFontInstance(font)" 
+              [previewText]="font.family"
+              [displayStyle]="FontPreviewPaneDisplayStylesEnum.CONDENSED">
+            </app-font-preview-pane>
+    
+            <!-- <div class="font-details">
+              <span>id: {{ font.properties.id }}, </span>
+              <span>category: {{ font.properties.category }}</span>
+            </div> -->
+    
+          </div>
+          
+          <button *ngIf="!(font.properties.listId===fontListEnum.SELECTABLE)"
+            class="remove-button" 
+            (click)="fontClick({fontObj: font, buttonId: 'right'})">
+              &gt;
+          </button>
+    
+        </li>
+      </ul>
+      <ng-template #noResults>
+        <div class="no-results">
+          No results found
         </div>
-        
-        <button *ngIf="!(font.properties.listId===fontListEnum.SELECTABLE)"
-          class="remove-button" 
-          (click)="fontClick({fontObj: font, buttonId: 'right'})">
-            &gt;
-        </button>
-  
-      </li>
-    </ul>
+      </ng-template>
+    </ng-container>
+
   </div>
   

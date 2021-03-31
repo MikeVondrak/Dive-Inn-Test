@@ -4,10 +4,12 @@
   <div class="page wide">
     <app-font-list-display 
       listName="Blacklisted Fonts"
-      [fontList$]="blacklistedFonts$" 
+      [fontList$]="blacklistedFontsByPage$" 
       [listType]="fontListsEnum.BLACKLISTED" 
       (fontClicked)="fontClick($event)"
-      [numberOfPages]="blacklistedNumberOfPages$ | async">
+      [numberOfPages]="blacklistedNumberOfPages$ | async"
+      (pageChanged)="blacklistedPageChanged($event)"
+    >
     </app-font-list-display>
 
     <app-font-list-display 
@@ -24,10 +26,12 @@
 
     <app-font-list-display 
       listName="Selectable Fonts"
-      [fontList$]="selectableFonts$" 
+      [fontList$]="selectableFontsByPage$" 
       [listType]="fontListsEnum.SELECTABLE"
       (fontClicked)="fontClick($event)"
-      [numberOfPages]="selectableNumberOfPages$ | async">
+      [numberOfPages]="selectableNumberOfPages$ | async"
+      (pageChanged)="selectablePageChanged($event)"
+    >
     </app-font-list-display>
   </div>
 </app-page-loading>
