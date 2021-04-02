@@ -1,5 +1,10 @@
 @import '~src/scss/common-imports';
 
-.nav-buttons button {
-    margin: 3px;
+:host {
+  display: block;
+  text-align: center;;
+
+  .nav-buttons button {
+      margin: 3px;
+  }
 }

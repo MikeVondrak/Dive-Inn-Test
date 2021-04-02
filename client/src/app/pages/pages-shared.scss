@@ -9,15 +9,15 @@ $page-margin-footer-xs: 40px;
 $page-margin-footer-lg: 120px;
 $page-margin-footer-ws: 200px;
 
-$page-margin-xs: 0 1rem $page-margin-footer-xs;
-$page-margin-md: 0 1.5rem $page-margin-footer-xs;
-$page-margin-lg: 0 10% $page-margin-footer-lg;
-$page-margin-xl: 0 14% $page-margin-footer-lg;
-$page-margin-ws: 0 20% $page-margin-footer-ws;
+$page-margin-xs: 3rem 1rem $page-margin-footer-xs;
+$page-margin-md: 3rem 1.5rem $page-margin-footer-xs;
+$page-margin-lg: 4rem 10% $page-margin-footer-lg;
+$page-margin-xl: 4rem 14% $page-margin-footer-lg;
+$page-margin-ws: 4rem 20% $page-margin-footer-ws;
 
-$page-wide-margin-lg: 0 5% $page-margin-footer-lg;
-$page-wide-margin-xl: 0 5% $page-margin-footer-lg;
-$page-wide-margin-ws: 0 10% $page-margin-footer-ws;
+$page-wide-margin-lg: 4rem 5% $page-margin-footer-lg;
+$page-wide-margin-xl: 4rem 5% $page-margin-footer-lg;
+$page-wide-margin-ws: 4rem 10% $page-margin-footer-ws;
 
 .page {
   margin: $page-margin-xs;
