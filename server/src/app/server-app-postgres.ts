@@ -23,7 +23,11 @@ export class ServerApp {
     user: 'gjdceezcnugnyv',
     password: '01830a0a446a61701aee908b0c6443262b943703339bd17bc7a6823f70cddc11',
     database: 'd125dfl39tajfu',
-    ssl: true
+    //ssl: true,
+    ssl: {
+      rejectUnauthorized: false
+    },
+    connectionString: process.env.DATABASE_URL
   });
 
   constructor(
