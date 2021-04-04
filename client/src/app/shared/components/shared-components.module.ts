@@ -20,6 +20,9 @@ import { PaginationDirectiveModule } from 'src/app/directives/pagination/paginat
 import { PaginatorComponent } from './paginator/paginator.component';
 import { SearchFilterComponent } from './search-filter/search-filter.component';
 import { FormsModule } from '@angular/forms';
+import { ContentContainerComponent } from './demo/content-container/content-container.component';
+import { MainNavComponent } from './demo/main-nav/main-nav.component';
+import { MainNavLinkComponent } from './demo/main-nav/main-nav-link/main-nav-link.component';
 @NgModule({
   declarations: [
     PageLoadingComponent,
@@ -36,6 +39,9 @@ import { FormsModule } from '@angular/forms';
     ModalContainerComponent,
     PaginatorComponent,
     SearchFilterComponent,
+    ContentContainerComponent,
+    MainNavComponent,
+    MainNavLinkComponent,
   ],
   imports: [
     CommonModule,
@@ -60,7 +66,8 @@ import { FormsModule } from '@angular/forms';
     ModalTemplateComponent,
     ModalContainerComponent,
     PaginatorComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    ContentContainerComponent
   ],
   entryComponents: [LoadingIndicatorComponent]
 })
