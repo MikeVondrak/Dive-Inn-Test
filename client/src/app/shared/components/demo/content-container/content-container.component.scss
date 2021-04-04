@@ -1,4 +1,5 @@
-$debug: true;
+@import '~src/scss/common-imports';
+$debug: false;
 
 :host {
     display: block;
@@ -11,10 +12,14 @@ $debug: true;
         text-align: center;
         padding: .5rem;
         left: 50%;
-        transform: translate(-50%, -70%);
+        transform: translate(-50%, -35%);
         
         @if $debug { background-color: #777; }
         background-image: url("/assets/images/content_title.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        border-radius: 0.25rem;
 
         z-index: 1;
     }
@@ -24,16 +29,29 @@ $debug: true;
         width: 98%;
         transform: translate(1%);
 
+        color: black;
+        $color1: #eee;
+        $color2: #ccc;
+        background: repeating-linear-gradient(
+            -45deg,
+            $color1,
+            $color1 10px,
+            $color2 11px,
+            $color2 11px
+        );
         @if $debug { background-color: darkslategrey; }
         
         z-index: 0;
     }
 
     .content-top {
+        height: 1rem;
         background-image: url("/assets/images/content_frame.png");
         @if $debug { background-color: darkmagenta; }
     }
 }
     .content-bottom {
+        height: 1rem;
+        background-image: url("/assets/images/content_frame.png");
         @if $debug { background-color: darkmagenta; }
     }

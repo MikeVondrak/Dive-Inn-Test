@@ -20,7 +20,7 @@ $page-wide-margin-xl: 4rem 5% $page-margin-footer-lg;
 $page-wide-margin-ws: 4rem 10% $page-margin-footer-ws;
 
 .page {
-  border: 1px solid yellow;
+  //border: 1px solid yellow;
   margin: $page-margin-xs;
   
   @media (min-width: $page-breakpoint-md) {
