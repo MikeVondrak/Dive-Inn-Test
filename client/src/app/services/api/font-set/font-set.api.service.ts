@@ -85,8 +85,6 @@ export class FontSetApiService {
     ).pipe(
       map(response => !!response)
     );
-
-    return of(false);
   }
 
 }

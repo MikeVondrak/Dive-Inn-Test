@@ -21,6 +21,7 @@ import { ModalTemplateComponent } from './shared/components/modal-template/modal
 
 import { LoadingDirectiveModule } from './directives/loading/loading-directive.module';
 import { PaginationDirectiveModule } from './directives/pagination/pagination.directive.module';
+import { StyleFontDirectiveModule } from './directives/style-font/style-font.directive.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PaginationDirectiveModule } from './directives/pagination/pagination.di
     LoadingDirectiveModule,
     FormsModule,
     ReactiveFormsModule,
-    PaginationDirectiveModule
+    PaginationDirectiveModule,
+    StyleFontDirectiveModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

@@ -56,6 +56,7 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
       'font-size' : this.fontInstance.size + 'px',
     };
     this.styleStr = JSON.stringify(this.style, null, 4);
+    console.log('!!+!+!+!+!! buildStyleString weight: ' + this.style['font-weight'] + '\n\n' + this.styleStr);
   }
 
   private loadFontData(family: string) {

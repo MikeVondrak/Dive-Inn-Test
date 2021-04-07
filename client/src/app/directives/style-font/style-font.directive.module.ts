@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginationDirective } from './pagination.directive';
+import { StyleFontDirective } from './style-font.directive';
 
 @NgModule({
   declarations: [
-    PaginationDirective
+    StyleFontDirective
   ],
   imports: [
     CommonModule,
   ],
   providers: [],
   exports: [
-    PaginationDirective
+    StyleFontDirective
   ]
 })
-export class PaginationDirectiveModule { }
+export class StyleFontDirectiveModule { }

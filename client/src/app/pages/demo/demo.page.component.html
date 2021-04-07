@@ -20,6 +20,10 @@
       [header]="'header1'"
     >
       <p>content for container 1</p>
+
+      <p styleFont [fontSource$]="activeFontInstance$">
+        This should be styled by the directive
+      </p>
     </app-content-container>
 
     <app-content-container

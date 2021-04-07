@@ -19,6 +19,7 @@ import { NewSetNameModalContentComponent } from './selection/components/new-set-
 import { ChangeNameModalContentComponent } from './selection/components/change-name-modal-content/change-name-modal-content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationDirectiveModule } from '../directives/pagination/pagination.directive.module';
+import { StyleFontDirectiveModule } from '../directives/style-font/style-font.directive.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PaginationDirectiveModule } from '../directives/pagination/pagination.d
     LoadingDirectiveModule,
     PaginationDirectiveModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StyleFontDirectiveModule
   ],
   providers: [],
   exports: [

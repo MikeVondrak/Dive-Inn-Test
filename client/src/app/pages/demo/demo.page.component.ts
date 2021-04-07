@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { FontInstance } from 'src/app/models/font-instance.model';
+import { UiFont } from 'src/app/models/ui-font.model';
+import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
+import { AppState } from 'src/app/store/state';
 
 import { PageLoadingService } from '../../services/page-loading.service';
 
@@ -12,10 +18,16 @@ export class DemoPageComponent implements OnInit {
   public headerStyle = '';
   public textStyle = '';
 
-  constructor(pageLoadingService: PageLoadingService) { 
+  public activeFontInstance$: Observable<FontInstance>;
+
+  constructor(
+    private pageLoadingService: PageLoadingService,
+    private store$: Store<AppState>
+  ) {
   }
 
   ngOnInit(): void {
+    this.activeFontInstance$ = this.store$.select(getActiveFontInstance);
   }
 
 }

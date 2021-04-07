@@ -94,7 +94,6 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
 
   public selectedWeightChange(selection: DropdownItem) {
     const weight = selection as FontWeight;
-    
     this.fontInstance.weight = weight;
     this.isItalicable(weight).subscribe(italicable => this.italicable = italicable);
     this.emitChange();
