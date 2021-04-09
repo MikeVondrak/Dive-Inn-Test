@@ -17,7 +17,7 @@ import { getActiveFontSet, getActiveFontSetTypeInstanceIds } from './active-font
 import { FontSet } from '../models/font-set.model';
 import { FontType, FontTypeInstanceIdPair, FontTypeInstanceMap, FontTypes } from '../models/font-type.model';
 import { FontSetApiMapped } from '../services/api/font-set/font-set.api.model';
-import { getActiveFontInstance, getActiveFontInstanceApi } from './active-font-instance/selectors/active-font-instance.selectors';
+import { getActiveFontInstanceApi } from './active-font-instance/selectors/active-font-instance.selectors';
 
 export const getUiFontInstances = createSelector(
   getFontInstances,

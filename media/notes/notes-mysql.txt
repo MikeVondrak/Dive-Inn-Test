@@ -14,7 +14,7 @@ Run external script:
 
 
 https://stackoverflow.com/questions/50093144/mysql-8-0-client-does-not-support-authentication-protocol-requested-by-server
---- Configure user to use regular pw auth (not caching_sha2_password because Node doesn't support it yet)
+--- Configure user to use normal pw auth (not caching_sha2_password because Node doesn't support it yet)
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YourRootPassword';
 -- or
 CREATE USER 'foo'@'%' IDENTIFIED WITH mysql_native_password BY 'bar';

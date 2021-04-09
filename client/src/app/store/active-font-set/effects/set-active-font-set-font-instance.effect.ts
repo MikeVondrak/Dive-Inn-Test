@@ -7,10 +7,9 @@ import { FontInstanceApi } from "src/app/services/api/font-instance/font-instanc
 import { FontTypes, FontTypeInstanceKvp, FontType, FontTypeInstanceIdPair } from '../../../models/font-type.model';
 import { FontInstanceManagerService } from '../../../services/font-instance-manager/font-instance-manager.service';
 import { LoggerService } from '../../../services/logger/logger.service';
-import { getActiveFontInstance, getActiveFontInstanceApi } from "../../active-font-instance/selectors/active-font-instance.selectors";
+import { getActiveFontInstanceApi } from "../../active-font-instance/selectors/active-font-instance.selectors";
 import { getUiFontInstances } from '../../app.selectors';
 import { getFontInstances } from "../../font-instance-library/selectors/font-instance-library.selectors";
-import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { AppState } from '../../state';
 import { activeFontSetFontInstanceLoaded, setActiveFontSetFontInstance } from "../actions/active-font-set.actions";
 import { getActiveFontSetTypeInstanceIds } from '../selectors/active-font-set.selectors';

@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementR
 import { Observable, of, Subject } from 'rxjs';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
-import { map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { FontVariants } from 'src/app/services/api/font/font.api.model';
 import { DropdownCompare, DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
@@ -46,7 +46,7 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
 
   ngOnInit(): void {
     // enable/disable italic checkbox if font supports
-    this.isItalicable('regular').subscribe(italicable => this.italicable = italicable);
+    this.isItalicable('normal').subscribe(italicable => this.italicable = italicable);
 
     this.loggerService.enableLogger(true);
   }
@@ -56,10 +56,15 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
       if (!!this.fontInstance.family) {
-        this.selectableFonts$.subscribe(fonts => {
+        this.selectableFonts$.pipe(filter(fonts => !!fonts && fonts.length > 0), take(1)).subscribe(fonts => {
           const uiFont = fonts.find(font => font.family === this.fontInstance.family);
           if (uiFont && (!this.selectedFont || !uiFont.equals(this.selectedFont))) {
+            // check if the Font dropdown exists in the template and then set the selection
             if (!!this.selectableFonts) {
+              // download the font with all available weights to display in the preview pane
+              // NOTE: this adds an additional script tag and API call that could be refactored out
+
+
               this.selectableFonts.setSelected(uiFont);
             }
           }
@@ -84,7 +89,7 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     );
     this.fontInstance.family = font.family;
 
-    this.isItalicable('regular').subscribe(italicable => {
+    this.isItalicable('normal').subscribe(italicable => {
       this.italicable = italicable;
       // reset italic checkbox on font change in case the newly selected font doesn't support italic
       this.fontInstance.italic = this.italicable ? this.fontInstance.italic : false;

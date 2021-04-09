@@ -36,7 +36,7 @@ CREATE TABLE font_weight (
 );
 INSERT INTO font_weight (weight)
 VALUES
-    ('100'), ('200'), ('300'), ('regular'), ('500'), ('600'), ('700'), ('800'), ('900');
+    ('100'), ('200'), ('300'), ('normal'), ('500'), ('600'), ('700'), ('800'), ('900');
 
 
 -- Create font table

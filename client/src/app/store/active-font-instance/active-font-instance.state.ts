@@ -14,7 +14,7 @@ export const activeFontInstanceInitialState: ActiveFontInstanceState = {
   activeFontInstanceId: -1,
   activeFontFamily: '',
   activeFontSize: '0px',
-  activeFontWeight: 'regular',
+  activeFontWeight: 'normal',
   activeFontWeightId: 4,
   activeFontItalic: false,
 }

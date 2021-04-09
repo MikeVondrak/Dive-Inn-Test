@@ -23,7 +23,7 @@ export interface FontClickedPayload {
 export class FontListDisplayComponent implements OnInit {
   public fontListEnum = FontListsEnum;
   public defaultFontInstance: Partial<FontInstance> = {
-    weight: 'regular',
+    weight: 'normal',
     italic: false,
     size: 18
   };

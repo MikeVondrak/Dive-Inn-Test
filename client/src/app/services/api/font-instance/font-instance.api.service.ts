@@ -58,21 +58,6 @@ export class FontInstanceApiService {
     const fi: Observable<FontInstance> = this.http.get<FontInstance>(this.baseRoute + id);
     return fi;
   }
-
-  private mapFontInstanceUiToDb(fontInstance: FontInstance): FontInstanceApi {
-    let fontInstanceApi: FontInstanceApi = {
-      //id : fontInstance.id,
-      family : fontInstance.family,
-      fk_font_weight_id: fontWeightIds.get(fontInstance.weight),
-      italic : fontInstance.italic,
-      size : fontInstance.size
-    }
-    return fontInstanceApi;
-  }
-
-  // Already convert weight id to FontWeight from string value in db call
-  // private mapFontInstanceDbToUi(fontInstance: FontInstanceApi): FontInstance {
-  // }
   
 }
 

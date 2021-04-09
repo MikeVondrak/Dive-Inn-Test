@@ -1,4 +1,4 @@
-export type FontWeight = '100' | '200' | '300' | 'regular' | '500' | '600' | '700' | '800' | '900';
+export type FontWeight = '100' | '200' | '300' | 'normal' | '500' | '600' | '700' | '800' | '900';
 
 
 // TODO: remove this, should come from DB
@@ -7,7 +7,7 @@ export const fontWeightIds: Map<FontWeight, number> = new Map([
   ['100', 1],
   ['200', 2],
   ['300', 3],
-  ['regular', 4],
+  ['normal', 4],
   ['500', 5],
   ['600', 6],
   ['700', 7],

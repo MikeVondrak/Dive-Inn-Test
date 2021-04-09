@@ -342,16 +342,18 @@ export class FontManagerService {
     // variants in format:
     //  100, 100italic, 200, 300, regular, italic, 500, 500italic... 900, 900italic
     // convert to:
-    //  (100, true), (200, false), (300, false), (regular, true)...
+    //  (100, true), (200, false), (300, false), (normal, true)...
     const variants: FontVariants = googleFont.variants.reduce((resultsMap, variant) => {
 
       const index = variant.indexOf('italic');
       const italicAble = index >= 0;
       // if variant has 'italic' take part of string before it
-      // if variant is 'italic' set italicAble for 'regular' weight
+      // if variant is 'italic' set italicAble for 'normal' weight
       // else variant is weight
-      const weight = index > 0 ? variant.substring(0, index) :
-        index === 0 ? 'regular' : variant;
+      let weight = index > 0 ? variant.substring(0, index) :
+        index === 0 ? 'normal' : variant;
+      // if variant is 'regular' convert to 'normal' for CSS font-weight value
+      weight = weight === 'regular' ? 'normal' : weight;
 
       resultsMap.set(weight as FontWeight, italicAble);
 
@@ -359,7 +361,7 @@ export class FontManagerService {
     }, new Map<FontWeight, boolean>());
 
     if (googleFont.variants.includes('italic')) {
-      variants.set('regular', true);
+      variants.set('normal', true);
     }
     return variants;
   }

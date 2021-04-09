@@ -13,5 +13,5 @@ export const defaultFontInstance: FontInstance = {
   family: 'Roboto',
   italic: false,
   size: 17,
-  weight: 'regular'
+  weight: 'normal'
 }

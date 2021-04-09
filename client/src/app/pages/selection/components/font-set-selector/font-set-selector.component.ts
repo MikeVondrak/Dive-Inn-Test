@@ -9,7 +9,6 @@ import { FontSetApiMapped } from 'src/app/services/api/font-set/font-set.api.mod
 import { FontInstanceManagerService } from 'src/app/services/font-instance-manager/font-instance-manager.service';
 import { FontSetManagerService } from 'src/app/services/font-set-manager/font-set-manager.service';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
-import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { changeActiveFontSetName, createNewFontSet, saveActiveFontSet, setActiveFontSetFontInstance } from 'src/app/store/active-font-set/actions/active-font-set.actions';
 import { openModal } from 'src/app/store/modal/actions/modal.actions';
 import { getActiveFontSetName } from 'src/app/store/active-font-set/selectors/active-font-set.selectors';

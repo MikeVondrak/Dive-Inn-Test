@@ -9,7 +9,6 @@ import { defaultFontInstance, FontInstance } from 'src/app/models/font-instance.
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { setActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
-import { getActiveFontInstance } from 'src/app/store/active-font-instance/selectors/active-font-instance.selectors';
 import { getFontDataLoading } from 'src/app/store/font-library/selectors/font-library.selectors';
 import { BaseComponent } from 'src/app/shared/components/abstract/base/base.component';
 import { FontSet, FontSetListView } from 'src/app/models/font-set.model';

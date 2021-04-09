@@ -39,8 +39,4 @@ export class StyleFontDirective implements OnInit {
     this.styleStr = JSON.stringify(this.style, null, 4);
   }
 
-  // private loadFontData(family: string) {
-  //   this.store$.dispatch(loadFontFamilyData({ family }));
-  // }
-
 }

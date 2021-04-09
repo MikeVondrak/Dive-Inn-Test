@@ -41,6 +41,11 @@ export class HeadUriLoaderService {
   public loadFont(family: string): Observable<string> {
     //let fontLinkUrl = this.fontBaseUrl + family.replace(' ', '+') + this.fontBaseUrlParam; // TODO: would need to make this regex to replace ALL occurences
     let fontLinkUrl = this.fontBaseUrl + family.split(' ').join('+');
+
+    fontLinkUrl += ':wght@100;200;300;400;500;600;700;800;900';
+    // TODO: need to append list of all weights for font to URL so preview pane can display them
+
+
     this.loadFontsLink(fontLinkUrl, family);
     return this.scriptLoaded$;
   }

@@ -6,7 +6,6 @@ import { filter, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { defaultFontInstance } from 'src/app/models/font-instance.model';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { setActiveFontInstance } from '../../active-font-instance/actions/active-font-instance.actions';
-import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { getAllFontTypes, getFontTypesLoaded } from "../../font-type/selectors/font-type.selectors";
 import { AppState } from "../../state";
 import { activeFontSetLoaded, changeActiveFontSetName, createNewFontSet, setActiveFontSetById } from '../actions/active-font-set.actions';

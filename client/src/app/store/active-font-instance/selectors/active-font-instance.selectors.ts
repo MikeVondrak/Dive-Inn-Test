@@ -6,20 +6,6 @@ import { ActiveFontInstanceState } from '../active-font-instance.state';
 
 export const selectFeatureActiveFontInstance = createFeatureSelector<AppState, ActiveFontInstanceState>('activeFontInstance');
  
-export const getActiveFontInstance = createSelector(
-  selectFeatureActiveFontInstance,
-  (state: ActiveFontInstanceState) => {
-    const fontInstance: FontInstance = {
-      id: state.activeFontInstanceId,
-      family: state.activeFontFamily,
-      weight: state.activeFontWeight,
-      italic: state.activeFontItalic,
-      size: parseInt(state.activeFontSize)
-    };
-    return fontInstance;
-  }
-);
-
 export const getActiveFontInstanceApi = createSelector(
   selectFeatureActiveFontInstance,
   (state: ActiveFontInstanceState) => {

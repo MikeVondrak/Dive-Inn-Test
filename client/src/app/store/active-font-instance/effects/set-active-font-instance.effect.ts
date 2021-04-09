@@ -6,7 +6,6 @@ import { map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FontWeight } from "src/app/models/font-weight.model";
 import { FontInstanceApi } from "src/app/services/api/font-instance/font-instance.api.model";
 import { LoggerService } from 'src/app/services/logger/logger.service';
-import { loadFontFamilyData } from '../../font-library/actions/font-library.actions';
 import { getFontWeights } from "../../font-weight/selectors/font-weight.selectors";
 import { AppState } from "../../state";
 import { setActiveFontInstance, setActiveFontInstanceApi } from '../actions/active-font-instance.actions';
