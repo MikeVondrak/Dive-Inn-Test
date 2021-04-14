@@ -9,6 +9,11 @@
     justify-content: space-between;
     align-items: flex-start;
     column-gap: 4rem;
+
+    app-font-instance-picker {
+      flex: 0 0 auto;
+      width: 25rem;
+    }
   }
 
   .page {

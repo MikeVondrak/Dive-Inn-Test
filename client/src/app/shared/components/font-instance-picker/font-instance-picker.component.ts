@@ -109,8 +109,12 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     this.emitChange();
   }
 
-  public sizeChange(size: number) {
-    this.fontInstance.size = size;
+  public sizeChange(size: string) {
+    console.log('###### fontInstancePicker sizeChange: ' + size);
+    let parsed = parseInt(size);
+    if (!isNaN(parsed)) {
+      this.fontInstance.size = parsed;
+    }
     this.emitChange();
   }
   /**

@@ -1,5 +1,6 @@
-<div>
-  <app-dropdown #selectableFonts
+<div class="grid">
+  <app-dropdown id="SelectableFonts"
+    #selectableFonts
     htmlId="SelectableFontsDropdown"
     title="Font"
     [options$]="selectableFonts$"
@@ -8,20 +9,8 @@
     (onOptionChange)="selectedFontChange($event)"
   ></app-dropdown>
 
-  <app-textbox
-    dataType="integer"
-    title="Size"
-    [value]="fontInstance?.size"
-    (textChange)="sizeChange($event)"
-  ></app-textbox>
-  <div class="up-down-arrows">
-    <button class="weight-btn" (click)="upClick()">+</button>
-    <button class="weight-btn" (click)="downClick()">-</button>
-  </div>
-</div>
-
-<div>
-  <app-dropdown #fontWeights
+  <app-dropdown id="FontWeights"
+    #fontWeights
     htmlId="FontWeightsDropdown"
     title="Weight"
     [options$]="fontWeightOptions$"
@@ -30,7 +19,21 @@
     (onOptionChange)="selectedWeightChange($event)"
   ></app-dropdown>
   
-  <app-checkbox #italicCheckbox
+  <div class="size-picker">
+    <app-textbox
+      dataType="integer"
+      title="Size"
+      [value]="fontInstance?.size"
+      (textChange)="sizeChange($event)"
+    ></app-textbox>
+    <div class="up-down-arrows">
+      <button class="weight-btn" (click)="upClick()">+</button>
+      <button class="weight-btn" (click)="downClick()">-</button>
+    </div>
+  </div>
+
+  <app-checkbox id="ItalicCheckbox"
+    #italicCheckbox
     checkboxId="ItalicCheckbox"
     title="Italic"
     [checkedValue]="fontInstance.italic"
