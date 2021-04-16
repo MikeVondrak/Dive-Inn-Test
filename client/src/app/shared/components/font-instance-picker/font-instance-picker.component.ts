@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementR
 import { Observable, of, Subject } from 'rxjs';
 import { UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { FontVariants } from 'src/app/services/api/font/font.api.model';
 import { DropdownCompare, DropdownComponent, DropdownItem, SelectOption } from '../form-controls/dropdown/dropdown.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
@@ -63,15 +63,19 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
             if (!!this.selectableFonts) {
               // download the font with all available weights to display in the preview pane
               // NOTE: this adds an additional script tag and API call that could be refactored out
-
-
               this.selectableFonts.setSelected(uiFont);
             }
           }
-          if (this.fontInstance?.weight && this.fontWeights?.selectedOption !== this.fontInstance?.weight) {
+          let weight = changes.fontInstance.currentValue.weight;
+          // check if the option selected in the dropdown already matches the fontInstance weight
+          if (weight && this.fontWeights && this.fontWeights.selectedOption !== weight) {
+            // check if the fontInstance weight doesn't exist as an option in the dropdown
+            // if so set to 'normal' or to nearest value, which?
+            //this.fontInstance.weight = 'normal';
+
             // wait until font has updated to change weight dropdown
             setTimeout(() => {
-              this.fontWeights.setSelected(this.fontInstance.weight);
+              this.fontWeights.setSelected(weight);
             });
           }
         });
@@ -85,8 +89,16 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     this.selectedFont = font;
     this.fontWeights$ = of(this.selectedFont?.properties?.variants);
     this.fontWeightOptions$ = this.fontWeights$.pipe(
-      map(weightMap => Array.from(weightMap).map(mapPair => mapPair[0]))
+      map(weightMap => {
+        return Array.from(weightMap).map(mapPair => mapPair[0])
+      })
     );
+    this.fontWeightOptions$.subscribe(options => {
+      if(!options.includes(this.fontInstance.weight)) {
+        this.fontInstance.weight = 'normal';
+        this.emitChange();
+      }
+    });
     this.fontInstance.family = font.family;
 
     this.isItalicable('normal').subscribe(italicable => {

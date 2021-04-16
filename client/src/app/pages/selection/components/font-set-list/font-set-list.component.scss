@@ -18,7 +18,8 @@ $debug: false;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      background: $dive-red-dk;
+      background: $dive-red-dk;      
+
       &.loaded {
         background: $dive-gray-dk;
       }
@@ -46,6 +47,9 @@ $debug: false;
       > div {
         flex: 1 0 0;
         margin: 1rem;
+
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
   }

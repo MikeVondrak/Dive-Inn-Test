@@ -5,12 +5,13 @@
   - Never allow removing default font (Roboto)
     - enchanement: click on a font in the Selectable list and see a list of Sets it's used in
     - enhancement: grey out "Italic" label when checkbox is disabled
-- WTF Montserrat Alternatives gives null data for lists
-  - Big Shoulders Stencil display
-  - long names in general?
-- Select "normal" option in weight dropdown (or nearest value) on font change
-- enhancement: Textbox takes minimum value when a number (Font Instance Picker size textbox)
 
+  - Font Set List
+    - enhancement: display full text of set name on hover of element
+
+- limit Set name length in input modal to match DB - DONE (hardcoded)
+- Select "normal" option in weight dropdown (or nearest value) on font change - DONE. "normal" only
+- WTF Montserrat Alternatives gives null data for lists - DONE
 - NaN in Size input if text is deleted - FIXED, could try to fix the validation message position
 
 

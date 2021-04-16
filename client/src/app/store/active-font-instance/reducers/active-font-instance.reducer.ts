@@ -19,7 +19,6 @@ const _activeFontInstanceReducer = createReducer(
     const r = {
       ...state,
       activeFontFamily: fontInstanceApi.family,
-      // activeFontWeight: fontInstanceApi.weight, TODO: REMOVE EVERYWHERE
       activeFontWeightId: fontInstanceApi.fk_font_weight_id,
       activeFontItalic: fontInstanceApi.italic,
       activeFontSize: fontInstanceApi.size.toString()

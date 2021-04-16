@@ -5,7 +5,6 @@ export interface ActiveFontInstanceState {
   readonly activeFontInstanceId: number,
   readonly activeFontFamily: string,
   readonly activeFontSize: string,
-  readonly activeFontWeight: FontWeight,
   readonly activeFontWeightId: number,
   readonly activeFontItalic: boolean,
 }
@@ -14,7 +13,6 @@ export const activeFontInstanceInitialState: ActiveFontInstanceState = {
   activeFontInstanceId: -1,
   activeFontFamily: '',
   activeFontSize: '0px',
-  activeFontWeight: 'normal',
   activeFontWeightId: 4,
   activeFontItalic: false,
 }

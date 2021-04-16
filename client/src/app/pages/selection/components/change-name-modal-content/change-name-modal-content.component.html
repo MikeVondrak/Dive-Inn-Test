@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div>
       <label>Name:</label>
-      <input type="textbox" formControlName="changeFontSetNameInput" (change)="nameChange($event)"/>
+      <input type="textbox" formControlName="changeFontSetNameInput" (change)="nameChange($event)" maxlength="50" />
       <p *ngIf="changeFontSetNameForm.controls.changeFontSetNameInput?.errors?.required && changeFontSetNameForm.controls.changeFontSetNameInput?.dirty">A name is required</p>
       <!-- <br><br>
       <p>Error: {{ changeFontSetNameForm.controls.changeFontSetNameInput?.errors?.required }}</p>

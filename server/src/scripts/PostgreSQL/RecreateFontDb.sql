@@ -6,7 +6,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS font_type CASCADE;
 CREATE TABLE font_type (
     id      SERIAL          PRIMARY KEY,
-    type    VARCHAR(20)     NOT NULL
+    type    VARCHAR(50)     NOT NULL
 );
 INSERT INTO font_type (type)
 VALUES
@@ -21,7 +21,7 @@ VALUES
 DROP TABLE IF EXISTS font_category CASCADE;
 CREATE TABLE font_category (    
     id          SERIAL          PRIMARY KEY,
-    category    VARCHAR(20)     NOT NULL
+    category    VARCHAR(50)     NOT NULL
 );
 INSERT INTO font_category (category)
 VALUES
@@ -32,7 +32,7 @@ VALUES
 DROP TABLE IF EXISTS font_weight CASCADE;
 CREATE TABLE font_weight (
     id          SERIAL          PRIMARY KEY,
-    weight      VARCHAR(20)     NOT NULL
+    weight      VARCHAR(50)     NOT NULL
 );
 INSERT INTO font_weight (weight)
 VALUES
@@ -43,7 +43,7 @@ VALUES
 DROP TABLE IF EXISTS font CASCADE;
 CREATE TABLE font (
     id                  SERIAL          PRIMARY KEY,
-    family              VARCHAR(20)     NOT NULL,
+    family              VARCHAR(100)     NOT NULL,
     selectable          BOOLEAN         NOT NULL,
     blacklisted         BOOLEAN         NOT NULL
 );
@@ -63,7 +63,7 @@ VALUES
 DROP TABLE IF EXISTS font_instance CASCADE;
 CREATE TABLE font_instance (
     id                  SERIAL          PRIMARY KEY,
-    family              VARCHAR(20)     NOT NULL,
+    family              VARCHAR(100)     NOT NULL,
     italic              BOOLEAN         NOT NULL,
     size                INT             NOT NULL,
     fk_font_weight_id   INT,
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS font_set;
 CREATE TABLE font_set (
     id                  SERIAL          PRIMARY KEY,
     set_id              uuid,
-    set_name            VARCHAR(20)     NOT NULL,
+    set_name            VARCHAR(50)     NOT NULL,
     fk_font_type_id     INT,
     CONSTRAINT font_set_font_type_id
         FOREIGN KEY (fk_font_type_id) 
