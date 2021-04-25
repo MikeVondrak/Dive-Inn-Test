@@ -50,7 +50,7 @@ export class SelectionPageComponent extends BaseComponent implements OnInit {
   }
 
   public fontInstanceChange(newFontInstance: FontInstance) {
-    this.loggerService.log('fontInstanceChange', newFontInstance);
+    // this.loggerService.log('fontInstanceChange', newFontInstance);
     this.fontInstance = {...newFontInstance};
 
     // this currently has no effect, only a tap

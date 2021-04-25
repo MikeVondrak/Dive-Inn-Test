@@ -30,7 +30,15 @@
       (fontClicked)="fontClick($event)"
       [numberOfPages]="selectableNumberOfPages$ | async"
       (pageChanged)="selectablePageChanged($event)"
+      [familyStringsFromSets$]="familyStringsFromSets$"
     >
     </app-font-list-display>
   </div>
+
+  <div *ngFor="let font of temp$ | async">
+    Font: {{ font.family }}
+    
+  </div>
+
+
 </app-page-loading>

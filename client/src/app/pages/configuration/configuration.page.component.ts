@@ -30,6 +30,9 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public availableFontsByPage$ = this.fontManagerService.getAvailableFontsByPage$();
   public blacklistedFontsByPage$ = this.fontManagerService.getBlacklistedFontsByPage$();
   public selectableFontsByPage$ = this.fontManagerService.getSelectableFontsByPage$();
+  public familyStringsFromSets$ = this.fontManagerService.getFamilyStringsFromSets$();
+
+  public temp$ = this.fontManagerService.getSelectableFontsByPageWithSets$();
   
   private readonly fontsPerPage: number = 10; // TODO: readonly until we want to change how many fonts per page are shown
 

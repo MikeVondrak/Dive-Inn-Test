@@ -16,8 +16,13 @@ import { FontTypeApi } from '../services/api/font-type/font-type.api.model';
 import { getActiveFontSet, getActiveFontSetTypeInstanceIds } from './active-font-set/selectors/active-font-set.selectors';
 import { FontSet } from '../models/font-set.model';
 import { FontType, FontTypeInstanceIdPair, FontTypeInstanceMap, FontTypes } from '../models/font-type.model';
-import { FontSetApiMapped } from '../services/api/font-set/font-set.api.model';
+import { FontSetApi, FontSetApiMapped } from '../services/api/font-set/font-set.api.model';
 import { getActiveFontInstanceApi } from './active-font-instance/selectors/active-font-instance.selectors';
+import { getFontSetApis } from './font-set-library/selectors/font-set-library.selectors';
+import { activeFontSetFontInstanceLoaded } from './active-font-set/actions/active-font-set.actions';
+import { Observable } from 'rxjs';
+import { UiFont } from '../models/ui-font.model';
+import { FontListDisplayFont } from '../models/font-list-display.model';
 
 export const getUiFontInstances = createSelector(
   getFontInstances,
@@ -105,5 +110,99 @@ export const getUiActiveFontSetTypeInstances: MemoizedSelector<AppState, FontTyp
   getUiActiveFontSet,
   (fontSet: FontSet) => {
     return fontSet.typeInstanceMap
+  }
+);
+
+export const getFamiliesUsedInFontSets = createSelector(
+  getFontSetApis,
+  getFontInstances,
+  (fontSets: FontSetApi[], fontInstances: FontInstanceApi[]) => {
+    
+    // example using forEach:
+
+    // const familyList: Set<string> = new Set(); // use set to track unique list of font-family strings
+    // fontSets.forEach(instance => {
+    //     // get item from fontInstances that matches current row font instance id
+    //     let family = fontInstances.find(inst => inst.id === instance.fk_font_instance_id)
+    //     // add family string to Set
+    //     familyList.add(family.family)
+    // })
+
+    // example using reduce: 
+    return fontSets.reduce((acc, item) => {
+      // get the FontInstanceApi that matches the ID of the FontSetApi (font set row)
+      let fontInstance = fontInstances?.find(fi => fi.id === item.fk_font_instance_id);
+      if (!!fontInstance) {
+        const fontName = fontInstance.family;
+        
+        // add the fontName if it doesn't already exist in the results
+        // if (!acc.includes(fontName)) {
+        //   acc.push(fontName);
+        // }
+        acc.add(fontName);
+      }
+      
+      // NOTE: hardcoding that Roboto cannot be removed so there is always a default font to show Preview Pane
+      const defaultFontFamily = 'Roboto';
+      acc.add(defaultFontFamily);
+
+      return acc;
+    }, new Set<string>());
+
+  }
+);
+
+export const getSetsUsingFontFamily = createSelector(
+  getFontSetApis,
+  getFontInstances,
+  (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props) => {
+    let fonts = new Set<string>();
+    const instance: FontInstanceApi = fontInstances?.find(fi => fi.family === props.family);
+    if (instance) {
+      // find any instances of props.family that exist in the fontsetapis
+      // return an array of family strings
+      fonts = fontSets.reduce((acc, item) => {
+        if (item.fk_font_instance_id === instance.id) {
+          acc.add(item.set_name);
+        }
+        return acc;
+      }, new Set<string>());
+    }
+    if (props.family === 'Roboto') {
+      fonts.add('!Default Font');
+    }
+    return fonts;
+  }
+);
+
+
+export const getFontListDisplayFonts = createSelector(
+  getFontSetApis,
+  getFontInstances,
+  (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props: { uiFonts: UiFont[] }) => {
+    const fontListDisplayFonts: FontListDisplayFont[] = props.uiFonts.map(uiFont => {
+      debugger;
+      // map -> for each font 
+      //  get the instance ID by family from fontInstances
+      const instance: FontInstanceApi = fontInstances?.find(fi => fi.family === uiFont.family);
+      //  check if the instance ID exists in any of the font set rows
+      const setsUsingFont = 
+        fontSets
+          .filter(fontSet => {
+            //debugger;
+            return fontSet.fk_font_instance_id === instance?.id
+          })
+          .map(fontSet => fontSet.set_name);
+
+      const fontListDisplayFont: FontListDisplayFont = {
+        //...uiFont, // is this OK?
+        family: uiFont.family,
+        setsFontIsUsedIn: new Set<string>(setsUsingFont)
+      }
+      return fontListDisplayFont;
+    })
+
+
+    return fontListDisplayFonts;
   }
 );

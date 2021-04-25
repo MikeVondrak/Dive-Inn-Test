@@ -17,25 +17,17 @@
         <li *ngFor="let font of fontList">
           
           <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
+            [disabled]="fontInUse(font) | async"
             class="remove-button" 
             (click)="fontClick({fontObj: font, buttonId: 'left'})">
               &lt;
           </button>
           
-          <div>
-            <!-- <p class="font-name">{{ font.family }}</p> -->
-            <app-font-preview-pane 
-              [fontInstance]="getFontInstance(font)" 
-              [previewText]="font.family"
-              [displayStyle]="FontPreviewPaneDisplayStylesEnum.CONDENSED">
-            </app-font-preview-pane>
-    
-            <!-- <div class="font-details">
-              <span>id: {{ font.properties.id }}, </span>
-              <span>category: {{ font.properties.category }}</span>
-            </div> -->
-    
-          </div>
+          <app-font-preview-pane 
+            [fontInstance]="getFontInstance(font)" 
+            [previewText]="font.family"
+            [displayStyle]="FontPreviewPaneDisplayStylesEnum.CONDENSED">
+          </app-font-preview-pane>       
           
           <button *ngIf="!(font.properties.listId===fontListEnum.SELECTABLE)"
             class="remove-button" 

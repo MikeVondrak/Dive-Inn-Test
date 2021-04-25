@@ -1,8 +1,21 @@
+4/23/2021
+  Config page Selectable Fonts List
+    - display a list of Sets the font is being used in (on hover? click?)
+      - change FontInstancePicker to map the inputs of the Selectable FontDisplayList to add the array of Set names the font is used in
+        - use the new app selector that gets font Set names by family
+      - change FontDisplayList to look display the array of Set names on hover / focus
+
+4/20/2021
+- Demo page / FontManagerService
+  - expose observables for all the text types (page title, header, etc)
+  - wire up UI components using appropriate text type
+
 4/13/2021
 - Font Instance Picker
   - Fix CSS - GOOD ENOUGH
-  - Not allow moving fonts from Selectable if they're used in a set
-  - Never allow removing default font (Roboto)
+- Config page
+  - Not allow moving fonts from Selectable if they're used in a set - DONE
+  - Never allow removing default font (Roboto) - DONE
     - enchanement: click on a font in the Selectable list and see a list of Sets it's used in
     - enhancement: grey out "Italic" label when checkbox is disabled
 

@@ -8,6 +8,8 @@ import {
 } from '../actions/font-library.actions';
 import { fontLibraryInitialState, FontLibraryState } from '../font-library.state';
  
+const debug = false;
+
 const _fontLibraryReducer = createReducer(
   fontLibraryInitialState,
   
@@ -55,7 +57,9 @@ export function fontLibraryReducer(state: FontLibraryState, action: FontLibraryA
 }
 
 function logger(id: string, output?: string) {
-  const logger = new LoggerService;
-  logger.enableLogger(true, 'FontLibrary');
-  logger.log('reducer ' + id, output, undefined, 'FontLibrary');
+  if (debug) {  
+    const logger = new LoggerService;
+    logger.enableLogger(true, 'FontLibrary');
+    logger.log('reducer ' + id, output, undefined, 'FontLibrary');
+  }
 }

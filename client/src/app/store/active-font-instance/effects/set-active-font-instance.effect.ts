@@ -23,11 +23,11 @@ export class SetActiveFontInstanceEffect {
   setActiveFontInstance$ = createEffect(() =>
     this.actions$.pipe(
       ofType(setActiveFontInstance),
-      tap(action => {
-        const logger = new LoggerService;
-        logger.enableLogger(true, 'SetActiveFontInstanceEffect');        
-        logger.log('action', action, undefined, 'SetActiveFontInstanceEffect');
-      }),
+      // tap(action => {
+      //   const logger = new LoggerService;
+      //   logger.enableLogger(true, 'SetActiveFontInstanceEffect');        
+      //   logger.log('action', action, undefined, 'SetActiveFontInstanceEffect');
+      // }),
       withLatestFrom(this.store$.select(getFontWeights)),
       switchMap(([action, weights]) => {
         const fi = action.fontInstance;

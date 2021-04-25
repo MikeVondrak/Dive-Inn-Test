@@ -3,7 +3,7 @@ import { GoogleFontsApiService } from '../services/external/google/google-fonts-
 import { GoogleFontsApi } from '../services/external/google/google-fonts-api.model';
 import { FontApiService } from '../services/api/font/font.api.service';
 import { HeadUriLoaderService } from '../services/head-uri-loader/head-uri-loader.service';
-import { take, map, tap, filter, reduce, every, switchMap, catchError, delay, withLatestFrom } from 'rxjs/operators';
+import { take, map, tap, filter, reduce, every, switchMap, catchError, delay, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { LoggerService } from './logger/logger.service';
 import { UiFont, IUiFont, FontListsEnum } from '../models/ui-font.model';
 import { FontVariants } from '../services/api/font/font.api.model';
@@ -13,6 +13,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/state';
 import { fontFamilyDataLoaded } from '../store/font-library/actions/font-library.actions';
 import { FontWeight } from '../models/font-weight.model';
+import { FontListDisplayFont } from '../models/font-list-display.model';
+import { getFamiliesUsedInFontSets, getFontListDisplayFonts } from '../store/app.selectors';
 
 enum DatabaseAction {
   ADD,
@@ -232,7 +234,7 @@ export class FontManagerService {
    * @TODO - comment
    */
   public loadFont$(family: string): Observable<string> {
-    this.loggerService.log('loadFont$ family: ' + family);
+    // this.loggerService.log('loadFont$ family: ' + family);
     return this.headUriService.loadFont(family);
   }
 
@@ -454,6 +456,16 @@ export class FontManagerService {
 
   }
 
+  public getSelectableFontsByPageWithSets$(): Observable<FontListDisplayFont[]> {
+    const pageOfFonts$: Observable<FontListDisplayFont[]> = 
+      this.getSelectableFontsByPage$().pipe(
+        mergeMap((pageOfFonts) => {
+          return this.store$.select(getFontListDisplayFonts, { uiFonts: pageOfFonts })
+        })
+      );
+    return pageOfFonts$;
+  }
+
   public getAvailableFontsByPage$(): Observable<UiFont[]> {
     return this.getFontsByPage$(this.getAvailableFontsFiltered$(), this.availableFontsCurrentPage$);
   }
@@ -499,4 +511,7 @@ export class FontManagerService {
     this.availableFontsSearchString$.next(searchText);
   }
   
+  public getFamilyStringsFromSets$(): Observable<Set<string>> {
+    return this.store$.select(getFamiliesUsedInFontSets);
+  }
 }

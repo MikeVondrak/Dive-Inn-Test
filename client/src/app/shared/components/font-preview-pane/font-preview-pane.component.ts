@@ -36,7 +36,6 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
     const keyNames = Object.keys(changes);
     if (keyNames.includes('fontInstance')) {
       if (!!this.fontInstance.family) {
-        console.log('!!!!!!!! NG ON CHANGES: ', changes);
         // make sure the font to be displayed has been downloaded
         setTimeout(() => {
           this.loadFontData(this.fontInstance.family);
@@ -56,7 +55,7 @@ export class FontPreviewPaneComponent implements OnInit, OnChanges {
       'font-size' : this.fontInstance.size + 'px',
     };
     this.styleStr = JSON.stringify(this.style, null, 4);
-    console.log('!!+!+!+!+!! buildStyleString weight: ' + this.style['font-weight'] + '\n\n' + this.styleStr);
+    // console.log('!!+!+!+!+!! buildStyleString weight: ' + this.style['font-weight'] + '\n\n' + this.styleStr);
   }
 
   private loadFontData(family: string) {

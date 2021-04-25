@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { BaseComponent } from '../../abstract/base/base.component';
 
 export type DropdownItem = string | number | object;
@@ -67,7 +67,11 @@ export class DropdownComponent extends BaseComponent implements OnInit, OnChange
    * determine what type was used for options$ input and map to the options array
    */
   private init() {
+    
+    console.log('<<<<<<<<<< DROPDOWN INIT');
+
     this.selectOptions$ = this.options$?.pipe(
+      filter(options => !!options),
       // unwrap observable
       map(options => {
         // if options$ is an observable map create the select options using key/value

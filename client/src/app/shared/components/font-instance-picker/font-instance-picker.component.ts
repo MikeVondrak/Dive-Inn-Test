@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, Output, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, Output, Input, SimpleChanges, OnChanges, AfterViewInit } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { UiFont } from 'src/app/models/ui-font.model';
+import { IUiFont, UiFont } from 'src/app/models/ui-font.model';
 import { FontManagerService } from 'src/app/services/font-manager.service';
 import { filter, map, take, tap } from 'rxjs/operators';
 import { FontVariants } from 'src/app/services/api/font/font.api.model';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/state';
 import { BaseComponent } from '../abstract/base/base.component';
 import { FontWeight } from 'src/app/models/font-weight.model';
+import { setDefaultActiveFontInstance } from 'src/app/store/active-font-instance/actions/active-font-instance.actions';
 
 type FontWeightDropdownSelection = { key: string, value: boolean };
 
@@ -19,7 +20,7 @@ type FontWeightDropdownSelection = { key: string, value: boolean };
   templateUrl: './font-instance-picker.component.html',
   styleUrls: ['./font-instance-picker.component.scss'],
 })
-export class FontInstancePickerComponent extends BaseComponent implements OnInit, OnChanges {
+export class FontInstancePickerComponent extends BaseComponent implements AfterViewInit, OnInit, OnChanges {
 
   @Output() fontInstanceChange: EventEmitter<FontInstance> = new EventEmitter<FontInstance>();
 
@@ -49,6 +50,14 @@ export class FontInstancePickerComponent extends BaseComponent implements OnInit
     this.isItalicable('normal').subscribe(italicable => this.italicable = italicable);
 
     this.loggerService.enableLogger(true);
+  }
+
+  ngAfterViewInit() {
+
+    // TODO: figure out why we need to dispatch this here
+    // - something in the chain of store events when the app loads doesn't occur when the page is not the Select page
+    // - dropdowns are not initialized unless we explicitly call setDefaultActiveFontInstance() again here
+    this.store$.dispatch(setDefaultActiveFontInstance());
   }
 
   ngOnChanges(changes: SimpleChanges): void {

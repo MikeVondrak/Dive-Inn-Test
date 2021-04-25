@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { UiFont, FontListsEnum } from '../../../models/ui-font.model';
 import { FontManagerService } from '../../../services/font-manager.service';
-import { Observable, Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontPreviewDisplayStylesEnum } from 'src/app/models/font-preview-pane.model';
@@ -34,6 +34,7 @@ export class FontListDisplayComponent implements OnInit {
   @Input() actionList: FontListsEnum;
   @Input() listName: string;
   @Input() showSearchControls: boolean = false;
+  @Input() familyStringsFromSets$?: Observable<Set<string>> = null;
 
   @Input() numberOfPages: number; // to pass to paginator
 
@@ -53,7 +54,7 @@ export class FontListDisplayComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public fontClick($event: FontClickedPayload) {
+  public fontClick($event: FontClickedPayload): void {
     this.loggerService.log('fontClick: ' + $event.fontObj.uiText + ', button: ' + $event.buttonId);
     this.fontClicked.emit($event);
   }
@@ -63,14 +64,25 @@ export class FontListDisplayComponent implements OnInit {
     return fontInstance;
   }
 
-  public pageChange(pageNumber: number) {
+  public pageChange(pageNumber: number): void {
     this.pageChanged.emit(pageNumber);
     this.currentPage = pageNumber;
   }
 
-  public searchChange(searchString: string) {
+  public searchChange(searchString: string): void {
     this.searchString.emit(searchString);
     this.pageChanged.emit(1); //TODO page change to 1 needs to filter down to pagination component
     this.currentPage = 1;
+  }
+  
+  public fontInUse(font: UiFont): Observable<boolean> {
+    if (!!this.familyStringsFromSets$) {
+      const famMap = this.familyStringsFromSets$.pipe(map(families => {
+        return families.has(font.family);
+      }));
+      return famMap;
+    } else {
+      return of(false);
+    }
   }
 }

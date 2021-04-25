@@ -33,7 +33,6 @@ export class PaginationDirective implements OnChanges, OnInit {
   }
 
   ngOnChanges(simpleChanges: SimpleChanges) {
-    console.log(simpleChanges);
     // Needs to be checked before pageNo
     if (simpleChanges.totalPages) {
       this.onTotalPagesInput();
