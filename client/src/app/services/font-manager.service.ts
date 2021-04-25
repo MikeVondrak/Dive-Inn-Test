@@ -460,7 +460,7 @@ export class FontManagerService {
     const pageOfFonts$: Observable<FontListDisplayFont[]> = 
       this.getSelectableFontsByPage$().pipe(
         mergeMap((pageOfFonts) => {
-          return this.store$.select(getFontListDisplayFonts, { uiFonts: pageOfFonts })
+          return this.store$.select(getFontListDisplayFonts, { uiFonts: pageOfFonts }).pipe(take(1));
         })
       );
     return pageOfFonts$;

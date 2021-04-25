@@ -181,15 +181,23 @@ export const getFontListDisplayFonts = createSelector(
   getFontInstances,
   (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props: { uiFonts: UiFont[] }) => {
     const fontListDisplayFonts: FontListDisplayFont[] = props.uiFonts.map(uiFont => {
-      debugger;
+      //debugger;
       // map -> for each font 
       //  get the instance ID by family from fontInstances
       const instance: FontInstanceApi = fontInstances?.find(fi => fi.family === uiFont.family);
+
+      let setsUsingFont = [];
+
+      if (!instance) {
+        //debugger;
+      }
+
       //  check if the instance ID exists in any of the font set rows
-      const setsUsingFont = 
+      setsUsingFont = 
         fontSets
           .filter(fontSet => {
-            //debugger;
+            // debugger;
+            console.log('++++++++++ ' + fontSet.fk_font_instance_id + ' : ' + instance?.id);
             return fontSet.fk_font_instance_id === instance?.id
           })
           .map(fontSet => fontSet.set_name);
@@ -197,7 +205,8 @@ export const getFontListDisplayFonts = createSelector(
       const fontListDisplayFont: FontListDisplayFont = {
         //...uiFont, // is this OK?
         family: uiFont.family,
-        setsFontIsUsedIn: new Set<string>(setsUsingFont)
+        setsFontIsUsedIn: setsUsingFont
+        //setsFontIsUsedIn: new Set<string>()
       }
       return fontListDisplayFont;
     })
