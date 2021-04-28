@@ -14,13 +14,20 @@
 
     <ng-container *ngIf="(fontList$ | async) as fontList">      
       <ul *ngIf="fontList.length > 0; else noResults">
-        <li *ngFor="let font of fontList">
+        <li *ngFor="let font of fontList; let i = index">
           
           <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
+            (mouseenter)="showTooltip($event, i)"
+            (mouseleave)="hideTooltip($event, i)"
             [disabled]="fontInUse(font) | async"
             class="remove-button" 
             (click)="fontClick({fontObj: font, buttonId: 'left'})">
               &lt;
+              <!-- double subscription here, could refactor -->
+              <div class="disabled-tooltip" *ngIf="tooltipDisplay[i] && fontInUse(font) | async">
+                Unable to remove. Font exists in:
+                {{ font.setsFontIsUsedIn }}
+              </div>
           </button>
           
           <app-font-preview-pane 

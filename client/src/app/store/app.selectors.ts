@@ -199,7 +199,7 @@ export const getFontListDisplayFonts = createSelector(
           }, []);
 
       const fontListDisplayFont: FontListDisplayFont = {
-        family: uiFont.family,
+        ...uiFont,
         setsFontIsUsedIn: setsUsingFont,
       }
       return fontListDisplayFont;

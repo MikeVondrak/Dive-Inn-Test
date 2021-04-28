@@ -65,4 +65,14 @@ $debug: false;
     padding: 0.125rem 0.25rem;
     font-size: 0.75rem;
   }
+
+  .disabled-tooltip {
+    background-color: #888;
+    border: 1px solid black;
+    padding: 5px;
+    position: absolute;
+    width: 15rem;
+    // left: -35px;
+    // top: -35px;
+  }
 }

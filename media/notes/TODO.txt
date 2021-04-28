@@ -1,7 +1,14 @@
+
+4/27/2021
+  Selectable Font List
+    tooltip not showing in Chrome (disabled button doesn't get events in Chrome)
+      why is text capitalized?
+      set up transparent div over button to get hover events instead of disabled button
+
 4/23/2021
   Config page Selectable Fonts List
     - display a list of Sets the font is being used in (on hover? click?)
-      - change FontInstancePicker to map the inputs of the Selectable FontDisplayList to add the array of Set names the font is used in
+      - change the inputs of the Selectable FontDisplayList to add the array of Set names the font is used in
         - use the new app selector that gets font Set names by family
       - change FontDisplayList to look display the array of Set names on hover / focus
 

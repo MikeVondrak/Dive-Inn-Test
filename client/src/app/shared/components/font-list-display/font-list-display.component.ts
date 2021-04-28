@@ -6,6 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { LoggerService } from 'src/app/services/logger/logger.service';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontPreviewDisplayStylesEnum } from 'src/app/models/font-preview-pane.model';
+import { FontListDisplayFont } from 'src/app/models/font-list-display.model';
 
 export type DisplayType = 'family-only' | 'variant-details';
 
@@ -29,7 +30,8 @@ export class FontListDisplayComponent implements OnInit {
   };
   
   @Input() displayType: DisplayType = 'variant-details';
-  @Input() fontList$: Subject<UiFont[]>;
+  @Input() fontList$: Subject<FontListDisplayFont[]>;
+  //@Input() fontList$: Subject<UiFont[]>;
   @Input() listType: FontListsEnum;
   @Input() actionList: FontListsEnum;
   @Input() listName: string;
@@ -46,6 +48,9 @@ export class FontListDisplayComponent implements OnInit {
   public FontPreviewPaneDisplayStylesEnum = FontPreviewDisplayStylesEnum; 
 
   public currentPage: number = 1;
+
+  public condition: boolean = false;
+  public tooltipDisplay: boolean[] = [];
 
   constructor(private cdr: ChangeDetectorRef, private loggerService: LoggerService) {
     this.loggerService.enableLogger(true);
@@ -84,5 +89,17 @@ export class FontListDisplayComponent implements OnInit {
     } else {
       return of(false);
     }
+  }
+
+  public showTooltip($event, buttonIndex) {
+    this.condition = true;
+    this.tooltipDisplay[buttonIndex] = true;
+    console.log('$$$$$ showTooltip x,y: ' + $event.clientX + ', ' + $event.clientY + ' ' + buttonIndex);
+  }
+
+  public hideTooltip($event, buttonIndex) {
+    this.condition = false;
+    this.tooltipDisplay[buttonIndex] = false;
+    console.log('$$$$$ hideTooltip x,y: ' + $event.clientX + ', ' + $event.clientY + ' ' + buttonIndex);
   }
 }

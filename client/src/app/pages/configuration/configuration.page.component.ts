@@ -29,7 +29,8 @@ export class ConfigurationPageComponent extends BaseComponent implements OnInit,
   public top100Fonts$: Observable<UiFont[]> = this.availableFonts$.pipe(map(f => f.slice(0, 100)));
   public availableFontsByPage$ = this.fontManagerService.getAvailableFontsByPage$();
   public blacklistedFontsByPage$ = this.fontManagerService.getBlacklistedFontsByPage$();
-  public selectableFontsByPage$ = this.fontManagerService.getSelectableFontsByPage$();
+  public selectableFontsByPage$ = this.fontManagerService.getSelectableFontsByPageWithSets$();
+  //public selectableFontsByPage$ = this.fontManagerService.getSelectableFontsByPage$();
   public familyStringsFromSets$ = this.fontManagerService.getFamilyStringsFromSets$();
 
   public temp$ = this.fontManagerService.getSelectableFontsByPageWithSets$();
