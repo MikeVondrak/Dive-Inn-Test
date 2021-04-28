@@ -134,12 +134,7 @@ export const getFamiliesUsedInFontSets = createSelector(
       let fontInstance = fontInstances?.find(fi => fi.id === item.fk_font_instance_id);
       if (!!fontInstance) {
         const fontName = fontInstance.family;
-        
-        // add the fontName if it doesn't already exist in the results
-        // if (!acc.includes(fontName)) {
-        //   acc.push(fontName);
-        // }
-        acc.add(fontName);
+        acc.add(fontName); // Set filters out duplicates
       }
       
       // NOTE: hardcoding that Roboto cannot be removed so there is always a default font to show Preview Pane
@@ -180,34 +175,32 @@ export const getFontListDisplayFonts = createSelector(
   getFontSetApis,
   getFontInstances,
   (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props: { uiFonts: UiFont[] }) => {
-    const fontListDisplayFonts: FontListDisplayFont[] = props.uiFonts.map(uiFont => {
-      //debugger;
-      // map -> for each font 
+    const fontListDisplayFonts: FontListDisplayFont[] = props.uiFonts.map(uiFont => {    
       //  get the instance ID by family from fontInstances
-      const instance: FontInstanceApi = fontInstances?.find(fi => fi.family === uiFont.family);
+      const instances: FontInstanceApi[] = fontInstances?.filter(fi => fi.family === uiFont.family);
 
       let setsUsingFont = [];
 
-      if (!instance) {
-        //debugger;
-      }
-
-      console.log('+++++++ sets using font');
       //  check if the instance ID exists in any of the font set rows
       setsUsingFont = 
         fontSets
+          // get each FontSetApi row that has a matching instance
           .filter(fontSet => {
-            // debugger;
-            console.log('++++++++++ ' + fontSet.fk_font_instance_id + ' : ' + instance?.id);
-            return fontSet.fk_font_instance_id === instance?.id
+            return !!instances.find(i => i.id === fontSet.fk_font_instance_id);
           })
-          .map(fontSet => fontSet.set_name);
+          // grab just the set name
+          .map(fs => fs.set_name)
+          // reduce to unique set names
+          .reduce((acc, item) => {
+            if (!acc.includes(item)) {
+              acc.push(item);
+            }
+            return acc;
+          }, []);
 
       const fontListDisplayFont: FontListDisplayFont = {
-        //...uiFont, // is this OK?
         family: uiFont.family,
-        setsFontIsUsedIn: setsUsingFont
-        //setsFontIsUsedIn: new Set<string>()
+        setsFontIsUsedIn: setsUsingFont,
       }
       return fontListDisplayFont;
     })
