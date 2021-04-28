@@ -49,7 +49,6 @@ export const reducer = createReducer(
     // need to turn fontSetApiMapped into an array of FontSetApi
     const fontSetApis = fontSetApiMappedToFontSetApiArray(fontSetApiMapped);
     const updates: Update<FontSetApi>[] = fontSetApis.map((fsa) => {
-      console.log('************************ FSA ID: ' + fsa.id);
       return {
         id: fsa.id,
         changes: {

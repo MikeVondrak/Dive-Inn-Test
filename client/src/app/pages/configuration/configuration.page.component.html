@@ -37,7 +37,7 @@
 
   <div *ngFor="let font of temp$ | async">
     Font: {{ font.family }}
-    
+    Sets: <span *ngFor="let set of font.setsFontIsUsedIn">{{ set }}</span>
   </div>
 
 

@@ -192,6 +192,7 @@ export const getFontListDisplayFonts = createSelector(
         //debugger;
       }
 
+      console.log('+++++++ sets using font');
       //  check if the instance ID exists in any of the font set rows
       setsUsingFont = 
         fontSets
