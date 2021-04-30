@@ -29,6 +29,7 @@ $debug: false;
     padding: 0;
 
     li {
+      position: relative;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -66,13 +67,30 @@ $debug: false;
     font-size: 0.75rem;
   }
 
-  .disabled-tooltip {
-    background-color: #888;
-    border: 1px solid black;
-    padding: 5px;
+  .remove-button {
+    position: relative;
+  }
+  .button-hover-trigger {
     position: absolute;
-    width: 15rem;
-    // left: -35px;
-    // top: -35px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1; // stack above parent content
+  }
+
+  .disabled-tooltip {
+    background-color: $dive-black;
+    border: 1px solid black;
+    padding: 1rem;
+    position: absolute;
+    left: 35px;
+    top: 35px;
+    z-index: 2; // stack above parent content
+
+    li {
+      background-color: transparent;
+      margin: 0.25rem 0;
+    }
   }
 }

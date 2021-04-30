@@ -1,9 +1,14 @@
+4/29/2021
+  - expose observables for all the text types (page title, header, etc) from FontManagerService for Demo page
+  - have "!Default Font" show up in list for Roboto
+
+  - Make the list of Set names in the tooltip easier to read - DONE
 
 4/27/2021
   Selectable Font List
-    tooltip not showing in Chrome (disabled button doesn't get events in Chrome)
-      why is text capitalized?
-      set up transparent div over button to get hover events instead of disabled button
+    tooltip not showing in Chrome (disabled button doesn't get events in Chrome) - DONE
+      why is text capitalized? - DONE
+      set up transparent div over button to get hover events instead of disabled button - DONE
 
 4/23/2021
   Config page Selectable Fonts List

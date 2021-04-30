@@ -17,18 +17,25 @@
         <li *ngFor="let font of fontList; let i = index">
           
           <button *ngIf="!(font.properties.listId===fontListEnum.BLACKLISTED)"
-            (mouseenter)="showTooltip($event, i)"
-            (mouseleave)="hideTooltip($event, i)"
             [disabled]="fontInUse(font) | async"
             class="remove-button" 
             (click)="fontClick({fontObj: font, buttonId: 'left'})">
               &lt;
-              <!-- double subscription here, could refactor -->
-              <div class="disabled-tooltip" *ngIf="tooltipDisplay[i] && fontInUse(font) | async">
-                Unable to remove. Font exists in:
-                {{ font.setsFontIsUsedIn }}
-              </div>
+              
+              <div *ngIf="fontInUse(font) | async"
+                (mouseenter)="showTooltip($event, i)"
+                (mouseleave)="hideTooltip($event, i)"
+                class="button-hover-trigger"
+              ></div>
+
           </button>
+          <!-- double subscription here, could refactor -->
+          <div class="disabled-tooltip" *ngIf="tooltipDisplay[i] && fontInUse(font) | async">
+            Unable to remove, font exists in Set:
+            <div *ngFor="let fontSet of font.setsFontIsUsedIn">
+              <li> - {{ fontSet }}</li>
+            </div>
+          </div>
           
           <app-font-preview-pane 
             [fontInstance]="getFontInstance(font)" 

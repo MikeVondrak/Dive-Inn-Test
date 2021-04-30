@@ -35,11 +35,4 @@
     </app-font-list-display>
   </div>
 
-  <div *ngFor="let font of temp$ | async">
-    Font: {{ font?.family }}
-    Props: {{ font?.properties?.listId }}
-    Sets: <span *ngFor="let set of font.setsFontIsUsedIn">{{ set }}</span>
-  </div>
-
-
 </app-page-loading>
