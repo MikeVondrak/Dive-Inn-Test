@@ -1,0 +1,13 @@
+<select 
+  [name]="htmlName" 
+  [(ngModel)]="selectedSet" 
+  (ngModelChange)="optionSelected($event)"
+  [compareWith]="compareFn"
+>
+  <option [ngValue]="null" disabled>
+    -Select-
+  </option>
+  <option *ngFor="let set of fontSetList$ | async" [ngValue]="set">
+    {{ set.name }}
+  </option>
+</select>

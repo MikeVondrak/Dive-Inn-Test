@@ -6,6 +6,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { TextboxComponent } from './textbox/textbox.component';
 import { ButtonComponent } from './button/button.component';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ButtonComponent } from './button/button.component';
     CheckboxComponent,
     TextboxComponent,
     ButtonComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { ButtonComponent } from './button/button.component';
     CheckboxComponent,
     TextboxComponent,
     ButtonComponent,
+    SelectComponent,
   ],
 })
 export class FormControlsModule { }

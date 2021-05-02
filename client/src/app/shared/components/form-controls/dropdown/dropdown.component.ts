@@ -59,7 +59,7 @@ export class DropdownComponent extends BaseComponent implements OnInit, OnChange
   }
 
   public setSelected(selection: DropdownItem) {
-    this.selectedOption = selection;
+    //this.selectedOption = selection;
     this.optionChange(selection);
   }
 

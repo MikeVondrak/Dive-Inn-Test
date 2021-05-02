@@ -16,15 +16,14 @@
     <p [ngStyle]="textStyle">. ? ! / @ # $ % ^ &amp; * ( ) ~ - + = ' " : ; &lt; &gt;</p>
     <hr> -->
 
-    <app-dropdown id="FontSetList"
-    #fontSetsList
-    htmlId="FontSetListDropdown"
-    title="Font Sets"
-    [options$]="fontSetList$"
-    displayProperty="name"
-    valueProperty="setId"
-    (onOptionChange)="selectedFontSetChange($event)"
-  ></app-dropdown>
+    Font Set: 
+    <app-select 
+      htmlName="FontSetList"
+      [fontSetList$]="fontSetList$"
+      [activeFontSetId$]="activeFontSetId$"
+      [activeFontSet]="activeFontSet$ | async"
+      (onOptionSelected)="selectedFontSetChange($event)"
+    ></app-select>
 
     <app-content-container
       [header]="'header1'"
