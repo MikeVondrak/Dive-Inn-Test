@@ -25,6 +25,16 @@
       (onOptionSelected)="selectedFontSetChange($event)"
     ></app-select>
 
+    <!-- <div *ngFor="let font of demoFontInstances$ | async">
+      {{ font }}
+    </div> -->
+
+    
+
+    <div *ngIf="(getFontInstanceForType$('page_title') | async) as pageTitleFont">
+      page_title: {{ pageTitleFont.family }}, {{ pageTitleFont.size }}, {{ pageTitleFont.weight }}, {{ pageTitleFont.italic }}
+    </div>
+
     <app-content-container
       [header]="'header1'"
     >

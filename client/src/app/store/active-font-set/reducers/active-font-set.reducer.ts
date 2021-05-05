@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { FontSet } from 'src/app/models/font-set.model';
-import { FontTypeInstanceIdPair, FontTypeInstanceKvp, fontTypesMap } from 'src/app/models/font-type.model';
+import { FontTypeInstanceIdPair, FontTypeInstanceKvp } from 'src/app/models/font-type.model';
 import { LoggerService } from '../../../services/logger/logger.service';
 import { 
   ActiveFontSetActions, 

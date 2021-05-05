@@ -113,6 +113,19 @@ export const getUiActiveFontSetTypeInstances: MemoizedSelector<AppState, FontTyp
   }
 );
 
+//export const getDemoFontInstances: MemoizedSelector<AppState, FontInstanceApi[]> = createSelector(
+// export const getDemoFontInstanceByType = createSelector(
+//   getUiActiveFontSetTypeInstances,
+//   (typeInstanceMap: FontTypeInstanceMap, props: { typeId: string }) => {
+//     let demoFontInstances: FontInstanceApi[] = [];
+//     typeInstanceMap.forEach(ti => {
+//       const instance = ti.
+//     });
+//     return demoFontInstances;
+//   }
+// );
+
+
 export const getFamiliesUsedInFontSets = createSelector(
   getFontSetApis,
   getFontInstances,
@@ -150,7 +163,7 @@ export const getFamiliesUsedInFontSets = createSelector(
 export const getSetsUsingFontFamily = createSelector(
   getFontSetApis,
   getFontInstances,
-  (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props) => {
+  (fontSets: FontSetApi[], fontInstances: FontInstanceApi[], props: { family: string }) => {
     let fonts = new Set<string>();
     const instance: FontInstanceApi = fontInstances?.find(fi => fi.family === props.family);
     if (instance) {

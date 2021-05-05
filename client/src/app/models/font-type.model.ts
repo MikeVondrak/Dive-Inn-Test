@@ -5,7 +5,7 @@ import { FontInstance } from './font-instance.model';
 export type FontTypes = 'page_title' | 'main_nav' | 'section_title' | 'section_header' | 'section_text';
 
 // TODO: build this dynamically from the DB
-export const fontTypesMap = ['page_title', 'main_nav', 'section_title', 'section_header', 'section_text'];
+//export const fontTypesMap = ['page_title', 'main_nav', 'section_title', 'section_header', 'section_text'];
 
 /**
  * NgRx Entity identifying the area of the site a font will be used, e.g. for the "page_title" <h1>
