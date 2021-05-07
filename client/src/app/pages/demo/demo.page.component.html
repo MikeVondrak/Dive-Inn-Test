@@ -25,24 +25,27 @@
       (onOptionSelected)="selectedFontSetChange($event)"
     ></app-select>
 
-    <!-- <div *ngFor="let font of demoFontInstances$ | async">
-      {{ font }}
-    </div> -->
-
-    
-
-    <div *ngIf="(getFontInstanceForType$('page_title') | async) as pageTitleFont">
-      page_title: {{ pageTitleFont.family }}, {{ pageTitleFont.size }}, {{ pageTitleFont.weight }}, {{ pageTitleFont.italic }}
-    </div>
-
     <app-content-container
       [header]="'header1'"
     >
       <p>content for container 1</p>
 
-      <p styleFont [fontSource$]="activeFontInstance$">
-        This should be styled by the directive
+      <h1 styleFont [fontSource$]="getFontInstanceForType$('page_title')">
+        Page Title Font
+      </h1>
+      <h2 styleFont [fontSource$]="getFontInstanceForType$('main_nav')">
+        Main Nav Font
+      </h2>
+      <h3 styleFont [fontSource$]="getFontInstanceForType$('section_title')">
+        Section Title Font
+      </h3>
+      <h4 styleFont [fontSource$]="getFontInstanceForType$('section_header')">
+        Section Header Font
+      </h4>
+      <p styleFont [fontSource$]="getFontInstanceForType$('section_text')">
+        Section Text Font
       </p>
+
     </app-content-container>
 
     <app-content-container

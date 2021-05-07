@@ -8,18 +8,18 @@ import { FontWeight } from '../../models/font-weight.model';
  * Include fonts here, will be downloaded via <link> element and added as an option in font dropdowns
  */
 const uiFonts: IUiFont[] = [
-  { family: 'Alfa Slab One' },
-  { family: 'Anton' },
-  { family: 'Bevan' },
-  { family: 'Patua One' },
-  { family: 'Piedra' },
-  { family: 'PT Sans', hrefId: 'PT+Sans' },
-  {
-    family: 'PT Sans', hrefId: 'PT+Sans:wght@700', uiText: 'PT Sans Bold',
-    properties: {
-      variants: new Map<FontWeight, boolean>([['700', false]])
-    }
-  }
+  { family: 'Roboto' }, // default font for site
+  // { family: 'Anton' },
+  // { family: 'Bevan' },
+  // { family: 'Patua One' },
+  // { family: 'Piedra' },
+  // { family: 'PT Sans', hrefId: 'PT+Sans' },
+  // {
+  //   family: 'PT Sans', hrefId: 'PT+Sans:wght@700', uiText: 'PT Sans Bold',
+  //   properties: {
+  //     variants: new Map<FontWeight, boolean>([['700', false]])
+  //   }
+  // }
 ];
 
 function generateFonts(fonts: IUiFont[]): UiFont[] {

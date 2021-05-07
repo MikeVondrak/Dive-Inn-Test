@@ -1,7 +1,12 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/state';
 import { Observable } from 'rxjs';
+import { filter, tap, withLatestFrom } from 'rxjs/operators';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { UiFont } from 'src/app/models/ui-font.model';
+import { loadFontFamilyData } from 'src/app/store/font-library/actions/font-library.actions';
+import { getFontDataLoaded } from 'src/app/store/font-library/selectors/font-library.selectors';
 
 @Directive({
   selector: '[styleFont]'
@@ -13,20 +18,20 @@ export class StyleFontDirective implements OnInit {
   public style: object = {};
   public styleStr = '';
 
-  constructor(private el: ElementRef) { }
+  constructor(private el: ElementRef, private store$: Store<AppState>) { }
 
   ngOnInit() {
-    this.fontSource$.subscribe((font: FontInstance) => {
-      this.el.nativeElement.innerHTML = font.family;
-      // this.loadFontData(font.family);
+    this.fontSource$.pipe(
+      tap((fontSource: FontInstance) => this.store$.dispatch(loadFontFamilyData({ family: fontSource.family }))),
+      withLatestFrom(this.store$.select(getFontDataLoaded).pipe(filter(loaded => !!loaded)))
+    )
+    .subscribe(([font, loaded]) => {
       this.buildStyleString(font);
       this.el.nativeElement.style.fontFamily = this.style['font-family'];
       this.el.nativeElement.style.fontSize = this.style['font-size'];
       this.el.nativeElement.style.fontWeight = this.style['font-weight'];
       this.el.nativeElement.style.fontStyle = this.style['font-style'];
-
     })
-
   }
 
   public buildStyleString(fontInstance: FontInstance): void {
@@ -40,3 +45,7 @@ export class StyleFontDirective implements OnInit {
   }
 
 }
+function fontDataLoaded(fontDataLoaded: any) {
+  throw new Error('Function not implemented.');
+}
+

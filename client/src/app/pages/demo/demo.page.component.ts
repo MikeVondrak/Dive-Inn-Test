@@ -31,8 +31,6 @@ export class DemoPageComponent implements OnInit {
   public activeFontSetId$: Observable<string> = this.store$.select(getActiveFontSetId);
   public activeFontSet$: Observable<FontSetApiMapped> = this.store$.select(getActiveFontSet);
 
-  public demoFontInstances$: Observable<FontInstance[]>;
-
   private activeFontSetTypeInstanceMap$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
 
   constructor(
@@ -44,14 +42,6 @@ export class DemoPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeFontInstance$ = this.store$.select(getUiActiveFontInstance);
-
-    this.demoFontInstances$ = this.activeFontSetTypeInstanceMap$.pipe(map(tiMap => {
-      //debugger;
-      return Array.from(tiMap).map(ti => {
-        debugger;
-        return ti[1];
-      })
-    }));
   }
 
   public getFontInstanceForType$(fontType: FontTypes): Observable<FontInstance> {
@@ -65,7 +55,6 @@ export class DemoPageComponent implements OnInit {
           id: -1
         };
         const arr = Array.from(tiMap);
-        //debugger;
         let key;
         if (arr.length > 0) {
           key = arr?.find(ti => ti[0].type === fontType)[0];
