@@ -1,6 +1,8 @@
 <div class="content-top">
 
-    <h2>{{ header }}</h2>
+    <h2 styleFont [fontSource$]="titleFontInstance$">
+        {{ title }}
+    </h2>
 </div>
 <div class="content-data">
     <ng-content></ng-content>

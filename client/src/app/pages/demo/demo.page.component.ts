@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { StyleFontDirective } from 'src/app/directives/style-font/style-font.directive';
 import { FontInstance } from 'src/app/models/font-instance.model';
 import { FontSet, FontSetListView } from 'src/app/models/font-set.model';
 import { FontType, FontTypeInstanceMap, FontTypes } from 'src/app/models/font-type.model';
@@ -19,7 +20,7 @@ import { PageLoadingService } from '../../services/page-loading.service';
 @Component({
   selector: 'app-demo-page',
   templateUrl: './demo.page.component.html',
-  styleUrls: ['./demo.page.component.scss', '../pages-shared.scss']
+  styleUrls: ['./demo.page.component.scss', '../pages-shared.scss'],
 })
 export class DemoPageComponent implements OnInit {
 

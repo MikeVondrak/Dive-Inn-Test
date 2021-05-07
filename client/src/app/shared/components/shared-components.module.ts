@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { ContentContainerComponent } from './demo/content-container/content-container.component';
 import { MainNavComponent } from './demo/main-nav/main-nav.component';
 import { MainNavLinkComponent } from './demo/main-nav/main-nav-link/main-nav-link.component';
+import { StyleFontDirectiveModule } from 'src/app/directives/style-font/style-font.directive.module';
 @NgModule({
   declarations: [
     PageLoadingComponent,
@@ -48,7 +49,8 @@ import { MainNavLinkComponent } from './demo/main-nav/main-nav-link/main-nav-lin
     RouterModule,
     FormsModule,
     FormControlsModule,
-    PaginationDirectiveModule
+    PaginationDirectiveModule,
+    StyleFontDirectiveModule
   ],
   providers: [],
   exports: [

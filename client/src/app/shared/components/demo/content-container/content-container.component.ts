@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FontSetManagerService } from 'src/app/services/font-set-manager/font-set-manager.service';
 
 @Component({
   selector: 'app-content-container',
@@ -7,10 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ContentContainerComponent implements OnInit {
 
-  @Input() header: string = 'header';
+  @Input() title: string = 'header';
+  // @Input() titleStyle: Observable<>
   // @Input() data: string = 'content data';
+  public titleFontInstance$ = this.fontSetManagerService.getFontInstanceForType$('section_title');
 
-  constructor() { }
+  constructor(private fontSetManagerService: FontSetManagerService) { }
 
   ngOnInit(): void {
   }

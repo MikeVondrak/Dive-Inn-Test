@@ -14,6 +14,8 @@ import { FontSetState } from 'src/app/store/font-set-library/entity/font-set.ent
 import { FontSetApi, FontSetApiMapped } from '../api/font-set/font-set.api.model';
 import { map } from 'rxjs/operators';
 import { FontSetApiService } from '../api/font-set/font-set.api.service';
+import { FontTypes, FontTypeInstanceMap } from 'src/app/models/font-type.model';
+import { getUiActiveFontSetTypeInstances } from 'src/app/store/app.selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,7 @@ import { FontSetApiService } from '../api/font-set/font-set.api.service';
 export class FontSetManagerService {
 
   public fontSetsListView$ = this.store$.select(getFontSetsListView);
+  private activeFontSetTypeInstanceMap$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
 
   constructor(
     // TODO: how to use a slice of the store instead of entire AppState?
@@ -42,5 +45,26 @@ export class FontSetManagerService {
 
   public deleteFontSet$(fontSetId: string): Observable<boolean> {
     return this.fontSetApiService.deleteFontSet$(fontSetId);
+  }
+
+  public getFontInstanceForType$(fontType: FontTypes): Observable<FontInstance> {
+    return this.activeFontSetTypeInstanceMap$.pipe(
+      map((tiMap: FontTypeInstanceMap) => {
+        const defaultFontInstance: FontInstance = {
+          family: 'Roboto',
+          italic: false,
+          size: 16,
+          weight: 'normal',
+          id: -1
+        };
+        const arr = Array.from(tiMap);
+        let key;
+        if (arr.length > 0) {
+          key = arr?.find(ti => ti[0].type === fontType)[0];
+          //debugger;
+        }
+        return key ? tiMap.get(key) : defaultFontInstance;
+      })
+    );
   }
 }

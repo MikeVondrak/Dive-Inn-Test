@@ -26,10 +26,8 @@
     ></app-select>
 
     <app-content-container
-      [header]="'header1'"
+      title="Section Title"
     >
-      <p>content for container 1</p>
-
       <h1 styleFont [fontSource$]="getFontInstanceForType$('page_title')">
         Page Title Font
       </h1>
@@ -49,7 +47,7 @@
     </app-content-container>
 
     <app-content-container
-      [header]="'header2header2longer'"
+      title="header2header2longer"
     >
       <p>here's what fills in the ng-content</p>
     </app-content-container>
