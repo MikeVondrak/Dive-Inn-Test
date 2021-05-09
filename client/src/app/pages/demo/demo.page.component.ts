@@ -34,6 +34,9 @@ export class DemoPageComponent implements OnInit {
 
   private activeFontSetTypeInstanceMap$: Observable<FontTypeInstanceMap> = this.store$.select(getUiActiveFontSetTypeInstances);
 
+  // this works, passing function in directly in template DOES NOT
+  public testMainNav$ = this.getFontInstanceForType$('main_nav');
+
   constructor(
     private pageLoadingService: PageLoadingService,
     private store$: Store<AppState>,

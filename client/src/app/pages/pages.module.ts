@@ -20,6 +20,7 @@ import { ChangeNameModalContentComponent } from './selection/components/change-n
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationDirectiveModule } from '../directives/pagination/pagination.directive.module';
 import { StyleFontDirectiveModule } from '../directives/style-font/style-font.directive.module';
+import { NavComponent } from './demo/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StyleFontDirectiveModule } from '../directives/style-font/style-font.di
     FontTypeInstanceLoaderComponent,
     NewSetNameModalContentComponent,
     ChangeNameModalContentComponent,
+    NavComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,7 @@ import { StyleFontDirectiveModule } from '../directives/style-font/style-font.di
     PaginationDirectiveModule,
     FormsModule,
     ReactiveFormsModule,
-    StyleFontDirectiveModule
+    StyleFontDirectiveModule,
   ],
   providers: [],
   exports: [

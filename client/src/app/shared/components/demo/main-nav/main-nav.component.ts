@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FontInstance } from 'src/app/models/font-instance.model';
 
 @Component({
   selector: 'app-main-nav',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent implements OnInit {
+
+  @Input() links: string[];
+  @Input() fontSource$: Observable<FontInstance>;
 
   constructor() { }
 

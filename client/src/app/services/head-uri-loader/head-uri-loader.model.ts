@@ -10,7 +10,7 @@ import { FontWeight } from '../../models/font-weight.model';
 const uiFonts: IUiFont[] = [
   { family: 'Roboto' }, // default font for site
   // { family: 'Anton' },
-  // { family: 'Bevan' },
+  { family: 'Bevan' },
   // { family: 'Patua One' },
   // { family: 'Piedra' },
   // { family: 'PT Sans', hrefId: 'PT+Sans' },

@@ -1,33 +1,17 @@
 <app-page-loading>
   <div class="page">
 
-    <!-- <h1 [ngStyle]="headerStyle">Dive Inn - What's Inside</h1>
-    <h1 [ngStyle]="headerStyle">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</h1>
-    <h1 [ngStyle]="headerStyle">a b c d e f g h i j k l m n o p q r s t u v w x y z</h1>
-    <h1 [ngStyle]="headerStyle">ABCDEFGHIJKLMNOPQRSTUVWXYZ</h1>
-    <h1 [ngStyle]="headerStyle">abcdefghijklmnopqrstuvwxyz</h1>
-    <h1 [ngStyle]="headerStyle">. ? ! / @ # $ % ^ &amp; * ( ) ~ - + = ' " : ; &lt; &gt;</h1>
-    <hr>
-    <p [ngStyle]="textStyle">The quick brown fox jumped over the lazy dog.</p>
-    <p [ngStyle]="textStyle">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
-    <p [ngStyle]="textStyle">a b c d e f g h i j k l m n o p q r s t u v w x y z</p>
-    <p [ngStyle]="textStyle">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
-    <p [ngStyle]="textStyle">abcdefghijklmnopqrstuvwxyz</p>
-    <p [ngStyle]="textStyle">. ? ! / @ # $ % ^ &amp; * ( ) ~ - + = ' " : ; &lt; &gt;</p>
-    <hr> -->
+    Select Font Set:
+    <app-select htmlName="FontSetList" [fontSetList$]="fontSetList$" [activeFontSetId$]="activeFontSetId$"
+      [activeFontSet]="activeFontSet$ | async" (onOptionSelected)="selectedFontSetChange($event)"></app-select>
 
-    Font Set: 
-    <app-select 
-      htmlName="FontSetList"
-      [fontSetList$]="fontSetList$"
-      [activeFontSetId$]="activeFontSetId$"
-      [activeFontSet]="activeFontSet$ | async"
-      (onOptionSelected)="selectedFontSetChange($event)"
-    ></app-select>
-
-    <app-content-container
-      title="Section Title"
+    <app-main-nav
+      [links]="['What&rsquo;s Inside', 'Specials', 'Food', 'Events', 'Find Us']"
+      [fontSource$]="getFontInstanceForType$('main_nav')"
     >
+    </app-main-nav>
+
+    <app-content-container title="Section Title">
       <h1 styleFont [fontSource$]="getFontInstanceForType$('page_title')">
         Page Title Font
       </h1>
@@ -46,11 +30,33 @@
 
     </app-content-container>
 
-    <app-content-container
-      title="header2header2longer"
-    >
-      <p>here's what fills in the ng-content</p>
+    <app-content-container title="What's Inside">
+      <h1 styleFont [fontSource$]="getFontInstanceForType$('page_title')">
+        Inside the <span>Dive Inn</span>
+      </h1>
+      <h2 styleFont [fontSource$]="getFontInstanceForType$('section_header')">
+        Dive Bar - Sports Bar - Games Bar
+      </h2>
+      <p styleFont [fontSource$]="getFontInstanceForType$('section_text')">
+        Dive Inn is one of Southeast Denver's most popular venues, with a cozy dive bar, a big-screen sports bar, and a
+        lively games bar, all in the same great space!
+      </p>
+      <p styleFont [fontSource$]="getFontInstanceForType$('section_text')">
+        With awesome drink specials every day and a huge variety of crazy events throughout the year, there's always a
+        reason to visit the Dive Inn.
+      </p>
+      <p styleFont [fontSource$]="getFontInstanceForType$('section_text')">
+        <strong>Open 365 days a year</strong>, we're ready whenever you are!
+      </p>
+      <h2 styleFont [fontSource$]="getFontInstanceForType$('section_header')">
+        Check out what the Dive Inn has to offer:
+      </h2>
+      <p styleFont [fontSource$]="getFontInstanceForType$('section_text')">
+        TODO: in-page nav
+      </p>
     </app-content-container>
+
+    <!-- <app-nav></app-nav> -->
 
     <!-- <app-animated-cube></app-animated-cube>
 

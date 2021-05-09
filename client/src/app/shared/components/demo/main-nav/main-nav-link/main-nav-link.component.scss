@@ -1,3 +1,45 @@
+@import '~src/scss/common-imports';
+
+$signWidth: 200px;
+$signHeight: 39px;
+$postWidth: 41px;
+
+$signTop: 20%; // position for upper row of signs
+$signFudge: 0.2%;
+
 :host {
-  display: block;
+  position: relative; // position sign relative to host container
+  display: block; // make host contain contents
+  text-align: center; // center img horizontally
+
+  .post {
+    width: $postWidth; // fixed width??
+  }
+
+  .sign {
+    position: absolute; // so signs can be overlapped
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: $signWidth; // fixed??
+    height: $signHeight;
+
+    top: $signTop;
+    left: 50% + $signFudge; // 'post' is not completely straight, .2% shift right
+    transform: translateX(-50%);
+
+    background-image: url("/assets/images/sign.png");
+    background-size: cover;
+
+    z-index: 1;
+
+    span {
+      color: $dive-black; //$dive-gray-dk;
+      text-shadow: -1px -1px 1px $dive-gray-md;
+      // font-size: 1.5rem;
+      // font-weight: bold;
+      // letter-spacing: 1px;
+    }
+  }
 }

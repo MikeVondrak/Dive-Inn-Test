@@ -1,1 +1,9 @@
-<p>Need list of signpost link components</p>
+<div class="links">
+  <app-main-nav-link *ngFor="let link of links"
+    [linkText]="link"
+    [fontSource$]="fontSource$"
+  ></app-main-nav-link>
+</div>
+<div class="content">
+  <img src="assets/images/content_frame.png">
+</div>

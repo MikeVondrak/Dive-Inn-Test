@@ -24,6 +24,7 @@ import { ContentContainerComponent } from './demo/content-container/content-cont
 import { MainNavComponent } from './demo/main-nav/main-nav.component';
 import { MainNavLinkComponent } from './demo/main-nav/main-nav-link/main-nav-link.component';
 import { StyleFontDirectiveModule } from 'src/app/directives/style-font/style-font.directive.module';
+import { SignComponent } from './demo/sign/sign.component';
 @NgModule({
   declarations: [
     PageLoadingComponent,
@@ -43,6 +44,7 @@ import { StyleFontDirectiveModule } from 'src/app/directives/style-font/style-fo
     ContentContainerComponent,
     MainNavComponent,
     MainNavLinkComponent,
+    SignComponent,
   ],
   imports: [
     CommonModule,
@@ -69,7 +71,10 @@ import { StyleFontDirectiveModule } from 'src/app/directives/style-font/style-fo
     ModalContainerComponent,
     PaginatorComponent,
     SearchFilterComponent,
-    ContentContainerComponent
+    ContentContainerComponent,
+    SignComponent,
+    MainNavComponent,
+    MainNavLinkComponent,
   ],
   entryComponents: [LoadingIndicatorComponent]
 })
